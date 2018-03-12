@@ -50,6 +50,11 @@ public abstract class CompGeoCanvasPreference<T>
 	{
 		preferenceSetter.accept(preferenceName, value);
 	}
+	
+	private void setDefaultValue()
+	{
+		setValue(defaultValue);
+	}
 
 	private static class CompGeoCanvasIntegerPreference extends CompGeoCanvasPreference<Integer>
 	{
@@ -71,8 +76,7 @@ public abstract class CompGeoCanvasPreference<T>
 	{
 		for (CompGeoCanvasPreference preference : ALL_PREFERENCES)
 		{
-//			preference.setValue(preference.defaultValue); // warning: [unchecked] unchecked call to setValue(T) as a member of the raw type CompGeoCanvasPreference
-//			throw new UnsupportedOperationException("Not supported yet."); // TODO: resetSavedPreferences()
+			preference.setDefaultValue();
 		}
 	}
 }
