@@ -9,7 +9,7 @@ public class LineSegment extends ParametricLine
 	{
 		super(startPoint, endPoint);
 	}
-	
+
 	/**
 	 * @param line The line to test for intersection
 	 * @return The intersection point, or null if the LineSegment is to short to
@@ -19,15 +19,15 @@ public class LineSegment extends ParametricLine
 	public Point getIntersectionPoint(ParametricLine line)
 	{
 		Point intersectionPoint = super.getIntersectionPoint(line);
-		
+
 		if ((intersectionPoint.getX() - DELTA > startPoint.getX() && intersectionPoint.getX() - DELTA > endPoint.getX())
 			|| (intersectionPoint.getX() + DELTA < startPoint.getX() && intersectionPoint.getX() + DELTA < endPoint.getX())
-			|| (intersectionPoint.getY() - DELTA > startPoint.getY() && intersectionPoint.getY() - DELTA> endPoint.getY()
+			|| (intersectionPoint.getY() - DELTA > startPoint.getY() && intersectionPoint.getY() - DELTA > endPoint.getY()
 			|| (intersectionPoint.getY() + DELTA < startPoint.getY() && intersectionPoint.getY() + DELTA < endPoint.getY())))
 		{
 			throw new IllegalArgumentException(String.format("Line %s does not intersect with line segment %s", line, this));
 		}
-		
+
 		return intersectionPoint;
 	}
 

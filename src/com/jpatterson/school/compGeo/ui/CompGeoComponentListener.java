@@ -8,7 +8,7 @@ import java.util.Collection;
 public class CompGeoComponentListener extends ComponentAdapter
 {
 	private final CompGeoFrame frame;
-	
+
 	public CompGeoComponentListener(CompGeoFrame frame)
 	{
 		this.frame = frame;
@@ -19,10 +19,10 @@ public class CompGeoComponentListener extends ComponentAdapter
 	{
 		CompGeoCanvas canvas = frame.getCanvas();
 		Collection<Point> points = canvas.getPoints();
-		
+
 		if (!points.isEmpty()
 			&& ((PointUiUtils.getMaxPointValue(points, Point::getX) > canvas.getWidth())
-				|| (PointUiUtils.getMaxPointValue(points, Point::getY) > canvas.getHeight())))
+			|| (PointUiUtils.getMaxPointValue(points, Point::getY) > canvas.getHeight())))
 		{
 			frame.clear();
 		}

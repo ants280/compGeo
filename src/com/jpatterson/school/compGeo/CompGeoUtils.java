@@ -9,7 +9,7 @@ package com.jpatterson.school.compGeo;
 public class CompGeoUtils
 {
 	public static final double DELTA = 0.000001d;
-	
+
 	/**
 	 * Creates a new CompGeoUtils
 	 */
@@ -19,8 +19,8 @@ public class CompGeoUtils
 
 	/**
 	 * Gets the smallest angle between Point p0 and Point p2 at Point p1. Uses
-	 * the dot product of two Vectors (from p1) to calculate the angle.
-	 * Returns 0 if p0 or p2 is the same as p1.
+	 * the dot product of two Vectors (from p1) to calculate the angle. Returns
+	 * 0 if p0 or p2 is the same as p1.
 	 *
 	 * @param p0 The first Point.
 	 * @param p1 The vertex of p0 and p2.
@@ -33,7 +33,7 @@ public class CompGeoUtils
 		{
 			return -1d;
 		}
-		
+
 		Vector v0 = new Vector(p0, p1);
 		Vector v1 = new Vector(p2, p1);
 
@@ -54,7 +54,7 @@ public class CompGeoUtils
 	{
 		Vector v0 = new Vector(p0, p1);
 		Vector v1 = new Vector(p2, p1);
-		
+
 		return v0.getDeterminant(v1);
 	}
 
@@ -70,15 +70,15 @@ public class CompGeoUtils
 		return Math.sqrt(Math.pow(p1.getX() - p0.getX(), 2)
 			+ Math.pow(p1.getY() - p0.getY(), 2));
 	}
-	
+
 	public static IllegalArgumentException createIllegalArgumentException(String message, Object... variables)
 	{
 		StringBuilder messageBuilder = new StringBuilder(message);
-		
+
 		if (variables != null && variables.length > 0)
 		{
 			messageBuilder.append(".  Found ");
-			
+
 			for (int i = 0; i < variables.length; i++)
 			{
 				messageBuilder.append("%s");
@@ -88,7 +88,7 @@ public class CompGeoUtils
 				}
 			}
 		}
-		
+
 		return new IllegalArgumentException(String.format(messageBuilder.toString(), variables));
 	}
 }

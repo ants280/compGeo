@@ -21,28 +21,35 @@ public class BinomialTest
 	@Parameters
 	public static Iterable<Object[]> data()
 	{
-		return Arrays.asList(new Object[][] {
-				new Object[] { 0, 0, 1L},
-				new Object[] { 1, 1, 1L},
-				new Object[] { 10, 10, 1L},
-				new Object[] { 1, 0, 1L},
-				new Object[] { 10, 0, 1L},
-				new Object[] { 7, 1, 7L},
-				new Object[] { 7, 6, 7L},
-				new Object[] { 5, 2, 10L},
-				new Object[] { 5, 3, 10L},
-				new Object[] { 6, 3, 20L},
-				new Object[] { 499, 4, 2552446876L},
-			});
+		return Arrays.asList(
+			createTestCase(0, 0, 1L),
+			createTestCase(1, 1, 1L),
+			createTestCase(10, 10, 1L),
+			createTestCase(1, 0, 1L),
+			createTestCase(10, 0, 1L),
+			createTestCase(7, 1, 7L),
+			createTestCase(7, 6, 7L),
+			createTestCase(5, 2, 10L),
+			createTestCase(5, 3, 10L),
+			createTestCase(6, 3, 20L),
+			createTestCase(499, 4, 2552446876L));
+	}
+
+	private static Object[] createTestCase(int n, int k, Object expectedValue)
+	{
+		return new Object[]
+		{
+			n, k, expectedValue
+		};
 	}
 
 	@Test
 	public void test()
 	{
 		Binomial binomial = new Binomial();
-		
+
 		Long actualValue = binomial.of(n, k);
-		
+
 		Assert.assertEquals(expectedValue, actualValue);
 	}
 }

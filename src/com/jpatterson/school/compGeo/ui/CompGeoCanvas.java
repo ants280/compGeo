@@ -133,7 +133,7 @@ public class CompGeoCanvas extends Canvas
 		{
 			throw new IllegalArgumentException("Invalid value: " + numberRandomPointsToAdd);
 		}
-		
+
 		this.numberRandomPointsToAdd = numberRandomPointsToAdd;
 	}
 
@@ -277,13 +277,13 @@ public class CompGeoCanvas extends Canvas
 			}
 		}
 	}
-	
+
 	private void drawBezierCurvePoints(Graphics g)
 	{
 		if (bezierCurvePoints != null && !bezierCurvePoints.isEmpty())
 		{
 			g.setColor(Color.RED);
-			
+
 			GeneralPath polyLine = new GeneralPath();
 			polyLine.moveTo(
 				bezierCurvePoints.get(0).getX(),

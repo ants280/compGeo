@@ -20,7 +20,7 @@ public class LineSegmentTest
 		assertEquals(expectedIntersectionPoint, actualIntersectionPoint);
 	}
 
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testGetIntersectionPoint_tooShort()
 	{
 		Point startPoint = new Point(4, 4);
@@ -29,18 +29,6 @@ public class LineSegmentTest
 		ParametricLine line = new ParametricLine(new Point(0, 4), new Point(1, 3));
 
 		lineSegment.getIntersectionPoint(line);
-//		try
-//		{
-//			Point actualIntersectionPoint = lineSegment.getIntersectionPoint(line);
-//			Point expectedIntersectionPoint = new Point(2, 2);
-//
-//			assertEquals(expectedIntersectionPoint, actualIntersectionPoint);
-//		}
-//		catch (IllegalArgumentException ex)
-//		{
-//			assertTrue("in an exception is thrown, should be detecting misses." + ex,
-//				LineSegment.DETECT_MISSES);
-//		}
 
 	}
 }

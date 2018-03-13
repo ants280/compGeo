@@ -16,7 +16,7 @@ public class CompGeoUtilsTest
 
 		double actualAngle = CompGeoUtils.getAngle(p0, p1, p2);
 		double expectedAngle = -1d;
-		
+
 		assertEquals(expectedAngle, actualAngle, DELTA);
 	}
 
@@ -29,7 +29,7 @@ public class CompGeoUtilsTest
 
 		double actualAngle = CompGeoUtils.getAngle(p0, p1, p2);
 		double expectedAngle = PI / 2;
-		
+
 		assertEquals(expectedAngle, actualAngle, DELTA);
 	}
 
@@ -42,7 +42,7 @@ public class CompGeoUtilsTest
 
 		double actualAngle = CompGeoUtils.getAngle(p0, p1, p2);
 		double expectedAngle = PI;
-		
+
 		assertEquals(expectedAngle, actualAngle, DELTA);
 	}
 
@@ -55,7 +55,7 @@ public class CompGeoUtilsTest
 
 		double actualAngle = CompGeoUtils.getAngle(p0, p1, p2);
 		double expectedAngle = PI / 2;
-		
+
 		assertEquals("angles between 0 and PI should only be returned",
 			expectedAngle, actualAngle, DELTA);
 	}
@@ -74,7 +74,7 @@ public class CompGeoUtilsTest
 		Point p2 = new Point(0, 1);
 
 		double expectedDeterminant = CompGeoUtils.getDeterminant(p0, p1, p2);
-		
+
 		assertTrue("The determinant should be greater than 0 because the points are in clockwise direction",
 			expectedDeterminant > 0);
 	}
@@ -93,7 +93,7 @@ public class CompGeoUtilsTest
 		Point p2 = new Point(1, 0);
 
 		double expectedDeterminant = CompGeoUtils.getDeterminant(p0, p1, p2);
-		
+
 		assertTrue("The determinant should be less than 0 because the points are in counterClockwise direction",
 			expectedDeterminant < 0);
 	}
@@ -106,7 +106,7 @@ public class CompGeoUtilsTest
 
 		double actualDistance = CompGeoUtils.getDistance(p0, p1);
 		double expectedDistance = 0d;
-		
+
 		assertEquals(expectedDistance, actualDistance, DELTA);
 	}
 
@@ -118,7 +118,7 @@ public class CompGeoUtilsTest
 
 		double actualDistance = CompGeoUtils.getDistance(p0, p1);
 		double expectedDistance = 1d;
-		
+
 		assertEquals(expectedDistance, actualDistance, DELTA);
 	}
 
@@ -130,7 +130,7 @@ public class CompGeoUtilsTest
 
 		double actualDistance = CompGeoUtils.getDistance(p0, p1);
 		double expectedDistance = 1d;
-		
+
 		assertEquals(expectedDistance, actualDistance, DELTA);
 	}
 
@@ -142,7 +142,7 @@ public class CompGeoUtilsTest
 
 		double actualDistance = CompGeoUtils.getDistance(p0, p1);
 		double expectedDistance = Math.sqrt(2d);
-		
+
 		assertEquals(expectedDistance, actualDistance, DELTA);
 	}
 }

@@ -16,12 +16,12 @@ public class BezierCurveTest
 		List<Point> actualBezierCurvePoints = bezierCurve.getPoints(0, 1, 3);
 		assertPointsAre(actualBezierCurvePoints, new Point(1, 1), new Point(3, 2), new Point(5, 3), new Point(7, 4));
 	}
-	
+
 	@Test
 	public void testGetPoints_linear_middle()
 	{
 		BezierCurve bezierCurve = new BezierCurve(new Point(1, 1), new Point(7, 4));
-		List<Point> actualBezierCurvePoints = bezierCurve.getPoints(1/3d, 2/3d, 1);
+		List<Point> actualBezierCurvePoints = bezierCurve.getPoints(1 / 3d, 2 / 3d, 1);
 		assertPointsAre(actualBezierCurvePoints, new Point(3, 2), new Point(5, 3));
 	}
 
@@ -32,32 +32,32 @@ public class BezierCurveTest
 		List<Point> actualBezierCurvePoints = bezierCurve.getPoints(.5d, 1, 0);
 		assertPointsAre(actualBezierCurvePoints, new Point(4, 2.5d));
 	}
-	
+
 	@Test
 	public void testGetPoints_linear_toFarApart()
 	{
 		BezierCurve bezierCurve = new BezierCurve(new Point(1, 1), new Point(7, 4));
-		List<Point> actualBezierCurvePoints = bezierCurve.getPoints(1/3d, 2/3d, 1, 2d);
+		List<Point> actualBezierCurvePoints = bezierCurve.getPoints(1 / 3d, 2 / 3d, 1, 2d);
 		Assert.assertNull(
 			"The points should be null because they are more than 2 apart ([3,2]&[5,3] are sqrt(5) apart",
 			actualBezierCurvePoints);
 	}
-	
+
 	private void assertPointsAre(List<Point> actualBezierCurvePoints, Point... expectedBezierCurvePoints)
 	{
 		Assert.assertNotNull(actualBezierCurvePoints);
 		Assert.assertSame(actualBezierCurvePoints.size(), expectedBezierCurvePoints.length);
-		
+
 		for (int i = 0; i < expectedBezierCurvePoints.length; i++)
 		{
 			Point expectedBezierCurvePoint = expectedBezierCurvePoints[i];
 			Point actualBezierCurvePoint = actualBezierCurvePoints.get(i);
-			
+
 			assertCoordinatesAreClose(expectedBezierCurvePoint, actualBezierCurvePoint, Point::getX);
 			assertCoordinatesAreClose(expectedBezierCurvePoint, actualBezierCurvePoint, Point::getY);
 		}
 	}
-	
+
 	private void assertCoordinatesAreClose(Point expectedPoint, Point actualPoint, Function<Point, Double> coordinateFunction)
 	{
 		Assert.assertEquals(

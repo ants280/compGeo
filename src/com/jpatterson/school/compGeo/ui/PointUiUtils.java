@@ -13,7 +13,7 @@ import java.util.function.ToDoubleFunction;
 public class PointUiUtils
 {
 	private static final DoubleToIntFunction TRUNCATE_DOUBLE_FUNCTION = x -> (int) x;
-	
+
 	private PointUiUtils()
 	{
 	}
@@ -23,10 +23,10 @@ public class PointUiUtils
 		int[] xpoints = getPointValues(points, Point::getX);
 		int[] ypoints = getPointValues(points, Point::getY);
 		int npoints = points.size();
-		
+
 		return new Polygon(xpoints, ypoints, npoints);
 	}
-	
+
 	public static Double getMaxPointValue(Collection<Point> points, Function<Point, Double> valueExtractor)
 	{
 		return points.stream()
@@ -35,12 +35,12 @@ public class PointUiUtils
 			.map(valueExtractor)
 			.get();
 	}
-	
+
 	public static Point getPoint(MouseEvent event)
 	{
 		return new Point(event.getX(), event.getY());
 	}
-	
+
 	private static int[] getPointValues(List<Point> points, ToDoubleFunction<Point> valueExtractor)
 	{
 		return points.stream()

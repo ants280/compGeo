@@ -49,7 +49,7 @@ public class Point implements Comparable<Point>
 			{
 				return 0;
 			}
-			
+
 			return diffX > 0 ? 1 : -1;
 		}
 		else

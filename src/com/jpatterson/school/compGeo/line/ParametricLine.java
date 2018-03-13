@@ -22,7 +22,7 @@ public class ParametricLine implements Line<ParametricLine>
 	{
 		return endPoint;
 	}
-	
+
 	@Override
 	public Point getIntersectionPoint(ParametricLine otherLine)
 	{
@@ -30,16 +30,16 @@ public class ParametricLine implements Line<ParametricLine>
 		Double otherLineM = getM(otherLine.startPoint, otherLine.endPoint);
 		double thisLineB = getB(startPoint, thisLineM);
 		double otherLineB = getB(otherLine.startPoint, otherLineM);
-			
+
 		if ((thisLineM == null && otherLineM == null)
 			|| (thisLineM != null && otherLineM != null
-				&& thisLineM.doubleValue() == otherLineM.doubleValue()))
+			&& thisLineM.doubleValue() == otherLineM.doubleValue()))
 		{
 			throw new IllegalArgumentException("Equal slopes: " + this + " " + otherLine);
 		}
-		
-		double x =
-			(thisLineM == null)
+
+		double x
+			= (thisLineM == null)
 				? thisLineB
 				: (otherLineM == null)
 					? otherLineB
@@ -47,8 +47,8 @@ public class ParametricLine implements Line<ParametricLine>
 		double y = (thisLineM == null)
 			? otherLineM * x + otherLineB
 			: thisLineM * x + thisLineB;
-		
-		return new Point( x, y);
+
+		return new Point(x, y);
 	}
 
 	@Override
@@ -56,14 +56,14 @@ public class ParametricLine implements Line<ParametricLine>
 	{
 		return String.format("Line{startPoint=%s, endPoint=%s}", startPoint, endPoint);
 	}
-	
+
 	private static Double getM(Point startPoint, Point endPoint)
 	{
 		return (startPoint.getX() == endPoint.getX())
 			? null
 			: (0.0 + endPoint.getY() - startPoint.getY()) / (endPoint.getX() - startPoint.getX());
 	}
-	
+
 	private static double getB(Point startPoint, Double m)
 	{
 		return (m == null)

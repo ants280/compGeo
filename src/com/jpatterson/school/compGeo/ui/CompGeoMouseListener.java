@@ -22,7 +22,7 @@ public class CompGeoMouseListener extends MouseAdapter
 	public void mouseReleased(MouseEvent event)
 	{
 		Point point = PointUiUtils.getPoint(event);
-		switch(event.getButton())
+		switch (event.getButton())
 		{
 			case MouseEvent.BUTTON1: // left
 				frame.addPoints(point);
@@ -38,7 +38,7 @@ public class CompGeoMouseListener extends MouseAdapter
 	private void printPointDistances(Point point)
 	{
 		System.out.printf("Distances from %s to points:\n", point);
-		
+
 		frame.getCanvas().getPoints()
 			.stream()
 			.collect(Collectors.toMap(

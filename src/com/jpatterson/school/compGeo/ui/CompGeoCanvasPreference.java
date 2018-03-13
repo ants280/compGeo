@@ -50,7 +50,7 @@ public abstract class CompGeoCanvasPreference<T>
 	{
 		preferenceSetter.accept(preferenceName, value);
 	}
-	
+
 	private void setDefaultValue()
 	{
 		setValue(defaultValue);

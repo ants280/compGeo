@@ -18,12 +18,12 @@ import javax.swing.text.DefaultEditorKit;
 public class CompGeoUncaughtExceptionHandler implements UncaughtExceptionHandler
 {
 	private final Component parentComponent;
-	
+
 	public CompGeoUncaughtExceptionHandler(Component parentComponent)
 	{
 		this.parentComponent = parentComponent;
 	}
-	
+
 	@Override
 	public void uncaughtException(Thread t, Throwable e)
 	{
@@ -53,7 +53,7 @@ public class CompGeoUncaughtExceptionHandler implements UncaughtExceptionHandler
 				null,
 				null);
 		}
-		catch(Throwable throwable)
+		catch (Throwable throwable)
 		{
 			throw new RuntimeException(throwable);
 		}

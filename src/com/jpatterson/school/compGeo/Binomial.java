@@ -7,19 +7,19 @@ import java.util.Map;
 public class Binomial
 {
 	private final Map<BinomialValueKey, Long> cache;
-	
+
 	public Binomial()
 	{
 		cache = new HashMap<>();
 	}
-	
+
 	public long of(int n, int k) throws IllegalArgumentException
 	{
 		validateParameters(n, k);
-		
+
 		return ofInternal(n, k);
 	}
-	
+
 //	// https://en.wikipedia.org/wiki/Binomial_coefficient#Multiplicative_formula
 //	private long ofInternal(int n, int k)
 //	{
@@ -55,7 +55,7 @@ public class Binomial
 		{
 			return 1;
 		}
-		
+
 		BinomialValueKey binomialValueKey = new BinomialValueKey(n, k);
 		if (cache.containsKey(binomialValueKey))
 		{
@@ -63,7 +63,7 @@ public class Binomial
 		}
 		else
 		{
-			long binomialValue = Math.addExact(ofInternal(n-1, k-1), ofInternal(n-1, k));
+			long binomialValue = Math.addExact(ofInternal(n - 1, k - 1), ofInternal(n - 1, k));
 			cache.put(binomialValueKey, binomialValue);
 			return binomialValue;
 		}
@@ -84,7 +84,7 @@ public class Binomial
 			throw CompGeoUtils.createIllegalArgumentException("n must be > k", n, k);
 		}
 	}
-	
+
 	private static class BinomialValueKey
 	{
 		private final int n;
@@ -110,9 +110,9 @@ public class Binomial
 		{
 			return (this == obj)
 				|| ((obj != null)
-					&& (this.getClass() == obj.getClass())
-					&& (this.n == ((BinomialValueKey) obj).n)
-					&& (this.k == ((BinomialValueKey) obj).k));
+				&& (this.getClass() == obj.getClass())
+				&& (this.n == ((BinomialValueKey) obj).n)
+				&& (this.k == ((BinomialValueKey) obj).k));
 		}
 	}
 }

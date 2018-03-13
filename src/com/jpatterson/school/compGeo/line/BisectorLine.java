@@ -17,7 +17,7 @@ public class BisectorLine extends ParametricLine
 				((startPoint.getX() + endPoint.getX()) + (endPoint.getY() - startPoint.getY())) / 2,
 				((startPoint.getY() + endPoint.getY()) - (endPoint.getX() - startPoint.getX())) / 2));
 	}
-	
+
 	@Override
 	public String toString()
 	{

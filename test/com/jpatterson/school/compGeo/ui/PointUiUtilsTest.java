@@ -15,10 +15,10 @@ public class PointUiUtilsTest
 			new Point(3d, 4d),
 			new Point(5d, 6d),
 			new Point(1d, 2d));
-		
+
 		Double expectedMaxPointValue = 5d;
 		Double actualMaxPointValue = PointUiUtils.getMaxPointValue(points, Point::getX);
-		
+
 		assertEquals(expectedMaxPointValue, actualMaxPointValue);
 	}
 }
