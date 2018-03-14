@@ -2,6 +2,7 @@ package com.jpatterson.school.compGeo.algorithm;
 
 import com.jpatterson.school.compGeo.CompGeoUtils;
 import com.jpatterson.school.compGeo.Point;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 import org.junit.Assert;
@@ -31,6 +32,15 @@ public class BezierCurveTest
 		BezierCurve bezierCurve = new BezierCurve(new Point(1, 1), new Point(7, 4));
 		List<Point> actualBezierCurvePoints = bezierCurve.getPoints(.5d, 1, 0);
 		assertPointsAre(actualBezierCurvePoints, new Point(4, 2.5d));
+	}
+	
+	@Test
+	public void testGetPoints_linear_EqualTMinAndTMax()
+	{
+		BezierCurve bezierCurve = new BezierCurve(new Point(1, 1), new Point(7, 4));
+		int steps = 5;
+		List<Point> actualBezierCurvePoints = bezierCurve.getPoints(1, 1, steps);
+		assertPointsAre(actualBezierCurvePoints, Collections.nCopies(steps + 1, new Point(7, 4)).toArray(new Point[0]));
 	}
 
 	@Test
