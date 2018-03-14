@@ -33,7 +33,7 @@ public class BezierCurveTest
 		List<Point> actualBezierCurvePoints = bezierCurve.getPoints(.5d, 1, 0);
 		assertPointsAre(actualBezierCurvePoints, new Point(4, 2.5d));
 	}
-	
+
 	@Test
 	public void testGetPoints_linear_EqualTMinAndTMax()
 	{
