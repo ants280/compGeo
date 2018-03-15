@@ -19,10 +19,7 @@ public class DelaunayTriangulationPopupWorker extends CompGeoPopupWorker<Collect
 	{
 		super(completedAction, frame, "Delaunay Triangulation being created...");
 		this.points = frame.getCanvas().getPoints();
-		this.delaunayTriangulation = new DelaunayTriangulation(
-			points,
-			frame.getCanvas().getWidth(),
-			frame.getCanvas().getHeight());
+		this.delaunayTriangulation = new DelaunayTriangulation(points);
 	}
 
 	@Override

@@ -9,14 +9,10 @@ import java.util.List;
 public class DelaunayTriangulation
 {
 	private final Collection<Point> points;
-	private final int maxWidth;
-	private final int maxHeight;
 
-	public DelaunayTriangulation(Collection<Point> points, int maxWidth, int maxHeight)
+	public DelaunayTriangulation(Collection<Point> points)
 	{
 		this.points = points;
-		this.maxWidth = maxWidth;
-		this.maxHeight = maxHeight;
 	}
 	
 	public List<List<Point>> getTriangulationTriangles()
