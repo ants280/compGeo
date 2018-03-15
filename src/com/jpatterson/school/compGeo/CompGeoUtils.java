@@ -58,6 +58,11 @@ public class CompGeoUtils
 		return v0.getDeterminant(v1);
 	}
 
+	public static boolean isCCW(Point p0, Point p1, Point p2)
+	{
+		return getDeterminant(p0, p1, p2) < 0;
+	}
+
 	/**
 	 * Gets the distance between two Points. Uses the Pythagorean Theorem.
 	 *
