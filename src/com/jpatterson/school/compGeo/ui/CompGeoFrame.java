@@ -204,7 +204,7 @@ public class CompGeoFrame extends JFrame
 		voronoiDiagram_MI.setSelected(voronoiCells != null);
 	}
 
-	public void setDelaunayTriangulationTriangles(Collection<Polygon> delaunayTriangulationTriangles)
+	public void setDelaunayTriangulationTriangles(Collection<DelaunayTriangle> delaunayTriangulationTriangles)
 	{
 		canvas.setDelaunayTriangulationTriangles(delaunayTriangulationTriangles);
 

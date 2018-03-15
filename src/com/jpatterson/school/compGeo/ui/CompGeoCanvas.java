@@ -23,7 +23,7 @@ public class CompGeoCanvas extends Canvas
 	private final List<Point> points;
 	private Polygon convexHull;
 	private Collection<VoronoiCell> voronoiCells;
-	private Collection<Polygon> delaunayTriangulationTriangles;
+	private Collection<DelaunayTriangle> delaunayTriangulationTriangles;
 	private List<Point> bezierCurvePoints;
 	private int pointRadius;
 	private int numberRandomPointsToAdd;
@@ -107,7 +107,7 @@ public class CompGeoCanvas extends Canvas
 		this.repaint();
 	}
 
-	public void setDelaunayTriangulationTriangles(Collection<Polygon> delaunayTriangulationTriangles)
+	public void setDelaunayTriangulationTriangles(Collection<DelaunayTriangle> delaunayTriangulationTriangles)
 	{
 		this.delaunayTriangulationTriangles = delaunayTriangulationTriangles;
 		this.repaint();
@@ -296,7 +296,9 @@ public class CompGeoCanvas extends Canvas
 		if (delaunayTriangulationTriangles != null)
 		{
 			g.setColor(Color.DARK_GRAY);
-			delaunayTriangulationTriangles.forEach(g::drawPolygon);
+			delaunayTriangulationTriangles.stream()
+				.map(DelaunayTriangle::getPolygon)
+				.forEach(g::drawPolygon);
 		}
 	}
 

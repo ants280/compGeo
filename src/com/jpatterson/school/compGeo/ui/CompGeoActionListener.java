@@ -8,7 +8,6 @@ import com.jpatterson.school.compGeo.ui.worker.DelaunayTriangulationPopupWorker;
 import com.jpatterson.school.compGeo.ui.worker.GrahamScanPopupWorker;
 import com.jpatterson.school.compGeo.ui.worker.VoronoiDiagramPopupWorker;
 import java.awt.Color;
-import java.awt.Polygon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -181,7 +180,7 @@ public class CompGeoActionListener implements ActionListener
 		}
 		else
 		{
-			CompGeoPopupWorker<Collection<Polygon>> compGeoPopupWorker
+			CompGeoPopupWorker<Collection<DelaunayTriangle>> compGeoPopupWorker
 				= new DelaunayTriangulationPopupWorker(frame::setDelaunayTriangulationTriangles, frame);
 			compGeoPopupWorker.start();
 		}
