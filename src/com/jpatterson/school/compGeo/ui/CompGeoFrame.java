@@ -24,6 +24,7 @@ public class CompGeoFrame extends JFrame
 	public static final String CLEAR_POINTS_MI = "Clear Points";
 	public static final String TOGGLE_CONVEX_HULL_MI = "Show Convex Hull";
 	public static final String TOGGLE_VORONOI_DIAGRAM_MI = "Show Voronoi Diagram";
+	public static final String TOGGLE_DELAUNAY_TRIANGULATION_MI = "Show Delaunay Triangulation";
 	public static final String TOGGLE_BEZIER_CURVE_MI = "Show Bezier Curve";
 	public static final String SAVE_IMAGE = "Save Image...";
 	public static final String SET_RADIUS_MI = "Set point radius...";
@@ -41,6 +42,7 @@ public class CompGeoFrame extends JFrame
 	private final JMenuItem randomPoints_MI;
 	private final JCheckBoxMenuItem convexHull_MI;
 	private final JCheckBoxMenuItem voronoiDiagram_MI;
+	private final JCheckBoxMenuItem delaunayTriangulation_MI;
 	private final JCheckBoxMenuItem bezierCurve_MI;
 	private final JMenuItem saveAsImage_MI;
 	private final JCheckBoxMenuItem drawPoints_MI;
@@ -57,6 +59,7 @@ public class CompGeoFrame extends JFrame
 		this.clearPoints_MI = new JMenuItem(CLEAR_POINTS_MI);
 		this.convexHull_MI = new JCheckBoxMenuItem(TOGGLE_CONVEX_HULL_MI, false);
 		this.voronoiDiagram_MI = new JCheckBoxMenuItem(TOGGLE_VORONOI_DIAGRAM_MI, false);
+		this.delaunayTriangulation_MI = new JCheckBoxMenuItem(TOGGLE_DELAUNAY_TRIANGULATION_MI, false);
 		this.bezierCurve_MI = new JCheckBoxMenuItem(TOGGLE_BEZIER_CURVE_MI, false);
 		this.saveAsImage_MI = new JMenuItem(SAVE_IMAGE, KeyEvent.VK_S);
 		this.drawPoints_MI = new JCheckBoxMenuItem(SET_DRAW_POINTS_MI, true);
@@ -75,6 +78,7 @@ public class CompGeoFrame extends JFrame
 		clearPoints_MI.setEnabled(false);
 		convexHull_MI.setEnabled(false);
 		voronoiDiagram_MI.setEnabled(false);
+		delaunayTriangulation_MI.setEnabled(false);
 		bezierCurve_MI.setEnabled(false);
 		JMenuItem exit_MI = new JMenuItem(EXIT_MI, KeyEvent.VK_X);
 		exit_MI.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, KeyEvent.ALT_MASK));
@@ -102,6 +106,7 @@ public class CompGeoFrame extends JFrame
 		actionMenu.addSeparator();
 		actionMenu.add(convexHull_MI);
 		actionMenu.add(voronoiDiagram_MI);
+		actionMenu.add(delaunayTriangulation_MI);
 		actionMenu.add(bezierCurve_MI);
 		actionMenu.addSeparator();
 		actionMenu.add(exit_MI);
@@ -199,6 +204,14 @@ public class CompGeoFrame extends JFrame
 		voronoiDiagram_MI.setSelected(voronoiCells != null);
 	}
 
+	public void setDelaunayTriangulationTriangles(Collection<Polygon> delaunayTriangulationTriangles)
+	{
+		canvas.setDelaunayTriangulationTriangles(delaunayTriangulationTriangles);
+
+		delaunayTriangulation_MI.setEnabled(canvas.getPointCount() > 0);
+		delaunayTriangulation_MI.setSelected(delaunayTriangulationTriangles != null);
+	}
+
 	public void setBezierCurvePoints(List<Point> bezierCurvePoints)
 	{
 		canvas.setBezierCurvePoints(bezierCurvePoints);
@@ -252,6 +265,7 @@ public class CompGeoFrame extends JFrame
 	{
 		this.setConvexHullPoints(null);
 		this.setVoronoiCells(null);
+		this.setDelaunayTriangulationTriangles(null);
 		this.setBezierCurvePoints(null);
 	}
 

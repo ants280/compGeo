@@ -4,9 +4,11 @@ import com.jpatterson.school.compGeo.Point;
 import static com.jpatterson.school.compGeo.ui.CompGeoFrame.*;
 import com.jpatterson.school.compGeo.ui.worker.BezierCurvePopupWorker;
 import com.jpatterson.school.compGeo.ui.worker.CompGeoPopupWorker;
+import com.jpatterson.school.compGeo.ui.worker.DelaunayTriangulationPopupWorker;
 import com.jpatterson.school.compGeo.ui.worker.GrahamScanPopupWorker;
 import com.jpatterson.school.compGeo.ui.worker.VoronoiDiagramPopupWorker;
 import java.awt.Color;
+import java.awt.Polygon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -55,6 +57,9 @@ public class CompGeoActionListener implements ActionListener
 				break;
 			case TOGGLE_VORONOI_DIAGRAM_MI:
 				this.toggleVoronoiDiagram();
+				break;
+			case TOGGLE_DELAUNAY_TRIANGULATION_MI:
+				this.toggleDelaunayTriangulation();
 				break;
 			case TOGGLE_BEZIER_CURVE_MI:
 				this.toggleBezierCurve();
@@ -167,7 +172,21 @@ public class CompGeoActionListener implements ActionListener
 			compGeoPopupWorker.start();
 		}
 	}
-
+	
+	private void toggleDelaunayTriangulation()
+	{
+		if (frame.getCanvas().hasDelaunayTriangulation())
+		{
+			frame.setDelaunayTriangulationTriangles(null);
+		}
+		else
+		{
+			CompGeoPopupWorker<Collection<Polygon>> compGeoPopupWorker
+				= new DelaunayTriangulationPopupWorker(frame::setDelaunayTriangulationTriangles, frame);
+			compGeoPopupWorker.start();
+		}
+	}
+	
 	private void toggleBezierCurve()
 	{
 		if (frame.getCanvas().hasBezierCurvePoints())

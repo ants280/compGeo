@@ -23,6 +23,7 @@ public class CompGeoCanvas extends Canvas
 	private final List<Point> points;
 	private Polygon convexHull;
 	private Collection<VoronoiCell> voronoiCells;
+	private Collection<Polygon> delaunayTriangulationTriangles;
 	private List<Point> bezierCurvePoints;
 	private int pointRadius;
 	private int numberRandomPointsToAdd;
@@ -46,6 +47,7 @@ public class CompGeoCanvas extends Canvas
 
 		this.convexHull = null;
 		this.voronoiCells = null;
+		this.delaunayTriangulationTriangles = null;
 		this.bezierCurvePoints = null;
 		this.reloadPreferences();
 	}
@@ -83,6 +85,11 @@ public class CompGeoCanvas extends Canvas
 		return voronoiCells != null;
 	}
 
+	public boolean hasDelaunayTriangulation()
+	{
+		return delaunayTriangulationTriangles != null;
+	}
+
 	public boolean hasBezierCurvePoints()
 	{
 		return bezierCurvePoints != null;
@@ -97,6 +104,12 @@ public class CompGeoCanvas extends Canvas
 	public void setVoronoiCells(Collection<VoronoiCell> voronoiCells)
 	{
 		this.voronoiCells = voronoiCells;
+		this.repaint();
+	}
+
+	public void setDelaunayTriangulationTriangles(Collection<Polygon> delaunayTriangulationTriangles)
+	{
+		this.delaunayTriangulationTriangles = delaunayTriangulationTriangles;
 		this.repaint();
 	}
 
@@ -241,6 +254,7 @@ public class CompGeoCanvas extends Canvas
 		this.whiteoutRectangle(g);
 		this.drawVoronoiCells(g);
 		this.drawConvexHull(g);
+		this.drawDelanauyTriangulation(g);
 		this.drawBezierCurvePoints(g);
 		this.drawPoints(g);
 		this.drawPointsLabel(g);
@@ -263,7 +277,6 @@ public class CompGeoCanvas extends Canvas
 		}
 	}
 
-	//TODO: Add Delanauy triangulation support.
 	private void drawVoronoiCells(Graphics g)
 	{
 		if (voronoiCells != null)
@@ -275,6 +288,15 @@ public class CompGeoCanvas extends Canvas
 			{
 				voronoiCells.forEach(voronoiCell -> this.fillVoronoiCell(voronoiCell, g));
 			}
+		}
+	}
+
+	private void drawDelanauyTriangulation(Graphics g)
+	{
+		if (delaunayTriangulationTriangles != null)
+		{
+			g.setColor(Color.DARK_GRAY);
+			delaunayTriangulationTriangles.forEach(g::drawPolygon);
 		}
 	}
 
@@ -366,6 +388,8 @@ public class CompGeoCanvas extends Canvas
 			points.clear();
 			convexHull = null;
 			voronoiCells = null;
+			delaunayTriangulationTriangles = null;
+			bezierCurvePoints = null;
 			this.repaint();
 		}
 	}
@@ -409,6 +433,8 @@ public class CompGeoCanvas extends Canvas
 		{
 			convexHull = null;
 			voronoiCells = null;
+			delaunayTriangulationTriangles = null;
+			bezierCurvePoints = null;
 			this.repaint();
 		}
 		return pointAdded;
