@@ -12,4 +12,9 @@ public class CCWTriangle extends Triangle
 			p2,
 			CompGeoUtils.isCCW(p1, p2, p3) ? p3 : p1);
 	}
+	
+	public double getArea()
+	{
+		return CompGeoUtils.getDeterminant(p1, p2, p3) / 2d;
+	}
 }
