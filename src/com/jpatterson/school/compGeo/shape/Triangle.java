@@ -23,11 +23,11 @@ public class Triangle implements Shape
 		
 		List<Point> tempPointsList = Arrays.asList(p1, p2, p3);
 		Collections.sort(tempPointsList);
-		
+		boolean ccw = CompGeoUtils.getDeterminant(tempPointsList.get(0), tempPointsList.get(1), tempPointsList.get(2)) < 0;
 		this.p1 = tempPointsList.get(0);
-		this.p2 = tempPointsList.get(1);
-		this.p3 = tempPointsList.get(2);
-		this.pointsList = Collections.unmodifiableList(tempPointsList);
+		this.p2 = ccw ? tempPointsList.get(1) : tempPointsList.get(2);
+		this.p3 = ccw ? tempPointsList.get(2) : tempPointsList.get(1);
+		this.pointsList = Collections.unmodifiableList(Arrays.asList(this.p1, this.p2, this.p3));
 	}
 
 	@Override
