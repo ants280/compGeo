@@ -54,19 +54,19 @@ public class Triangle implements Shape
 		return d1 == 0 || d2 == 0 || d3 == 0;
 	}
 	
-	// Next two methods copied from "Incremental Delaunay Triangulation", ACM 1993, Dani Lischinski.
+	// Next two methods (getTwiceArea, containsPointInCircle) copied from "Incremental Delaunay Triangulation", ACM 1993, Dani Lischinski.
 	
-	private double getDoubleArea(Point a, Point b, Point c)
+	private double getTwiceArea(Point a, Point b, Point c)
 	{
 		return (b.getX() - a.getX()) * (c.getY() - a.getY()) - (b.getY() * a.getY()) * (c.getX() - a.getX());
 	}
 
 	public boolean containsPointInCircle(Point p4)
 	{
-		return (p1.getX() * p1.getX() + p1.getY() * p1.getY()) * getDoubleArea(p2, p3, p4) -
-		       (p2.getX() * p2.getX() + p2.getY() * p2.getY()) * getDoubleArea(p1, p3, p4) +
-		       (p3.getX() * p3.getX() + p3.getY() * p3.getY()) * getDoubleArea(p1, p2, p4) -
-		       (p4.getX() * p4.getX() + p4.getY() * p4.getY()) * getDoubleArea(p1, p2, p3) > 0;
+		return (p1.getX() * p1.getX() + p1.getY() * p1.getY()) * getTwiceArea(p2, p3, p4) -
+		       (p2.getX() * p2.getX() + p2.getY() * p2.getY()) * getTwiceArea(p1, p3, p4) +
+		       (p3.getX() * p3.getX() + p3.getY() * p3.getY()) * getTwiceArea(p1, p2, p4) -
+		       (p4.getX() * p4.getX() + p4.getY() * p4.getY()) * getTwiceArea(p1, p2, p3) > 0;
 	}
 
 	@Override

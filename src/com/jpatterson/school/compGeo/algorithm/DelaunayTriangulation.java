@@ -35,9 +35,9 @@ public class DelaunayTriangulation
 		}
 		this.maxX = maxX;
 		this.maxY = maxY;
-		this.p1 = new Point(-1, -1);
-		this.p2 = new Point(maxX * 2, -1);
-		this.p3 = new Point(-1, maxY * 2);
+		this.p1 = new Point(0, 0);
+		this.p2 = new Point(maxX * 2, 0);
+		this.p3 = new Point(0, maxY * 2);
 		this.points = new HashSet<>();
 		Triangle initialTriangle = new Triangle(p1, p2, p3);
 		this.triangulationTriangles = new HashSet<>(Collections.singletonList(initialTriangle));
@@ -66,19 +66,19 @@ public class DelaunayTriangulation
 		switch (trianglesContainingPoint.size())
 		{
 			case 1:
-				List<Point> oldPoints = splitTriangles.get(0).getPoints();
+				List<Point> oldPoints = trianglesContainingPoint.get(0).getPoints();
 				splitTriangles.add(new Triangle(oldPoints.get(0), oldPoints.get(1), point));
 				splitTriangles.add(new Triangle(oldPoints.get(1), oldPoints.get(2), point));
 				splitTriangles.add(new Triangle(oldPoints.get(2), oldPoints.get(0), point));
 				break;
 			case 2:
-				for (Triangle splitTriangle : splitTriangles)
+				for (Triangle halfTriangle : trianglesContainingPoint)
 				{
-					if (splitTriangle.containsPointOnEdge(point))
+					if (halfTriangle.containsPointOnEdge(point))
 					{
-						throw new IllegalArgumentException(String.format("Expected point %s to be on the edge of %s.", point, splitTriangle));
+						throw new IllegalArgumentException(String.format("Expected point %s to be on the edge of %s.", point, halfTriangle));
 					}
-					oldPoints = splitTriangle.getPoints();
+					oldPoints = halfTriangle.getPoints();
 					if (CompGeoUtils.getDeterminant(oldPoints.get(0), oldPoints.get(1), point) != 0)
 					{
 						splitTriangles.add(new Triangle(oldPoints.get(0), oldPoints.get(1), point));
@@ -121,6 +121,11 @@ public class DelaunayTriangulation
 
 	private void flipTrianglesAround(Triangle sourceTriangle)
 	{
+		if (!triangulationTriangles.contains(sourceTriangle))
+		{
+			return;
+		}
+
 		for (Triangle otherTriangle : triangulationTriangles)
 		{
 			if (otherTriangle.equals(sourceTriangle))
@@ -133,31 +138,25 @@ public class DelaunayTriangulation
 			if (sharedPoints.size() == 2)
 			{
 				Point otherPoint = otherTriangle.getPoints().stream().filter(point -> !sharedPoints.contains(point)).findAny().get();
-				
+
 				if (!sourceTriangle.containsPointInCircle(otherPoint))
 				{
 					continue;
 				}
-				
+
 				Point sourceTrianglePoint = sourceTriangle.getPoints().stream().filter(point -> !sharedPoints.contains(point)).findAny().get();
-				
+
 				Triangle t1 = new Triangle(sharedPoints.get(0), sharedPoints.get(1), otherPoint);
 				Triangle t2 = new Triangle(sharedPoints.get(0), sharedPoints.get(1), sourceTrianglePoint);
-				
+
 				triangulationTriangles.remove(sourceTriangle);
 				triangulationTriangles.remove(otherTriangle);
 				triangulationTriangles.add(t1);
 				triangulationTriangles.add(t2);
 
 				flipTrianglesAround(t1);
-				if (triangulationTriangles.contains(t2))
-				{
-					flipTrianglesAround(t2);
-				}
-				else
-				{
-					System.out.println("flipTrianglesAround(t2) is not needed!");
-				}
+				flipTrianglesAround(t2);
+				break;
 			}
 		}
 	}
