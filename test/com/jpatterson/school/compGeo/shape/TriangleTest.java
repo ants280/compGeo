@@ -50,7 +50,7 @@ public class TriangleTest
 	}
 	
 	@Test
-	public void testIsOnEdge()
+	public void testContainsPointOnEdge()
 	{
 		Point p1 = new Point(1, 1);
 		Point p2 = new Point(5, 1);
@@ -62,10 +62,10 @@ public class TriangleTest
 		Point p8 = new Point(1, 4); // should be on edge
 		Triangle triangle = new Triangle(p1, p2, p3);
 		
-		Assert.assertTrue(!triangle.isOnEdge(p4));
-		Assert.assertTrue(triangle.isOnEdge(p5));
-		Assert.assertTrue(!triangle.isOnEdge(p6));
-		Assert.assertTrue(triangle.isOnEdge(p7));
-		Assert.assertTrue(triangle.isOnEdge(p8));
+		Assert.assertTrue(!triangle.containsPointOnEdge(p4));
+		Assert.assertTrue(triangle.containsPointOnEdge(p5));
+		Assert.assertTrue(!triangle.containsPointOnEdge(p6));
+		Assert.assertTrue(triangle.containsPointOnEdge(p7));
+		Assert.assertTrue(triangle.containsPointOnEdge(p8));
 	}
 }
