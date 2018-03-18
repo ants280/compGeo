@@ -121,6 +121,52 @@ public class DelaunayTriangulation
 
 	private void flipTrianglesAround(Triangle sourceTriangle)
 	{
-		throw new UnsupportedOperationException("Not supported yet.");
+		for (Triangle otherTriangle : triangulationTriangles)
+		{
+			if (otherTriangle.equals(sourceTriangle))
+			{
+				continue;
+			}
+
+			List<Point> sharedPoints = getSharedPoints(sourceTriangle, otherTriangle);
+			assert sharedPoints.size() < 3;
+			if (sharedPoints.size() == 2)
+			{
+				Point otherPoint = otherTriangle.getPoints().stream().filter(point -> !sharedPoints.contains(point)).findAny().get();
+				
+				if (!sourceTriangle.containsPointInCircle(otherPoint))
+				{
+					continue;
+				}
+				
+				Point sourceTrianglePoint = sourceTriangle.getPoints().stream().filter(point -> !sharedPoints.contains(point)).findAny().get();
+				
+				Triangle t1 = new Triangle(sharedPoints.get(0), sharedPoints.get(1), otherPoint);
+				Triangle t2 = new Triangle(sharedPoints.get(0), sharedPoints.get(1), sourceTrianglePoint);
+				
+				triangulationTriangles.remove(sourceTriangle);
+				triangulationTriangles.remove(otherTriangle);
+				triangulationTriangles.add(t1);
+				triangulationTriangles.add(t2);
+
+				flipTrianglesAround(t1);
+				if (triangulationTriangles.contains(t2))
+				{
+					flipTrianglesAround(t2);
+				}
+				else
+				{
+					System.out.println("flipTrianglesAround(t2) is not needed!");
+				}
+			}
+		}
+	}
+
+	private static List<Point> getSharedPoints(Triangle triangle, Triangle other)
+	{
+		return triangle.getPoints()
+			.stream()
+			.filter(point -> other.getPoints().contains(point))
+			.collect(Collectors.toList());
 	}
 }

@@ -4,10 +4,8 @@ import com.jpatterson.school.compGeo.CompGeoUtils;
 import com.jpatterson.school.compGeo.Point;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 public class Triangle implements Shape
 {
@@ -15,7 +13,6 @@ public class Triangle implements Shape
 	protected final Point p2;
 	protected final Point p3;
 	private transient final List<Point> pointsList;
-	private transient final Set<Point> pointsSet;
 
 	public Triangle(Point p1, Point p2, Point p3)
 	{
@@ -31,7 +28,6 @@ public class Triangle implements Shape
 		this.p2 = tempPointsList.get(1);
 		this.p3 = tempPointsList.get(2);
 		this.pointsList = Collections.unmodifiableList(tempPointsList);
-		this.pointsSet = Collections.unmodifiableSet(new HashSet<>(pointsList));
 	}
 
 	@Override
@@ -40,11 +36,6 @@ public class Triangle implements Shape
 		return pointsList;
 	}
 
-	public Set<Point> getPointsSet()
-	{
-		return pointsSet;
-	}
-	
 	public boolean contains(Point point)
 	{
 		double d1 = CompGeoUtils.getDeterminant(p1, p2, point);
@@ -62,10 +53,20 @@ public class Triangle implements Shape
 		
 		return d1 == 0 || d2 == 0 || d3 == 0;
 	}
-
-	public boolean containsPointInCircle(Point point)
+	
+	// Next two methods copied from "Incremental Delaunay Triangulation", ACM 1993, Dani Lischinski.
+	
+	private double getDoubleArea(Point a, Point b, Point c)
 	{
-		throw new UnsupportedOperationException("Not supported yet.");
+		return (b.getX() - a.getX()) * (c.getY() - a.getY()) - (b.getY() * a.getY()) * (c.getX() - a.getX());
+	}
+
+	public boolean containsPointInCircle(Point p4)
+	{
+		return (p1.getX() * p1.getX() + p1.getY() * p1.getY()) * getDoubleArea(p2, p3, p4) -
+		       (p2.getX() * p2.getX() + p2.getY() * p2.getY()) * getDoubleArea(p1, p3, p4) +
+		       (p3.getX() * p3.getX() + p3.getY() * p3.getY()) * getDoubleArea(p1, p2, p4) -
+		       (p4.getX() * p4.getX() + p4.getY() * p4.getY()) * getDoubleArea(p1, p2, p3) > 0;
 	}
 
 	@Override
