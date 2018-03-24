@@ -322,10 +322,15 @@ public class CompGeoCanvas extends Canvas
 					g.setColor(Color.LIGHT_GRAY);
 					
 					g.drawLine(
-						(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getX(),
-						(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getY(),
-						(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getX(),
-						(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getY());
+						(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getX() - pointRadius,
+						(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getY() - pointRadius,
+						(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getX() + pointRadius,
+						(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getY() + pointRadius);
+					g.drawLine(
+						(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getX() - pointRadius,
+						(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getY() + pointRadius,
+						(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getX() + pointRadius,
+						(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getY() - pointRadius);
 					
 					int x = (int) (delaunayTriangulationTriangle.getCircumcircleCenterPoint().getX() - delaunayTriangulationTriangle.getCircumcircleRadius());
 					int y = (int) (delaunayTriangulationTriangle.getCircumcircleCenterPoint().getY() - delaunayTriangulationTriangle.getCircumcircleRadius());
