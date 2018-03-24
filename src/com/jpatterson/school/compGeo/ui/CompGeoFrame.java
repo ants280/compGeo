@@ -34,6 +34,7 @@ public class CompGeoFrame extends JFrame
 	public static final String SET_SMOOTH_EDGES_MI = "Smooth Edges";
 	public static final String SET_COLOR_VORONOI_CELL_REGIONS_MI = "Color Voronoi Cell Regions";
 	public static final String SET_SHOW_POINTS_MI = "Show Points Label";
+	public static final String SET_DRAW_DELAUNAY_CIRCUMCIRCLES_MI = "Draw Delaunay circumcircles";
 	public static final String RESET_ALL_PREFERENCES_MI = "Reset Edited Values";
 	public static final String HELP_MI = "Help";
 	public static final String ABOUT_MI = "About";
@@ -49,6 +50,7 @@ public class CompGeoFrame extends JFrame
 	private final JCheckBoxMenuItem smoothEdges_MI;
 	private final JCheckBoxMenuItem colorVoronoiCellRegoins_MI;
 	private final JCheckBoxMenuItem showPointsLabel_MI;
+	private final JCheckBoxMenuItem drawDelaunayCircumcircles_MI;
 	private final CompGeoCanvas canvas;
 
 	public CompGeoFrame()
@@ -66,6 +68,7 @@ public class CompGeoFrame extends JFrame
 		this.smoothEdges_MI = new JCheckBoxMenuItem(SET_SMOOTH_EDGES_MI, true);
 		this.colorVoronoiCellRegoins_MI = new JCheckBoxMenuItem(SET_COLOR_VORONOI_CELL_REGIONS_MI, true);
 		this.showPointsLabel_MI = new JCheckBoxMenuItem(SET_SHOW_POINTS_MI, true);
+		this.drawDelaunayCircumcircles_MI = new JCheckBoxMenuItem(SET_DRAW_DELAUNAY_CIRCUMCIRCLES_MI, true);
 
 		this.canvas = new CompGeoCanvas();
 		this.addMenu(new CompGeoActionListener(this));
@@ -90,6 +93,7 @@ public class CompGeoFrame extends JFrame
 		smoothEdges_MI.setSelected(canvas.shouldSmoothEdges());
 		colorVoronoiCellRegoins_MI.setSelected(canvas.shouldColorVoronoiCellRegoins());
 		showPointsLabel_MI.setSelected(canvas.shouldShowPointsLabel());
+		drawDelaunayCircumcircles_MI.setSelected(canvas.shouldDrawDelaunayCircumcircles());
 		JMenuItem resetAllPreferences_MI = new JMenuItem(RESET_ALL_PREFERENCES_MI);
 		resetAllPreferences_MI.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, KeyEvent.CTRL_DOWN_MASK));
 		saveAsImage_MI.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK));
@@ -120,6 +124,7 @@ public class CompGeoFrame extends JFrame
 		imageMenu.add(smoothEdges_MI);
 		imageMenu.add(colorVoronoiCellRegoins_MI);
 		imageMenu.add(showPointsLabel_MI);
+		imageMenu.add(drawDelaunayCircumcircles_MI);
 		imageMenu.addSeparator();
 		imageMenu.add(resetAllPreferences_MI);
 		imageMenu.add(saveAsImage_MI);

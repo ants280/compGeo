@@ -2,6 +2,8 @@ package com.jpatterson.school.compGeo.shape;
 
 import com.jpatterson.school.compGeo.CompGeoUtils;
 import com.jpatterson.school.compGeo.Point;
+import com.jpatterson.school.compGeo.line.BisectorLine;
+import com.jpatterson.school.compGeo.line.ParametricLine;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -67,6 +69,14 @@ public class Triangle implements Shape
 		       (p2.getX() * p2.getX() + p2.getY() * p2.getY()) * getTwiceArea(p1, p3, p4) +
 		       (p3.getX() * p3.getX() + p3.getY() * p3.getY()) * getTwiceArea(p1, p2, p4) -
 		       (p4.getX() * p4.getX() + p4.getY() * p4.getY()) * getTwiceArea(p1, p2, p3) > 0;
+	}
+	
+	public Point getCircumcircleCenterPoint()
+	{
+		ParametricLine b1 = new BisectorLine(p1, p2);
+		ParametricLine b2 = new BisectorLine(p2, p3);
+		
+		return b1.getIntersectionPoint(b2);
 	}
 
 	@Override

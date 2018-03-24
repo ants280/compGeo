@@ -32,6 +32,7 @@ public class CompGeoCanvas extends Canvas
 	private boolean smoothEdges;
 	private boolean colorVoronoiCellRegions;
 	private boolean drawPointsLabel;
+	private boolean drawDelaunayCircumcircles;
 
 	public CompGeoCanvas()
 	{
@@ -61,6 +62,7 @@ public class CompGeoCanvas extends Canvas
 		this.smoothEdges = CompGeoCanvasPreference.SMOOTH_EDGES.getValue();
 		this.colorVoronoiCellRegions = CompGeoCanvasPreference.COLOR_VORONOI_CELL_REGIONS.getValue();
 		this.drawPointsLabel = CompGeoCanvasPreference.SHOW_POINTS_LABEL.getValue();
+		this.drawDelaunayCircumcircles = CompGeoCanvasPreference.DRAW_DELAUNAY_CIRCUMCIRCLES.getValue();
 
 		this.repaint();
 	}
@@ -221,6 +223,21 @@ public class CompGeoCanvas extends Canvas
 
 		this.repaint();
 	}
+	
+	public boolean shouldDrawDelaunayCircumcircles()
+	{
+		return drawDelaunayCircumcircles;
+	}
+
+	public void flipDrawDelaunayCircumcircles()
+	{
+		this.drawDelaunayCircumcircles = !drawDelaunayCircumcircles;
+
+		if (this.delaunayTriangulationTriangles != null)
+		{
+			this.repaint();
+		}
+	}
 
 	/**
 	 * {@inheritDoc} Contains Double-Buffering logic to make painting more
@@ -295,10 +312,27 @@ public class CompGeoCanvas extends Canvas
 	{
 		if (delaunayTriangulationTriangles != null)
 		{
-			g.setColor(Color.DARK_GRAY);
-			delaunayTriangulationTriangles.stream()
-				.map(DelaunayTriangle::getPolygon)
-				.forEach(g::drawPolygon);
+			for (DelaunayTriangle delaunayTriangulationTriangle : delaunayTriangulationTriangles)
+			{
+				g.setColor(Color.DARK_GRAY);
+				g.drawPolygon(delaunayTriangulationTriangle.getTriangle());
+				
+				if (drawDelaunayCircumcircles)
+				{
+					g.setColor(Color.LIGHT_GRAY);
+					
+					g.drawLine(
+						(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getX(),
+						(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getY(),
+						(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getX(),
+						(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getY());
+					
+					int x = (int) (delaunayTriangulationTriangle.getCircumcircleCenterPoint().getX() - delaunayTriangulationTriangle.getCircumcircleRadius());
+					int y = (int) (delaunayTriangulationTriangle.getCircumcircleCenterPoint().getY() - delaunayTriangulationTriangle.getCircumcircleRadius());
+					int diameter = (int) (delaunayTriangulationTriangle.getCircumcircleRadius() * 2);
+					g.drawOval(x, y, diameter, diameter);
+				}
+			}
 		}
 	}
 

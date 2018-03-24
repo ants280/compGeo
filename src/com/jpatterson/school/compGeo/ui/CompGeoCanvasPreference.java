@@ -18,6 +18,7 @@ public abstract class CompGeoCanvasPreference<T>
 	public static final CompGeoCanvasPreference<Boolean> SMOOTH_EDGES = new CompGeoCanvasBooleanPreference("SMOOTH_EDGES", true);
 	public static final CompGeoCanvasPreference<Boolean> COLOR_VORONOI_CELL_REGIONS = new CompGeoCanvasBooleanPreference("COLOR_VORONOI_CELL_REGIONS", true);
 	public static final CompGeoCanvasPreference<Boolean> SHOW_POINTS_LABEL = new CompGeoCanvasBooleanPreference("SHOW_POINTS_LABEL", true);
+	public static final CompGeoCanvasPreference<Boolean> DRAW_DELAUNAY_CIRCUMCIRCLES = new CompGeoCanvasBooleanPreference("DRAW_DELAUNAY_CIRCUMCIRCLES", true);
 
 	protected static final Set<CompGeoCanvasPreference<?>> ALL_PREFERENCES
 		= new HashSet<>(Arrays.asList(

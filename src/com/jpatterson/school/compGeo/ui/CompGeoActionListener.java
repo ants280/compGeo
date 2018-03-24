@@ -99,6 +99,10 @@ public class CompGeoActionListener implements ActionListener
 					canvas::flipShowPointsLabel,
 					canvas::shouldShowPointsLabel);
 				break;
+			case SET_DRAW_DELAUNAY_CIRCUMCIRCLES_MI:
+				flipPreferenceBooleanValue(CompGeoCanvasPreference.DRAW_DELAUNAY_CIRCUMCIRCLES,
+					canvas::flipDrawDelaunayCircumcircles,
+					canvas::shouldDrawDelaunayCircumcircles);
 			case RESET_ALL_PREFERENCES_MI:
 				this.handleResetAllPreferences();
 				break;
