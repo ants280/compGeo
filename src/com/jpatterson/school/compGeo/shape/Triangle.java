@@ -22,7 +22,7 @@ public class Triangle implements Shape
 		{
 			throw new IllegalArgumentException(String.format("Triangle points (%s,%s,%s) are colinear.", p1, p2, p3));
 		}
-		
+
 		List<Point> tempPointsList = Arrays.asList(p1, p2, p3);
 		Collections.sort(tempPointsList);
 		boolean ccw = CompGeoUtils.getDeterminant(tempPointsList.get(0), tempPointsList.get(1), tempPointsList.get(2)) < 0;
@@ -43,21 +43,20 @@ public class Triangle implements Shape
 		double d1 = CompGeoUtils.getDeterminant(p1, p2, point);
 		double d2 = CompGeoUtils.getDeterminant(p2, p3, point);
 		double d3 = CompGeoUtils.getDeterminant(p3, p1, point);
-		
+
 		return (d1 <= 0 && d2 <= 0 && d3 <= 0) || (d1 >= 0 && d2 >= 0 && d3 >= 0);
 	}
-	
+
 	public boolean containsPointOnEdge(Point point)
 	{
 		double d1 = CompGeoUtils.getDeterminant(p1, p2, point);
 		double d2 = CompGeoUtils.getDeterminant(p2, p3, point);
 		double d3 = CompGeoUtils.getDeterminant(p3, p1, point);
-		
+
 		return d1 == 0 || d2 == 0 || d3 == 0;
 	}
-	
+
 	// Next two methods (getTwiceArea, containsPointInCircle) copied from "Incremental Delaunay Triangulation", ACM 1993, Dani Lischinski.
-	
 	private double getTwiceArea(Point a, Point b, Point c)
 	{
 		return (b.getX() - a.getX()) * (c.getY() - a.getY()) - (b.getY() - a.getY()) * (c.getX() - a.getX());
@@ -65,17 +64,17 @@ public class Triangle implements Shape
 
 	public boolean containsPointInCircle(Point p4)
 	{
-		return (p1.getX() * p1.getX() + p1.getY() * p1.getY()) * getTwiceArea(p2, p3, p4) -
-		       (p2.getX() * p2.getX() + p2.getY() * p2.getY()) * getTwiceArea(p1, p3, p4) +
-		       (p3.getX() * p3.getX() + p3.getY() * p3.getY()) * getTwiceArea(p1, p2, p4) -
-		       (p4.getX() * p4.getX() + p4.getY() * p4.getY()) * getTwiceArea(p1, p2, p3) > 0;
+		return (p1.getX() * p1.getX() + p1.getY() * p1.getY()) * getTwiceArea(p2, p3, p4)
+			- (p2.getX() * p2.getX() + p2.getY() * p2.getY()) * getTwiceArea(p1, p3, p4)
+			+ (p3.getX() * p3.getX() + p3.getY() * p3.getY()) * getTwiceArea(p1, p2, p4)
+			- (p4.getX() * p4.getX() + p4.getY() * p4.getY()) * getTwiceArea(p1, p2, p3) > 0;
 	}
-	
+
 	public Point getCircumcircleCenterPoint()
 	{
 		ParametricLine b1 = new BisectorLine(p1, p2);
 		ParametricLine b2 = new BisectorLine(p2, p3);
-		
+
 		return b1.getIntersectionPoint(b2);
 	}
 

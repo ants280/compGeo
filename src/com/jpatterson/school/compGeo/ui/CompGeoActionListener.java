@@ -175,7 +175,7 @@ public class CompGeoActionListener implements ActionListener
 			compGeoPopupWorker.start();
 		}
 	}
-	
+
 	private void toggleDelaunayTriangulation()
 	{
 		if (frame.getCanvas().hasDelaunayTriangulation())
@@ -189,7 +189,7 @@ public class CompGeoActionListener implements ActionListener
 			compGeoPopupWorker.start();
 		}
 	}
-	
+
 	private void toggleBezierCurve()
 	{
 		if (frame.getCanvas().hasBezierCurvePoints())

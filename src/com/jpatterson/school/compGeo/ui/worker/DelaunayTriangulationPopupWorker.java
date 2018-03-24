@@ -26,14 +26,13 @@ public class DelaunayTriangulationPopupWorker extends CompGeoPopupWorker<Collect
 	protected Collection<DelaunayTriangle> doInBackground()
 	{
 		points.forEach(this::addPointToTriangulation);
-		
+
 		return delaunayTriangulation.getTriangulationTriangles()
 			.stream()
 			.map(DelaunayTriangle::new)
 			.collect(Collectors.toList());
 	}
-	
-	
+
 	private void addPointToTriangulation(Point point)
 	{
 		updateProgress(progressPerPoint);

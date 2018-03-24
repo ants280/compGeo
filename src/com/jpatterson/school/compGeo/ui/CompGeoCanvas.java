@@ -223,7 +223,7 @@ public class CompGeoCanvas extends Canvas
 
 		this.repaint();
 	}
-	
+
 	public boolean shouldDrawDelaunayCircumcircles()
 	{
 		return drawDelaunayCircumcircles;
@@ -316,11 +316,11 @@ public class CompGeoCanvas extends Canvas
 			{
 				g.setColor(Color.DARK_GRAY);
 				g.drawPolygon(delaunayTriangulationTriangle.getTriangle());
-				
+
 				if (drawDelaunayCircumcircles)
 				{
 					g.setColor(Color.LIGHT_GRAY);
-					
+
 					g.drawLine(
 						(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getX() - pointRadius,
 						(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getY() - pointRadius,
@@ -331,7 +331,7 @@ public class CompGeoCanvas extends Canvas
 						(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getY() + pointRadius,
 						(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getX() + pointRadius,
 						(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getY() - pointRadius);
-					
+
 					int x = (int) (delaunayTriangulationTriangle.getCircumcircleCenterPoint().getX() - delaunayTriangulationTriangle.getCircumcircleRadius());
 					int y = (int) (delaunayTriangulationTriangle.getCircumcircleCenterPoint().getY() - delaunayTriangulationTriangle.getCircumcircleRadius());
 					int diameter = (int) (delaunayTriangulationTriangle.getCircumcircleRadius() * 2);
