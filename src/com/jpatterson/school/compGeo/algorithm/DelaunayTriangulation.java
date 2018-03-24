@@ -75,7 +75,7 @@ public class DelaunayTriangulation
 	private List<Triangle> splitTriangles(List<Triangle> trianglesContainingPoint, Point point)
 	{
 		List<Triangle> splitTriangles = new ArrayList<>(); // usually size = 3, sometimes = 4.
-		
+
 		switch (trianglesContainingPoint.size())
 		{
 			case 1:
@@ -110,7 +110,7 @@ public class DelaunayTriangulation
 			default:
 				throw new IllegalArgumentException(String.format("Expected only one or two triangles to contain point %s.  Found %d.", point, trianglesContainingPoint.size()));
 		}
-		
+
 		return splitTriangles;
 	}
 
@@ -164,7 +164,7 @@ public class DelaunayTriangulation
 
 				flipTrianglesAround(t1);
 				flipTrianglesAround(t2);
-				
+
 				return true;
 			}
 		}

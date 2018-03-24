@@ -64,7 +64,7 @@ public class DelaunayTriangulationTest
 		delaunayTriangulation = new DelaunayTriangulation(points, 3, 3);
 		Assert.assertSame(2, delaunayTriangulation.getTriangulationTriangles().size());
 	}
-	
+
 	@Test
 	public void testAddPointOrigin()
 	{

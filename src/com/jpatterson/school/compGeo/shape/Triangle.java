@@ -56,7 +56,7 @@ public class Triangle implements Shape
 
 		return d1 == 0 || d2 == 0 || d3 == 0;
 	}
-	
+
 	public List<Point> getSharedPoints(Triangle other)
 	{
 		return pointsList
