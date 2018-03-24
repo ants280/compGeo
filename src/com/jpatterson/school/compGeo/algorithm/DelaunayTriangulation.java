@@ -91,8 +91,8 @@ public class DelaunayTriangulation
 					{
 						splitTriangles.add(new Triangle(oldPoints.get(2), oldPoints.get(0), point));
 					}
-					assert splitTriangles.size() == 4;
 				}
+				assert splitTriangles.size() == 4;
 				break;
 			default:
 				throw new IllegalArgumentException(String.format("Expected only one or two triangles to contain point %s.  Found %d.", point, trianglesContainingPoint.size()));
