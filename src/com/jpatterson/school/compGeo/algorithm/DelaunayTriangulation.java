@@ -35,9 +35,9 @@ public class DelaunayTriangulation
 		}
 		this.maxX = maxX;
 		this.maxY = maxY;
-		this.p1 = new Point(0, 0);
-		this.p2 = new Point(maxX * 2, 0);
-		this.p3 = new Point(0, maxY * 2);
+		this.p1 = new Point(-1, -1);
+		this.p2 = new Point(maxX * 2, -1);
+		this.p3 = new Point(-1, maxY * 2);
 		this.points = new HashSet<>();
 		Triangle initialTriangle = new Triangle(p1, p2, p3);
 		this.triangulationTriangles = new HashSet<>(Collections.singletonList(initialTriangle));
