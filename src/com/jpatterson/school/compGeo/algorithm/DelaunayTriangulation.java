@@ -108,7 +108,24 @@ public class DelaunayTriangulation
 
 	public List<Triangle> getTriangulationTriangles()
 	{
-		return triangulationTriangles.stream()
+//		if (!points.isEmpty())
+//		{
+////		int i = 0;
+//			boolean flipMade;
+//			do
+//			{
+////			System.out.println("Pass" + ++i);
+//				flipMade = false;
+//				List<Triangle> startingTriangles = new ArrayList<>(triangulationTriangles);
+//				for (Triangle sourceTriangle : startingTriangles)
+//				{
+//					flipMade |= flipTrianglesAround(sourceTriangle);
+//				}
+//			}
+//			while (flipMade);
+//		}
+
+		List<Triangle> collect = triangulationTriangles.stream()
 			.collect(Collectors.toMap(Function.identity(), Triangle::getPoints))
 			.entrySet()
 			.stream()
@@ -117,13 +134,14 @@ public class DelaunayTriangulation
 			.filter(entry -> !entry.getValue().contains(p3))
 			.map(Map.Entry::getKey)
 			.collect(Collectors.toList());
+		return collect;
 	}
 
-	private void flipTrianglesAround(Triangle sourceTriangle)
+	private boolean flipTrianglesAround(Triangle sourceTriangle)
 	{
 		if (!triangulationTriangles.contains(sourceTriangle))
 		{
-			return;
+			return false;
 		}
 
 		for (Triangle otherTriangle : triangulationTriangles)
@@ -146,8 +164,8 @@ public class DelaunayTriangulation
 
 				Point sourceTrianglePoint = sourceTriangle.getPoints().stream().filter(point -> !sharedPoints.contains(point)).findAny().get();
 
-				Triangle t1 = new Triangle(sharedPoints.get(0), sharedPoints.get(1), otherPoint);
-				Triangle t2 = new Triangle(sharedPoints.get(0), sharedPoints.get(1), sourceTrianglePoint);
+				Triangle t1 = new Triangle(sourceTrianglePoint, otherPoint, sharedPoints.get(0));
+				Triangle t2 = new Triangle(sourceTrianglePoint, otherPoint, sharedPoints.get(1));
 
 				triangulationTriangles.remove(sourceTriangle);
 				triangulationTriangles.remove(otherTriangle);
@@ -156,9 +174,11 @@ public class DelaunayTriangulation
 
 				flipTrianglesAround(t1);
 				flipTrianglesAround(t2);
-				break;
+				return true;
 			}
 		}
+
+		return false;
 	}
 
 	private static List<Point> getSharedPoints(Triangle triangle, Triangle other)

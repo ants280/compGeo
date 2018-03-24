@@ -1,7 +1,7 @@
 package com.jpatterson.school.compGeo.shape;
 
 import com.jpatterson.school.compGeo.Point;
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.junit.Test;
 
 public class TriangleTest
@@ -12,11 +12,10 @@ public class TriangleTest
 		Point p1 = new Point(1, 1);
 		Point p2 = new Point(3, 3);
 		Point p3 = new Point(2, 2);
-		Triangle triangle = new Triangle(p1, p2, p3);
-		
-		Assert.fail("Exception should be thrown");
+
+		Assert.fail("Exception should be thrown for triangle: " + new Triangle(p1, p2, p3));
 	}
-	
+
 	@Test
 	public void testContains_ccw()
 	{
@@ -27,12 +26,12 @@ public class TriangleTest
 		Point p5 = new Point(3, 3); // should be in triangle (on edge)
 		Point p6 = new Point(2, 2); // should be in triangle
 		Triangle triangle = new Triangle(p1, p2, p3);
-		
+
 		Assert.assertTrue(!triangle.contains(p4));
 		Assert.assertTrue(triangle.contains(p5));
 		Assert.assertTrue(triangle.contains(p6));
 	}
-	
+
 	@Test
 	public void testContains_notCCW()
 	{
@@ -43,12 +42,12 @@ public class TriangleTest
 		Point p5 = new Point(3, 3); // should be in triangle (on edge)
 		Point p6 = new Point(2, 2); // should be in triangle
 		Triangle triangle = new Triangle(p3, p2, p1);
-		
+
 		Assert.assertTrue(!triangle.contains(p4));
 		Assert.assertTrue(triangle.contains(p5));
 		Assert.assertTrue(triangle.contains(p6));
 	}
-	
+
 	@Test
 	public void testContainsPointOnEdge()
 	{
@@ -61,14 +60,14 @@ public class TriangleTest
 		Point p7 = new Point(2, 1); // should be on edge
 		Point p8 = new Point(1, 4); // should be on edge
 		Triangle triangle = new Triangle(p1, p2, p3);
-		
+
 		Assert.assertTrue(!triangle.containsPointOnEdge(p4));
 		Assert.assertTrue(triangle.containsPointOnEdge(p5));
 		Assert.assertTrue(!triangle.containsPointOnEdge(p6));
 		Assert.assertTrue(triangle.containsPointOnEdge(p7));
 		Assert.assertTrue(triangle.containsPointOnEdge(p8));
 	}
-	
+
 	@Test
 	public void testContainsPointInCircle()
 	{
@@ -77,10 +76,10 @@ public class TriangleTest
 		Point p3 = new Point(3, 3);
 		Point p4 = new Point(1, 2);
 		Triangle triangle = new Triangle(p1, p2, p3);
-		
+
 		Assert.assertTrue(triangle.containsPointInCircle(p4));
 	}
-	
+
 	@Test
 	public void testContainsPointInCircle2()
 	{
@@ -89,10 +88,10 @@ public class TriangleTest
 		Point p3 = new Point(3, 3);
 		Point p4 = new Point(1, 4);
 		Triangle triangle = new Triangle(p1, p2, p3);
-		
+
 		Assert.assertTrue(!triangle.containsPointInCircle(p4));
 	}
-	
+
 	@Test
 	public void testContainsPointInCircle3()
 	{
@@ -101,7 +100,19 @@ public class TriangleTest
 		Point p3 = new Point(0, 2000);
 		Point p4 = new Point(0, 0);
 		Triangle triangle = new Triangle(p1, p2, p3);
-		
-		Assert.assertTrue(!triangle.containsPointInCircle(p4)); //// THIS SHOULD NOT CRASH
+
+		Assert.assertTrue(!triangle.containsPointInCircle(p4));
+	}
+
+	@Test
+	public void testContainsPointInCircle4()
+	{
+		Point p1 = new Point(0, 0);
+		Point p2 = new Point(6, 0);
+		Point p3 = new Point(1, 1);
+		Point p4 = new Point(2, 1);
+		Triangle triangle = new Triangle(p1, p2, p3);
+
+		Assert.assertTrue(triangle.containsPointInCircle(p4));
 	}
 }
