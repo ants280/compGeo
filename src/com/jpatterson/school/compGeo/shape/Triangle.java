@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Triangle implements Shape
 {
@@ -54,6 +55,14 @@ public class Triangle implements Shape
 		double d3 = CompGeoUtils.getDeterminant(p3, p1, point);
 
 		return d1 == 0 || d2 == 0 || d3 == 0;
+	}
+	
+	public List<Point> getSharedPoints(Triangle other)
+	{
+		return pointsList
+			.stream()
+			.filter(point -> other.getPoints().contains(point))
+			.collect(Collectors.toList());
 	}
 
 	// Next two methods (getTwiceArea, containsPointInCircle) copied from "Incremental Delaunay Triangulation", ACM 1993, Dani Lischinski.

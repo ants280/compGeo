@@ -58,11 +58,24 @@ public class DelaunayTriangulation
 
 		List<Triangle> trianglesContainingPoint = triangulationTriangles.stream()
 			.filter(triangle -> triangle.contains(point))
-			.collect(Collectors.toList());
+			.collect(Collectors.toList()); // TODO: This is slow and should be made faster.
 		assert trianglesContainingPoint.size() > 0;
 		assert trianglesContainingPoint.size() <= 2;
 
-		List<Triangle> splitTriangles = new ArrayList<>();
+		List<Triangle> splitTriangles = splitTriangles(trianglesContainingPoint, point);
+
+		triangulationTriangles.removeAll(trianglesContainingPoint);
+		triangulationTriangles.addAll(splitTriangles);
+		for (Triangle splitTriangle : splitTriangles)
+		{
+			flipTrianglesAround(splitTriangle);
+		}
+	}
+
+	private List<Triangle> splitTriangles(List<Triangle> trianglesContainingPoint, Point point)
+	{
+		List<Triangle> splitTriangles = new ArrayList<>(); // usually size = 3, sometimes = 4.
+		
 		switch (trianglesContainingPoint.size())
 		{
 			case 1:
@@ -97,35 +110,13 @@ public class DelaunayTriangulation
 			default:
 				throw new IllegalArgumentException(String.format("Expected only one or two triangles to contain point %s.  Found %d.", point, trianglesContainingPoint.size()));
 		}
-
-		triangulationTriangles.removeAll(trianglesContainingPoint);
-		triangulationTriangles.addAll(splitTriangles);
-		for (Triangle splitTriangle : splitTriangles)
-		{
-			flipTrianglesAround(splitTriangle);
-		}
+		
+		return splitTriangles;
 	}
 
 	public List<Triangle> getTriangulationTriangles()
 	{
-//		if (!points.isEmpty())
-//		{
-////		int i = 0;
-//			boolean flipMade;
-//			do
-//			{
-////			System.out.println("Pass" + ++i);
-//				flipMade = false;
-//				List<Triangle> startingTriangles = new ArrayList<>(triangulationTriangles);
-//				for (Triangle sourceTriangle : startingTriangles)
-//				{
-//					flipMade |= flipTrianglesAround(sourceTriangle);
-//				}
-//			}
-//			while (flipMade);
-//		}
-
-		List<Triangle> collect = triangulationTriangles.stream()
+		return triangulationTriangles.stream()
 			.collect(Collectors.toMap(Function.identity(), Triangle::getPoints))
 			.entrySet()
 			.stream()
@@ -134,7 +125,6 @@ public class DelaunayTriangulation
 			.filter(entry -> !entry.getValue().contains(p3))
 			.map(Map.Entry::getKey)
 			.collect(Collectors.toList());
-		return collect;
 	}
 
 	private boolean flipTrianglesAround(Triangle sourceTriangle)
@@ -144,14 +134,14 @@ public class DelaunayTriangulation
 			return false;
 		}
 
-		for (Triangle otherTriangle : triangulationTriangles)
+		for (Triangle otherTriangle : triangulationTriangles) // TODO: Need better lookup of triangles next to sourceTriangle.
 		{
 			if (otherTriangle.equals(sourceTriangle))
 			{
 				continue;
 			}
 
-			List<Point> sharedPoints = getSharedPoints(sourceTriangle, otherTriangle);
+			List<Point> sharedPoints = sourceTriangle.getSharedPoints(otherTriangle); // This isn't the best for memory.
 			assert sharedPoints.size() < 3;
 			if (sharedPoints.size() == 2)
 			{
@@ -174,18 +164,11 @@ public class DelaunayTriangulation
 
 				flipTrianglesAround(t1);
 				flipTrianglesAround(t2);
+				
 				return true;
 			}
 		}
 
 		return false;
-	}
-
-	private static List<Point> getSharedPoints(Triangle triangle, Triangle other)
-	{
-		return triangle.getPoints()
-			.stream()
-			.filter(point -> other.getPoints().contains(point))
-			.collect(Collectors.toList());
 	}
 }
