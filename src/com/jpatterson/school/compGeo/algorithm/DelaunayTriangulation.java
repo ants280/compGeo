@@ -74,7 +74,7 @@ public class DelaunayTriangulation
 			case 2:
 				for (Triangle halfTriangle : trianglesContainingPoint)
 				{
-					if (halfTriangle.containsPointOnEdge(point))
+					if (!halfTriangle.containsPointOnEdge(point))
 					{
 						throw new IllegalArgumentException(String.format("Expected point %s to be on the edge of %s.", point, halfTriangle));
 					}
