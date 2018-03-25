@@ -14,8 +14,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -31,94 +33,47 @@ import javax.swing.filechooser.FileFilter;
 public class CompGeoActionListener implements ActionListener
 {
 	private static final Random POINT_GENERATOR = new Random();
+	private final Map<String, Runnable> commandMap;
 	private final CompGeoFrame frame;
-
+	
 	public CompGeoActionListener(CompGeoFrame frame)
 	{
+		this.commandMap = new HashMap<>();
 		this.frame = frame;
+		CompGeoCanvas canvas = frame.getCanvas();
+		
+		commandMap.put(RANDOM_POINTS_MI, this::handleAddRandomPoints);
+		commandMap.put(CLEAR_POINTS_MI, frame::clear);
+		commandMap.put(TOGGLE_CONVEX_HULL_MI, this::toggleConvexHull);
+		commandMap.put(TOGGLE_VORONOI_DIAGRAM_MI, this::toggleVoronoiDiagram);
+		commandMap.put(TOGGLE_DELAUNAY_TRIANGULATION_MI, this::toggleDelaunayTriangulation);
+		commandMap.put(TOGGLE_BEZIER_CURVE_MI, this::toggleBezierCurve);
+		commandMap.put(SAVE_IMAGE, this::handleSaveImage);
+		commandMap.put(SET_RADIUS_MI, this::handleSetRadius);
+		commandMap.put(SET_NUMBER_RANDOM_POINTS_MI, this::handleSetNumberRandomPoints);
+		commandMap.put(SET_CONVEX_HULL_COLOR_MI, this::handleSetConvexHullColor);
+		commandMap.put(SET_DRAW_POINTS_MI, () -> flipPreferenceBooleanValue(CompGeoCanvasPreference.DRAW_POINTS, canvas::flipDrawPoints, canvas::shouldDrawPoints));
+		commandMap.put(SET_SMOOTH_EDGES_MI, () -> flipPreferenceBooleanValue(CompGeoCanvasPreference.SMOOTH_EDGES, canvas::flipSmoothEdges, canvas::shouldSmoothEdges));
+		commandMap.put(SET_COLOR_VORONOI_CELL_REGIONS_MI, () -> flipPreferenceBooleanValue(CompGeoCanvasPreference.COLOR_VORONOI_CELL_REGIONS, canvas::flipColorVoronoiCellRegions, canvas::shouldColorVoronoiCellRegoins));
+		commandMap.put(SET_SHOW_POINTS_MI, () -> flipPreferenceBooleanValue(CompGeoCanvasPreference.SHOW_POINTS_LABEL, canvas::flipShowPointsLabel, canvas::shouldShowPointsLabel));
+		commandMap.put(SET_DRAW_DELAUNAY_CIRCUMCIRCLES_MI, () -> flipPreferenceBooleanValue(CompGeoCanvasPreference.DRAW_DELAUNAY_CIRCUMCIRCLES, canvas::flipDrawDelaunayCircumcircles, canvas::shouldDrawDelaunayCircumcircles));
+		commandMap.put(RESET_ALL_PREFERENCES_MI, this::handleResetAllPreferences);
+		commandMap.put(HELP_MI, this::handleHelpItem);
+		commandMap.put(ABOUT_MI, this::handleAboutItem);
+		commandMap.put(EXIT_MI, this::handleExitItem);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent event)
 	{
 		String actionCommand = event.getActionCommand();
-		CompGeoCanvas canvas = frame.getCanvas();
-		switch (actionCommand)
+		
+		if (!commandMap.containsKey(actionCommand))
 		{
-			case RANDOM_POINTS_MI:
-				this.handleAddRandomPoints();
-				break;
-			case CLEAR_POINTS_MI:
-				frame.clear();
-				break;
-			case TOGGLE_CONVEX_HULL_MI:
-				this.toggleConvexHull();
-				break;
-			case TOGGLE_VORONOI_DIAGRAM_MI:
-				this.toggleVoronoiDiagram();
-				break;
-			case TOGGLE_DELAUNAY_TRIANGULATION_MI:
-				this.toggleDelaunayTriangulation();
-				break;
-			case TOGGLE_BEZIER_CURVE_MI:
-				this.toggleBezierCurve();
-				break;
-			case SAVE_IMAGE:
-				this.handleSaveImage();
-				break;
-			case SET_RADIUS_MI:
-				this.handleSetRadius();
-				break;
-			case SET_NUMBER_RANDOM_POINTS_MI:
-				this.handleSetNumberRandomPoints();
-				break;
-			case SET_CONVEX_HULL_COLOR_MI:
-				this.handleSetConvexHullColor();
-				break;
-			case SET_DRAW_POINTS_MI:
-				flipPreferenceBooleanValue(
-					CompGeoCanvasPreference.DRAW_POINTS,
-					canvas::flipDrawPoints,
-					canvas::shouldDrawPoints);
-				break;
-			case SET_SMOOTH_EDGES_MI:
-				flipPreferenceBooleanValue(
-					CompGeoCanvasPreference.SMOOTH_EDGES,
-					canvas::flipSmoothEdges,
-					canvas::shouldSmoothEdges);
-				break;
-			case SET_COLOR_VORONOI_CELL_REGIONS_MI:
-				flipPreferenceBooleanValue(
-					CompGeoCanvasPreference.COLOR_VORONOI_CELL_REGIONS,
-					canvas::flipColorVoronoiCellRegions,
-					canvas::shouldColorVoronoiCellRegoins);
-				break;
-			case SET_SHOW_POINTS_MI:
-				flipPreferenceBooleanValue(
-					CompGeoCanvasPreference.SHOW_POINTS_LABEL,
-					canvas::flipShowPointsLabel,
-					canvas::shouldShowPointsLabel);
-				break;
-			case SET_DRAW_DELAUNAY_CIRCUMCIRCLES_MI:
-				flipPreferenceBooleanValue(CompGeoCanvasPreference.DRAW_DELAUNAY_CIRCUMCIRCLES,
-					canvas::flipDrawDelaunayCircumcircles,
-					canvas::shouldDrawDelaunayCircumcircles);
-				break;
-			case RESET_ALL_PREFERENCES_MI:
-				this.handleResetAllPreferences();
-				break;
-			case HELP_MI:
-				this.handleHelpItem();
-				break;
-			case ABOUT_MI:
-				this.handleAboutItem();
-				break;
-			case EXIT_MI:
-				this.handleExitItem();
-				break;
-			default:
-				throw new IllegalArgumentException("Unknown actionEvent: " + event.getActionCommand());
+			throw new IllegalArgumentException("Unknown actionEvent: " + actionCommand);
 		}
+		
+		commandMap.get(actionCommand).run();
 	}
 
 	private void handleAddRandomPoints()
