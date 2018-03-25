@@ -23,7 +23,7 @@ public abstract class CompGeoCanvasPreference<T>
 	protected static final Set<CompGeoCanvasPreference<?>> ALL_PREFERENCES
 		= new HashSet<>(Arrays.asList(
 			POINT_RADIUS, RANDOM_POINT_COUNT, CONVEX_HULL_COLOR,
-			DRAW_POINTS, SMOOTH_EDGES, COLOR_VORONOI_CELL_REGIONS, SHOW_POINTS_LABEL));
+			DRAW_POINTS, SMOOTH_EDGES, COLOR_VORONOI_CELL_REGIONS, SHOW_POINTS_LABEL, DRAW_DELAUNAY_CIRCUMCIRCLES));
 
 	private final String preferenceName;
 	private final T defaultValue;
@@ -54,7 +54,7 @@ public abstract class CompGeoCanvasPreference<T>
 
 	private void setDefaultValue()
 	{
-		setValue(defaultValue);
+		this.setValue(defaultValue);
 	}
 
 	private static class CompGeoCanvasIntegerPreference extends CompGeoCanvasPreference<Integer>

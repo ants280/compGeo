@@ -292,5 +292,6 @@ public class CompGeoFrame extends JFrame
 		smoothEdges_MI.setSelected(canvas.shouldSmoothEdges());
 		colorVoronoiCellRegoins_MI.setSelected(canvas.shouldColorVoronoiCellRegoins());
 		showPointsLabel_MI.setSelected(canvas.shouldShowPointsLabel());
+		drawDelaunayCircumcircles_MI.setSelected(canvas.shouldDrawDelaunayCircumcircles());
 	}
 }
