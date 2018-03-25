@@ -103,6 +103,7 @@ public class CompGeoActionListener implements ActionListener
 				flipPreferenceBooleanValue(CompGeoCanvasPreference.DRAW_DELAUNAY_CIRCUMCIRCLES,
 					canvas::flipDrawDelaunayCircumcircles,
 					canvas::shouldDrawDelaunayCircumcircles);
+				break;
 			case RESET_ALL_PREFERENCES_MI:
 				this.handleResetAllPreferences();
 				break;
