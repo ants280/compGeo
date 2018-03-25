@@ -35,13 +35,13 @@ public class CompGeoActionListener implements ActionListener
 	private static final Random POINT_GENERATOR = new Random();
 	private final Map<String, Runnable> commandMap;
 	private final CompGeoFrame frame;
-	
+
 	public CompGeoActionListener(CompGeoFrame frame)
 	{
 		this.commandMap = new HashMap<>();
 		this.frame = frame;
 		CompGeoCanvas canvas = frame.getCanvas();
-		
+
 		commandMap.put(RANDOM_POINTS_MI, this::handleAddRandomPoints);
 		commandMap.put(CLEAR_POINTS_MI, frame::clear);
 		commandMap.put(TOGGLE_CONVEX_HULL_MI, this::toggleConvexHull);
@@ -67,12 +67,12 @@ public class CompGeoActionListener implements ActionListener
 	public void actionPerformed(ActionEvent event)
 	{
 		String actionCommand = event.getActionCommand();
-		
+
 		if (!commandMap.containsKey(actionCommand))
 		{
 			throw new IllegalArgumentException("Unknown actionEvent: " + actionCommand);
 		}
-		
+
 		commandMap.get(actionCommand).run();
 	}
 
