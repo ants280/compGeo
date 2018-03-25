@@ -58,7 +58,7 @@ public class DelaunayTriangulation
 
 		List<Triangle> trianglesContainingPoint = triangulationTriangles.stream()
 			.filter(triangle -> triangle.contains(point))
-			.collect(Collectors.toList()); // TODO: This is slow and should be made faster.
+			.collect(Collectors.toList());
 		assert trianglesContainingPoint.size() > 0;
 		assert trianglesContainingPoint.size() <= 2;
 
@@ -134,7 +134,7 @@ public class DelaunayTriangulation
 			return false;
 		}
 
-		for (Triangle otherTriangle : triangulationTriangles) // TODO: Need better lookup of triangles next to sourceTriangle.
+		for (Triangle otherTriangle : triangulationTriangles) // TODO: Need faster lookup of triangles next to sourceTriangle.
 		{
 			if (otherTriangle.equals(sourceTriangle))
 			{
