@@ -39,6 +39,8 @@ public class CompGeoFrame extends JFrame
 	public static final String HELP_MI = "Help";
 	public static final String ABOUT_MI = "About";
 	public static final String EXIT_MI = "Exit";
+	private static final int MAX_BEZIER_CURVE_POINTS = 67;
+	private static final String BEZIER_CURVE_DISABLED_MESSAGE = String.format("The bezier curve only works when there are less than %d points.", MAX_BEZIER_CURVE_POINTS);
 	private final JMenuItem clearPoints_MI;
 	private final JMenuItem randomPoints_MI;
 	private final JCheckBoxMenuItem convexHull_MI;
@@ -222,10 +224,6 @@ public class CompGeoFrame extends JFrame
 		canvas.setBezierCurvePoints(bezierCurvePoints);
 
 		bezierCurve_MI.setEnabled(canvas.getPointCount() > 1);
-		if (bezierCurve_MI.isEnabled() && canvas.getPointCount() > 67) // TODO: Investigate this number (67) and why things break for larger point counts.
-		{
-			bezierCurve_MI.setEnabled(false);
-		}
 		bezierCurve_MI.setSelected(bezierCurvePoints != null);
 	}
 
@@ -253,6 +251,12 @@ public class CompGeoFrame extends JFrame
 		{
 			clearDiagrams();
 			this.updatePointControls();
+			
+			if (canvas.getPointCount() > MAX_BEZIER_CURVE_POINTS)
+			{
+				bezierCurve_MI.setToolTipText(BEZIER_CURVE_DISABLED_MESSAGE); // Investigate this number (67) and why things break for larger point counts.
+				bezierCurve_MI.setEnabled(false);
+			}
 		}
 
 		return pointAdded;
@@ -260,6 +264,12 @@ public class CompGeoFrame extends JFrame
 
 	public void clear()
 	{
+		if (canvas.getPointCount() > MAX_BEZIER_CURVE_POINTS) // Remove the warning tooltip.
+		{
+			bezierCurve_MI.setToolTipText(null);
+			bezierCurve_MI.setEnabled(true);
+		}
+		
 		canvas.clear();
 
 		clearDiagrams();
