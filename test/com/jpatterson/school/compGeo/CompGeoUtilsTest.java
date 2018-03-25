@@ -61,10 +61,7 @@ public class CompGeoUtilsTest
 	}
 
 	/**
-	 * p2
-	 * |
-	 * |
-	 * p1---p0
+	 * line1: "p2 " line2: "| " line3: "| " line4: "p1---p0"
 	 */
 	@Test
 	public void testGetDeterminant_clockwise()
@@ -80,10 +77,7 @@ public class CompGeoUtilsTest
 	}
 
 	/**
-	 * p0
-	 * |
-	 * |
-	 * p1---p2
+	 * line1: "p0 " line2: "| " line3: "| " Line4: "p1---p2"
 	 */
 	@Test
 	public void testGetDeterminant_counterClockwise()

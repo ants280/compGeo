@@ -251,7 +251,7 @@ public class CompGeoFrame extends JFrame
 		{
 			clearDiagrams();
 			this.updatePointControls();
-			
+
 			if (canvas.getPointCount() > MAX_BEZIER_CURVE_POINTS)
 			{
 				bezierCurve_MI.setToolTipText(BEZIER_CURVE_DISABLED_MESSAGE); // Investigate this number (67) and why things break for larger point counts.
@@ -269,7 +269,7 @@ public class CompGeoFrame extends JFrame
 			bezierCurve_MI.setToolTipText(null);
 			bezierCurve_MI.setEnabled(true);
 		}
-		
+
 		canvas.clear();
 
 		clearDiagrams();
