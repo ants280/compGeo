@@ -11,7 +11,7 @@ RUN:
 
 ABOUT:
 * https://en.wikipedia.org/wiki/Graham_scan
-* https://en.wikipedia.org/wiki/B%C3%A9zier_curve
+* https://en.wikipedia.org/wiki/Bezier_curve
 * https://en.wikipedia.org/wiki/Voronoi_diagram
 * https://en.wikipedia.org/wiki/Delaunay_triangulation
 
