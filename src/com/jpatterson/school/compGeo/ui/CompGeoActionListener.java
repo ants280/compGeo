@@ -243,7 +243,7 @@ public class CompGeoActionListener implements ActionListener
 			"By: Jacob Patterson"
 			+ "\n"
 			+ "\nVersion " + CompGeo.VERSION
-			+ "\nCopyright(©) 2012, 2017"
+			+ "\nCopyright(©) 2012, 2017, 2018"
 			+ "\n"
 			+ "\nGraham Scan algorithm an adaptation of"
 			+ "\nCormen, Leiserson, Rivest, and Stein's"
