@@ -229,6 +229,11 @@ public class CompGeoActionListener implements ActionListener
 			+ "\nThis divides the canvas into cells around each point so that all locations in"
 			+ "\nthe cell are closest to the point which is also in the cell."
 			+ "\n"
+			+ "\nA triangulation can be drawn by clicking \"" + TOGGLE_DELAUNAY_TRIANGULATION_MI + "\"."
+			+ "\nThis divides the canvas into triangles between the points.  The semicircles"
+			+ "\nformed by the points of each triangle contain none of the other points on"
+			+ "\nthe canvas.  The center of each circle is a vertex on the Voronoi Triangulation."
+			+ "\n"
 			+ "\nA Bezier Curve can be drawn between the first point and most recently drawn"
 			+ "\npoint by clicking \"" + TOGGLE_BEZIER_CURVE_MI + "\".  This curves toward intermediate points"
 			+ "\nby a factor relative to the amount of the line that has been dwawn.",
