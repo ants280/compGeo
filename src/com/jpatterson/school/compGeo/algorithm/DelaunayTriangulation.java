@@ -68,7 +68,7 @@ public class DelaunayTriangulation
 		triangulationTriangles.addAll(splitTriangles);
 		for (Triangle splitTriangle : splitTriangles)
 		{
-			flipTrianglesAround(splitTriangle);
+			flipTrianglesAround(splitTriangle); // TODO: only need to flip triangles around splitTriangles (and then add those to splitTriangles).
 		}
 	}
 
