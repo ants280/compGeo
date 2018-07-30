@@ -35,9 +35,9 @@ public abstract class CompGeoPopupWorker<T>
 
 	protected abstract T doInBackground();
 
-	protected final void updateProgress(double additionalProgess)
+	protected final void updateProgress(double additionalProgress)
 	{
-		swingWorker.incrementProgress(additionalProgess);
+		swingWorker.incrementProgress(additionalProgress);
 	}
 
 	public void start()
@@ -109,19 +109,19 @@ public abstract class CompGeoPopupWorker<T>
 
 	private static void setProgress(JProgressBar progressBar, PropertyChangeEvent propertyChangeEvent)
 	{
-		if ("progress".equals(propertyChangeEvent.getPropertyName())) // Copied from Swingworker:201
+		if ("progress".equals(propertyChangeEvent.getPropertyName())) // Copied from SwingWorker:201
 		{
 			progressBar.setValue((int) propertyChangeEvent.getNewValue());
 		}
 	}
 
-	private class CompGeoSwingWorker<T> extends SwingWorker<T, Void>
+	private class CompGeoSwingWorker<U> extends SwingWorker<U, Void>
 	{
-		private final Supplier<T> backgroundSupplier;
-		private final Consumer<T> completedActionConsumer;
+		private final Supplier<U> backgroundSupplier;
+		private final Consumer<U> completedActionConsumer;
 		private double progress;
 
-		public CompGeoSwingWorker(Supplier<T> backgroundSupplier, Consumer<T> completedActionConsumer)
+		public CompGeoSwingWorker(Supplier<U> backgroundSupplier, Consumer<U> completedActionConsumer)
 		{
 			this.backgroundSupplier = backgroundSupplier;
 			this.completedActionConsumer = completedActionConsumer;
@@ -129,7 +129,7 @@ public abstract class CompGeoPopupWorker<T>
 		}
 
 		@Override
-		protected T doInBackground() throws Exception
+		protected U doInBackground()
 		{
 			return backgroundSupplier.get();
 		}
@@ -158,9 +158,9 @@ public abstract class CompGeoPopupWorker<T>
 			}
 		}
 
-		protected void incrementProgress(double additionalProgess)
+		protected void incrementProgress(double additionalProgress)
 		{
-			progress += additionalProgess;
+			progress += additionalProgress;
 
 			this.setProgress((int) (100 * progress));
 		}

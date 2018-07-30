@@ -11,7 +11,7 @@ public class BezierCurvePopupWorker extends CompGeoPopupWorker<List<Point>>
 {
 	private final BezierCurve bezierCurve;
 	private static final int POINTS_PER_CALCULATION = 10;
-	// It might be useful to recalculate with higher precision if the points are only slightly past the max differenc.
+	// It might be useful to recalculate with higher precision if the points are only slightly past the max difference.
 	private static final Double MAX_POINT_DIFFERENCE = 0.5d;
 
 	public BezierCurvePopupWorker(Consumer<List<Point>> completedAction, CompGeoFrame frame)
@@ -44,7 +44,7 @@ public class BezierCurvePopupWorker extends CompGeoPopupWorker<List<Point>>
 		if (!points1.get(points1.size() - 1).equals(points2.get(0)))
 		{
 			throw new RuntimeException(String.format(
-				"Last point of first half of poins should equal first point of last half of points. %s, tMin=%f, tMax=%f",
+				"Last point of first half of points should equal first point of last half of points. %s, tMin=%f, tMax=%f",
 				bezierCurve, tMin, tMax));
 		}
 
