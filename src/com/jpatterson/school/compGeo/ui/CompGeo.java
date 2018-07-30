@@ -6,7 +6,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-public final class CompGeo
+public final class CompGeo implements Runnable
 {
 	public static final String VERSION = "4.0.1";
 
@@ -18,14 +18,15 @@ public final class CompGeo
 			System.setProperty("apple.laf.useScreenMenuBar", "true");
 		}
 
-		SwingUtilities.invokeLater(new CompGeo()::run);
+		SwingUtilities.invokeLater(new CompGeo());
 	}
 
 	private CompGeo()
 	{
 	}
 
-	private void run()
+	@Override
+	public void run()
 	{
 		setLookAndFeel();
 

@@ -1,6 +1,8 @@
 package com.jpatterson.school.compGeo.ui;
 
 import com.jpatterson.school.compGeo.Point;
+import org.jetbrains.annotations.NotNull;
+
 import java.awt.Color;
 import java.awt.Polygon;
 import java.util.List;
@@ -30,6 +32,7 @@ public class VoronoiCell
 		return color;
 	}
 
+	@NotNull
 	private static Color createRandomColor()
 	{
 		int r = COLOR_GENERATOR.nextInt(MAX_COLOR_VALUE);

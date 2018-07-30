@@ -1,12 +1,13 @@
 package com.jpatterson.school.compGeo;
 
-import java.util.Arrays;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
+
+import java.util.Arrays;
 
 @RunWith(Parameterized.class)
 public class BinomialTest
