@@ -52,11 +52,11 @@ public class CompGeoActionListener implements ActionListener
 		commandMap.put(SET_RADIUS_MI, this::handleSetRadius);
 		commandMap.put(SET_NUMBER_RANDOM_POINTS_MI, this::handleSetNumberRandomPoints);
 		commandMap.put(SET_CONVEX_HULL_COLOR_MI, this::handleSetConvexHullColor);
-		commandMap.put(SET_DRAW_POINTS_MI, () -> flipPreferenceBooleanValue(CompGeoCanvasPreference.DRAW_POINTS, canvas::flipDrawPoints, canvas::shouldDrawPoints));
-		commandMap.put(SET_SMOOTH_EDGES_MI, () -> flipPreferenceBooleanValue(CompGeoCanvasPreference.SMOOTH_EDGES, canvas::flipSmoothEdges, canvas::shouldSmoothEdges));
-		commandMap.put(SET_COLOR_VORONOI_CELL_REGIONS_MI, () -> flipPreferenceBooleanValue(CompGeoCanvasPreference.COLOR_VORONOI_CELL_REGIONS, canvas::flipColorVoronoiCellRegions, canvas::shouldColorVoronoiCellRegions));
-		commandMap.put(SET_SHOW_POINTS_MI, () -> flipPreferenceBooleanValue(CompGeoCanvasPreference.SHOW_POINTS_LABEL, canvas::flipShowPointsLabel, canvas::shouldShowPointsLabel));
-		commandMap.put(SET_DRAW_DELAUNAY_CIRCUMCIRCLES_MI, () -> flipPreferenceBooleanValue(CompGeoCanvasPreference.DRAW_DELAUNAY_CIRCUMCIRCLES, canvas::flipDrawDelaunayCircumcircles, canvas::shouldDrawDelaunayCircumcircles));
+		commandMap.put(SET_DRAW_POINTS_MI, () -> flipPreferenceBooleanValue(CompGeoCanvas.DRAW_POINTS, canvas::flipDrawPoints, canvas::shouldDrawPoints));
+		commandMap.put(SET_SMOOTH_EDGES_MI, () -> flipPreferenceBooleanValue(CompGeoCanvas.SMOOTH_EDGES, canvas::flipSmoothEdges, canvas::shouldSmoothEdges));
+		commandMap.put(SET_COLOR_VORONOI_CELL_REGIONS_MI, () -> flipPreferenceBooleanValue(CompGeoCanvas.COLOR_VORONOI_CELL_REGIONS, canvas::flipColorVoronoiCellRegions, canvas::shouldColorVoronoiCellRegions));
+		commandMap.put(SET_SHOW_POINTS_MI, () -> flipPreferenceBooleanValue(CompGeoCanvas.SHOW_POINTS_LABEL, canvas::flipShowPointsLabel, canvas::shouldShowPointsLabel));
+		commandMap.put(SET_DRAW_DELAUNAY_CIRCUMCIRCLES_MI, () -> flipPreferenceBooleanValue(CompGeoCanvas.DRAW_DELAUNAY_CIRCUMCIRCLES, canvas::flipDrawDelaunayCircumcircles, canvas::shouldDrawDelaunayCircumcircles));
 		commandMap.put(RESET_ALL_PREFERENCES_MI, this::handleResetAllPreferences);
 		commandMap.put(HELP_MI, this::handleHelpItem);
 		commandMap.put(ABOUT_MI, this::handleAboutItem);
@@ -178,7 +178,7 @@ public class CompGeoActionListener implements ActionListener
 			canvas.getPointRadius(), 0, 15, 1,
 			SET_RADIUS_MI,
 			canvas::setPointRadius,
-			CompGeoCanvasPreference.POINT_RADIUS);
+			CompGeoCanvas.POINT_RADIUS);
 	}
 
 	private void handleSetNumberRandomPoints()
@@ -187,7 +187,7 @@ public class CompGeoActionListener implements ActionListener
 		this.changePreferenceIntegerValue(canvas.getNumberRandomPointsToAdd(), 1, 500, 10,
 			SET_NUMBER_RANDOM_POINTS_MI,
 			canvas::setNumberRandomPointsToAdd,
-			CompGeoCanvasPreference.RANDOM_POINT_COUNT);
+			CompGeoCanvas.RANDOM_POINT_COUNT);
 	}
 
 	private void handleSetConvexHullColor()
@@ -200,7 +200,7 @@ public class CompGeoActionListener implements ActionListener
 		{
 			Color newValue = colorChooser.getColor();
 			canvas.setConvexHullColor(newValue);
-			CompGeoCanvasPreference.CONVEX_HULL_COLOR.setValue(newValue.getRGB());
+			CompGeoCanvas.CONVEX_HULL_COLOR.setValue(newValue.getRGB());
 		}
 	}
 
@@ -212,7 +212,7 @@ public class CompGeoActionListener implements ActionListener
 
 	private void handleResetAllPreferences()
 	{
-		CompGeoCanvasPreference.resetSavedPreferences();
+		frame.getCanvas().resetSavedPreferences();
 
 		frame.reloadPreferences();
 	}

@@ -10,11 +10,7 @@ import java.awt.Polygon;
 import java.awt.RenderingHints;
 import java.awt.geom.GeneralPath;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class CompGeoCanvas extends Canvas
 {
@@ -32,6 +28,21 @@ public class CompGeoCanvas extends Canvas
 	private boolean colorVoronoiCellRegions;
 	private boolean drawPointsLabel;
 	private boolean drawDelaunayCircumcircles;
+
+	public static final CompGeoCanvasPreference<Integer> POINT_RADIUS = new CompGeoCanvasPreference.CompGeoCanvasIntegerPreference("POINT_RADIUS", 4);
+	public static final CompGeoCanvasPreference<Integer> RANDOM_POINT_COUNT = new CompGeoCanvasPreference.CompGeoCanvasIntegerPreference("RANDOM_POINT_COUNT", 3);
+	// new Color(255, 0, 0, 127) (transparent red)
+	public static final CompGeoCanvasPreference<Integer> CONVEX_HULL_COLOR = new CompGeoCanvasPreference.CompGeoCanvasIntegerPreference("CONVEX_HULL_COLOR", 0x7fff0000);
+	public static final CompGeoCanvasPreference<Boolean> DRAW_POINTS = new CompGeoCanvasPreference.CompGeoCanvasBooleanPreference("DRAW_POINTS", true);
+	public static final CompGeoCanvasPreference<Boolean> SMOOTH_EDGES = new CompGeoCanvasPreference.CompGeoCanvasBooleanPreference("SMOOTH_EDGES", true);
+	public static final CompGeoCanvasPreference<Boolean> COLOR_VORONOI_CELL_REGIONS = new CompGeoCanvasPreference.CompGeoCanvasBooleanPreference("COLOR_VORONOI_CELL_REGIONS", true);
+	public static final CompGeoCanvasPreference<Boolean> SHOW_POINTS_LABEL = new CompGeoCanvasPreference.CompGeoCanvasBooleanPreference("SHOW_POINTS_LABEL", true);
+	public static final CompGeoCanvasPreference<Boolean> DRAW_DELAUNAY_CIRCUMCIRCLES = new CompGeoCanvasPreference.CompGeoCanvasBooleanPreference("DRAW_DELAUNAY_CIRCUMCIRCLES", true);
+
+	protected static final Set<CompGeoCanvasPreference<?>> ALL_PREFERENCES
+			= new HashSet<>(Arrays.asList(
+			POINT_RADIUS, RANDOM_POINT_COUNT, CONVEX_HULL_COLOR,
+			DRAW_POINTS, SMOOTH_EDGES, COLOR_VORONOI_CELL_REGIONS, SHOW_POINTS_LABEL, DRAW_DELAUNAY_CIRCUMCIRCLES));
 
 	public CompGeoCanvas()
 	{
@@ -52,18 +63,26 @@ public class CompGeoCanvas extends Canvas
 		this.reloadPreferences();
 	}
 
-	public final void reloadPreferences()
+	public void reloadPreferences()
 	{
-		this.pointRadius = CompGeoCanvasPreference.POINT_RADIUS.getValue();
-		this.numberRandomPointsToAdd = CompGeoCanvasPreference.RANDOM_POINT_COUNT.getValue();
-		this.convexHullColor = new Color(CompGeoCanvasPreference.CONVEX_HULL_COLOR.getValue(), true);
-		this.drawPoints = CompGeoCanvasPreference.DRAW_POINTS.getValue();
-		this.smoothEdges = CompGeoCanvasPreference.SMOOTH_EDGES.getValue();
-		this.colorVoronoiCellRegions = CompGeoCanvasPreference.COLOR_VORONOI_CELL_REGIONS.getValue();
-		this.drawPointsLabel = CompGeoCanvasPreference.SHOW_POINTS_LABEL.getValue();
-		this.drawDelaunayCircumcircles = CompGeoCanvasPreference.DRAW_DELAUNAY_CIRCUMCIRCLES.getValue();
+		this.pointRadius = POINT_RADIUS.getValue();
+		this.numberRandomPointsToAdd = RANDOM_POINT_COUNT.getValue();
+		this.convexHullColor = new Color(CONVEX_HULL_COLOR.getValue(), true);
+		this.drawPoints = DRAW_POINTS.getValue();
+		this.smoothEdges = SMOOTH_EDGES.getValue();
+		this.colorVoronoiCellRegions = COLOR_VORONOI_CELL_REGIONS.getValue();
+		this.drawPointsLabel = SHOW_POINTS_LABEL.getValue();
+		this.drawDelaunayCircumcircles = DRAW_DELAUNAY_CIRCUMCIRCLES.getValue();
 
 		this.repaint();
+	}
+
+	public void resetSavedPreferences()
+	{
+		for (CompGeoCanvasPreference preference : ALL_PREFERENCES)
+		{
+			preference.setDefaultValue();
+		}
 	}
 
 	/**
