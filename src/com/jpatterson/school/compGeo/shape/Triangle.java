@@ -100,32 +100,15 @@ public class Triangle implements Shape
 	@Override
 	public boolean equals(Object obj)
 	{
-		if (this == obj)
-		{
-			return true;
-		}
-		if (obj == null)
+		if (obj == null || getClass() != obj.getClass())
 		{
 			return false;
 		}
-		if (getClass() != obj.getClass())
-		{
-			return false;
-		}
+
 		final Triangle other = (Triangle) obj;
-		if (!Objects.equals(this.p1, other.p1))
-		{
-			return false;
-		}
-		if (!Objects.equals(this.p2, other.p2))
-		{
-			return false;
-		}
-		if (!Objects.equals(this.p3, other.p3))
-		{
-			return false;
-		}
-		return true;
+		return Objects.equals(this.p1, other.p1)
+				&& Objects.equals(this.p2, other.p2)
+				&& Objects.equals(this.p3, other.p3);
 	}
 
 	@Override

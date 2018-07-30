@@ -43,7 +43,7 @@ public class BezierCurve
 
 	/**
 	 * Get the points on the Bezier curve between tMin and tMax using the
-	 * specified stepCount with a short-circuiting maxPointDifferenc to return
+	 * specified stepCount with a short-circuiting maxPointDifference to return
 	 * null.
 	 *
 	 * @param tMin The starting parametric value. Use 0 for complete Bezier
@@ -58,7 +58,7 @@ public class BezierCurve
 	 */
 	public List<Point> getPoints(final double tMin, final double tMax, final int stepCount, final Double maxPointDifference)
 	{
-		validateParemetricValues(tMin, tMax, stepCount);
+		validateParametricValues(tMin, tMax, stepCount);
 
 		if (stepCount == 0)
 		{
@@ -110,7 +110,7 @@ public class BezierCurve
 		return new Point(x, y);
 	}
 
-	private static void validateParemetricValues(double tMin, double tMax, int stepCount) throws IllegalArgumentException
+	private static void validateParametricValues(double tMin, double tMax, int stepCount) throws IllegalArgumentException
 	{
 		if (tMin < 0)
 		{
