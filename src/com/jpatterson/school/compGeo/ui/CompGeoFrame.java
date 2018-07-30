@@ -20,25 +20,25 @@ import javax.swing.KeyStroke;
 public class CompGeoFrame extends JFrame
 {
 	private static final long serialVersionUID = -8857520805111704416L;
-	static final String RANDOM_POINTS_MI = "Draw Random Points";
-	static final String CLEAR_POINTS_MI = "Clear Points";
-	static final String TOGGLE_CONVEX_HULL_MI = "Show Convex Hull";
-	static final String TOGGLE_VORONOI_DIAGRAM_MI = "Show Voronoi Diagram";
-	static final String TOGGLE_DELAUNAY_TRIANGULATION_MI = "Show Delaunay Triangulation";
-	static final String TOGGLE_BEZIER_CURVE_MI = "Show Bezier Curve";
-	static final String SAVE_IMAGE = "Save Image...";
-	static final String SET_RADIUS_MI = "Set point radius...";
-	static final String SET_NUMBER_RANDOM_POINTS_MI = "Set number of random points...";
-	static final String SET_CONVEX_HULL_COLOR_MI = "Set convex hull color...";
-	static final String SET_DRAW_POINTS_MI = "Draw Points";
-	static final String SET_SMOOTH_EDGES_MI = "Smooth Edges";
-	static final String SET_COLOR_VORONOI_CELL_REGIONS_MI = "Color Voronoi Cell Regions";
-	static final String SET_SHOW_POINTS_MI = "Show Points Label";
-	static final String SET_DRAW_DELAUNAY_CIRCUMCIRCLES_MI = "Draw Delaunay circumcircles";
-	static final String RESET_ALL_PREFERENCES_MI = "Reset Edited Values";
-	static final String HELP_MI = "Help";
-	static final String ABOUT_MI = "About";
-	static final String EXIT_MI = "Exit";
+	public static final String RANDOM_POINTS_MI = "Draw Random Points";
+	public static final String CLEAR_POINTS_MI = "Clear Points";
+	public static final String TOGGLE_CONVEX_HULL_MI = "Show Convex Hull";
+	public static final String TOGGLE_VORONOI_DIAGRAM_MI = "Show Voronoi Diagram";
+	public static final String TOGGLE_DELAUNAY_TRIANGULATION_MI = "Show Delaunay Triangulation";
+	public static final String TOGGLE_BEZIER_CURVE_MI = "Show Bezier Curve";
+	public static final String SAVE_IMAGE = "Save Image...";
+	public static final String SET_RADIUS_MI = "Set point radius...";
+	public static final String SET_NUMBER_RANDOM_POINTS_MI = "Set number of random points...";
+	public static final String SET_CONVEX_HULL_COLOR_MI = "Set convex hull color...";
+	public static final String SET_DRAW_POINTS_MI = "Draw Points";
+	public static final String SET_SMOOTH_EDGES_MI = "Smooth Edges";
+	public static final String SET_COLOR_VORONOI_CELL_REGIONS_MI = "Color Voronoi Cell Regions";
+	public static final String SET_SHOW_POINTS_MI = "Show Points Label";
+	public static final String SET_DRAW_DELAUNAY_CIRCUMCIRCLES_MI = "Draw Delaunay circumcircles";
+	public static final String RESET_ALL_PREFERENCES_MI = "Reset Edited Values";
+	public static final String HELP_MI = "Help";
+	public static final String ABOUT_MI = "About";
+	public static final String EXIT_MI = "Exit";
 	private static final int MAX_BEZIER_CURVE_POINTS = 67;
 	private static final String BEZIER_CURVE_DISABLED_MESSAGE = String.format("The bezier curve only works when there are less than %d points.", MAX_BEZIER_CURVE_POINTS);
 	private final JMenuItem clearPoints_MI;
@@ -55,7 +55,7 @@ public class CompGeoFrame extends JFrame
 	private final JCheckBoxMenuItem drawDelaunayCircumcircles_MI;
 	private final CompGeoCanvas canvas;
 
-	CompGeoFrame()
+	public CompGeoFrame()
 	{
 		super("Comp Geo Demo");
 
@@ -194,7 +194,7 @@ public class CompGeoFrame extends JFrame
 		return canvas;
 	}
 
-	void setConvexHullPoints(List<Point> convexHullPoints)
+	public void setConvexHullPoints(List<Point> convexHullPoints)
 	{
 		Polygon convexHull = convexHullPoints == null ? null : PointUiUtils.createPolygon(convexHullPoints);
 		canvas.setConvexHull(convexHull);
@@ -203,7 +203,7 @@ public class CompGeoFrame extends JFrame
 		convexHull_MI.setSelected(convexHull != null);
 	}
 
-	void setVoronoiCells(Collection<VoronoiCell> voronoiCells)
+	public void setVoronoiCells(Collection<VoronoiCell> voronoiCells)
 	{
 		canvas.setVoronoiCells(voronoiCells);
 
@@ -211,7 +211,7 @@ public class CompGeoFrame extends JFrame
 		voronoiDiagram_MI.setSelected(voronoiCells != null);
 	}
 
-	void setDelaunayTriangulationTriangles(Collection<DelaunayTriangle> delaunayTriangulationTriangles)
+	public void setDelaunayTriangulationTriangles(Collection<DelaunayTriangle> delaunayTriangulationTriangles)
 	{
 		canvas.setDelaunayTriangulationTriangles(delaunayTriangulationTriangles);
 
@@ -219,7 +219,7 @@ public class CompGeoFrame extends JFrame
 		delaunayTriangulation_MI.setSelected(delaunayTriangulationTriangles != null);
 	}
 
-	void setBezierCurvePoints(List<Point> bezierCurvePoints)
+	public void setBezierCurvePoints(List<Point> bezierCurvePoints)
 	{
 		canvas.setBezierCurvePoints(bezierCurvePoints);
 
@@ -227,7 +227,7 @@ public class CompGeoFrame extends JFrame
 		bezierCurve_MI.setSelected(bezierCurvePoints != null);
 	}
 
-	void updatePointControls()
+	public void updatePointControls()
 	{
 		boolean hasPoints = canvas.getPointCount() > 0;
 		clearPoints_MI.setEnabled(hasPoints);
@@ -243,7 +243,7 @@ public class CompGeoFrame extends JFrame
 	 * Hull from.
 	 * @return True if the point was added to the Set of Point, otherwise false.
 	 */
-	boolean addPoints(Point... points)
+	public boolean addPoints(Point... points)
 	{
 		boolean pointAdded = canvas.addPoints(points);
 
@@ -262,7 +262,7 @@ public class CompGeoFrame extends JFrame
 		return pointAdded;
 	}
 
-	void clear()
+	public void clear()
 	{
 		if (canvas.getPointCount() > MAX_BEZIER_CURVE_POINTS) // Remove the warning tooltip.
 		{
@@ -284,7 +284,7 @@ public class CompGeoFrame extends JFrame
 		this.setBezierCurvePoints(null);
 	}
 
-	void reloadPreferences()
+	public void reloadPreferences()
 	{
 		canvas.reloadPreferences();
 
