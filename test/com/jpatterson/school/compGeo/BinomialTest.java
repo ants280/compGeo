@@ -12,7 +12,7 @@ import java.util.Arrays;
 @RunWith(Parameterized.class)
 public class BinomialTest
 {
-	@Parameter(0)
+	@Parameter() // default is 0
 	public int n;
 	@Parameter(1)
 	public int k;
