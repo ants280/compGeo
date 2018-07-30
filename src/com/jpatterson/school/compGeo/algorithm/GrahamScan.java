@@ -31,8 +31,7 @@ public class GrahamScan
 		Map<Double, List<Point>> ccwPoints = getCcwPoints();
 		List<List<Point>> sortedCcwPoints = getSortedCcwPoints(ccwPoints);
 		List<Point> exteriorCcwPoints = getExteriorCcwPoints(sortedCcwPoints);
-		List<Point> necessaryConvexHullPoints = getNecessaryConvexHullPoints(exteriorCcwPoints);
-		return necessaryConvexHullPoints;
+		return getNecessaryConvexHullPoints(exteriorCcwPoints);
 	}
 
 	private Map<Double, List<Point>> getCcwPoints()
@@ -91,7 +90,7 @@ public class GrahamScan
 	{
 		return points.stream()
 			.min(Point::compareTo)
-			.get();
+			.orElse(null);
 	}
 
 	private static Point getFarthestPoint(List<Point> pointsAtAngle, Point sourcePoint)
@@ -100,8 +99,8 @@ public class GrahamScan
 			= point -> CompGeoUtils.getDistance(point, sourcePoint);
 
 		return pointsAtAngle.stream()
-			.max(Comparator.<Point>comparingDouble(getDistanceToSourcePoint))
-			.get();
+			.max(Comparator.comparingDouble(getDistanceToSourcePoint))
+			.orElse(null);
 	}
 
 	/**
@@ -109,15 +108,15 @@ public class GrahamScan
 	 * necessaryPoints.
 	 *
 	 * @param point The point to test
-	 * @param necssaryPoints The points which have been determined to make the
+	 * @param necessaryPoints The points which have been determined to make the
 	 * convex hull.
 	 * @return Whether or not nextPoint is inside of rectangle formed by
 	 * necessaryPoints.
 	 */
-	private static boolean isInteriorPoint(Point point, List<Point> necssaryPoints)
+	private static boolean isInteriorPoint(Point point, List<Point> necessaryPoints)
 	{
-		Point secondToLastPoint = necssaryPoints.get(necssaryPoints.size() - 2);
-		Point lastPoint = necssaryPoints.get(necssaryPoints.size() - 1);
+		Point secondToLastPoint = necessaryPoints.get(necessaryPoints.size() - 2);
+		Point lastPoint = necessaryPoints.get(necessaryPoints.size() - 1);
 
 		return CompGeoUtils.getDeterminant(secondToLastPoint, lastPoint, point) >= 0;
 	}
