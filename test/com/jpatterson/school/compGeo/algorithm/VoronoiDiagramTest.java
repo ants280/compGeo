@@ -2,6 +2,7 @@ package com.jpatterson.school.compGeo.algorithm;
 
 import com.jpatterson.school.compGeo.Point;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import static org.junit.Assert.*;
@@ -13,7 +14,7 @@ public class VoronoiDiagramTest
 	public void testGetVoronoiCells_onePoint()
 	{
 		Point p0 = new Point(7, 13);
-		List<Point> points = Arrays.asList(p0);
+		List<Point> points = Collections.singletonList(p0);
 		int maxWidth = 20;
 		int maxHeight = 20;
 		VoronoiDiagram voronoiDiagram = new VoronoiDiagram(points, maxWidth, maxHeight);

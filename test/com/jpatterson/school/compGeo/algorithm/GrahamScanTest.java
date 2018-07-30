@@ -30,10 +30,10 @@ public class GrahamScanTest
 	public static Iterable<Object[]> data()
 	{
 		return Arrays.asList(
-			createTestCase(Arrays.asList(), Arrays.asList()),
-			createTestCase(Arrays.asList(new Point(0, 0)), Arrays.asList(0)),
+			createTestCase(Collections.emptyList(), Collections.emptyList()),
+			createTestCase(Collections.singletonList(new Point(0, 0)), Collections.singletonList(0)),
 			createTestCase(Arrays.asList(new Point(0, 0), new Point(0, 1)), Arrays.asList(0, 1)),
-			createTestCase(Arrays.asList(new Point(0, 0), new Point(0, 0)), Arrays.asList(0)),
+			createTestCase(Arrays.asList(new Point(0, 0), new Point(0, 0)), Collections.singletonList(0)),
 			createTestCase(Arrays.asList(new Point(0, 0), new Point(1, 0), new Point(0, 1)), Arrays.asList(0, 1, 2)),
 			createTestCase(Arrays.asList(new Point(0, 0), new Point(1, 0), new Point(2, 0)), Arrays.asList(0, 2)),
 			createTestCase(Arrays.asList(new Point(0, 0), new Point(1, 0), new Point(1, 1), new Point(0, 1)), Arrays.asList(0, 1, 2, 3)),

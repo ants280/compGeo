@@ -7,7 +7,7 @@ import org.junit.Test;
 public class TriangleTest
 {
 	@Test(expected = IllegalArgumentException.class)
-	public void testConstructor_colinearPoints()
+	public void testConstructor_collinearPoints()
 	{
 		Point p1 = new Point(1, 1);
 		Point p2 = new Point(3, 3);
