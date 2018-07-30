@@ -127,11 +127,11 @@ public class DelaunayTriangulation
 			.collect(Collectors.toList());
 	}
 
-	private boolean flipTrianglesAround(Triangle sourceTriangle)
+	private void flipTrianglesAround(Triangle sourceTriangle)
 	{
 		if (!triangulationTriangles.contains(sourceTriangle))
 		{
-			return false;
+			return; // no points flipped
 		}
 
 		for (Triangle otherTriangle : triangulationTriangles) // TODO: Need faster lookup of triangles next to sourceTriangle.
@@ -145,14 +145,14 @@ public class DelaunayTriangulation
 			assert sharedPoints.size() < 3;
 			if (sharedPoints.size() == 2)
 			{
-				Point otherPoint = otherTriangle.getPoints().stream().filter(point -> !sharedPoints.contains(point)).findAny().get();
+				Point otherPoint = getOtherPoint(otherTriangle, sharedPoints);
 
 				if (!sourceTriangle.containsPointInCircle(otherPoint))
 				{
 					continue;
 				}
 
-				Point sourceTrianglePoint = sourceTriangle.getPoints().stream().filter(point -> !sharedPoints.contains(point)).findAny().get();
+				Point sourceTrianglePoint = getOtherPoint(sourceTriangle, sharedPoints);
 
 				Triangle t1 = new Triangle(sourceTrianglePoint, otherPoint, sharedPoints.get(0));
 				Triangle t2 = new Triangle(sourceTrianglePoint, otherPoint, sharedPoints.get(1));
@@ -165,10 +165,19 @@ public class DelaunayTriangulation
 				flipTrianglesAround(t1);
 				flipTrianglesAround(t2);
 
-				return true;
+				return; // points flipped
 			}
 		}
 
-		return false;
+		// no points flipped
+	}
+
+	private Point getOtherPoint(Triangle triangle, List<Point> sharedPoints)
+	{
+		return triangle.getPoints()
+				.stream()
+				.filter(point -> !sharedPoints.contains(point))
+				.findAny()
+				.orElse(null);
 	}
 }
