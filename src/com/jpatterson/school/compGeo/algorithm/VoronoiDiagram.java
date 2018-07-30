@@ -38,7 +38,7 @@ public class VoronoiDiagram
 	{
 		try
 		{
-			List<Point> voroniCellPoints = new LinkedList<>(Arrays.asList(
+			List<Point> voronoiCellPoints = new LinkedList<>(Arrays.asList(
 				new Point(0, 0),
 				new Point(maxWidth, 0),
 				new Point(maxWidth, maxHeight),
@@ -49,17 +49,17 @@ public class VoronoiDiagram
 				if (!otherPoint.equals(point))
 				{
 					splitVoronoiCellPoints(
-						voroniCellPoints,
+						voronoiCellPoints,
 						new BisectorLine(point, otherPoint),
 						point);
 				}
 			}
 
-			return voroniCellPoints;
+			return voronoiCellPoints;
 		}
 		catch (Exception ex)
 		{
-			throw new RuntimeException("Problem getting voroni cell for point " + point + " for points: " + points, ex);
+			throw new RuntimeException("Problem getting voronoi cell for point " + point + " for points: " + points, ex);
 		}
 	}
 
@@ -70,18 +70,18 @@ public class VoronoiDiagram
 			return;
 		}
 
-		boolean pointInVoroniCellCcwToSplitLine = isCcw(splitLine, pointInVoronoiCell);
+		boolean pointInVoronoiCellCcwToSplitLine = isCcw(splitLine, pointInVoronoiCell);
 
 		int i = 0;
 		Point firstPoint = voronoiCellPoints.get(0);
 		Point previousPoint;
-		if (pointInVoroniCellCcwToSplitLine != isCcw(splitLine, voronoiCellPoints.get(i)))
+		if (pointInVoronoiCellCcwToSplitLine != isCcw(splitLine, voronoiCellPoints.get(i)))
 		{
 			do
 			{
 				previousPoint = voronoiCellPoints.remove(i);
 			}
-			while (i < voronoiCellPoints.size() && pointInVoroniCellCcwToSplitLine != isCcw(splitLine, voronoiCellPoints.get(i)));
+			while (i < voronoiCellPoints.size() && pointInVoronoiCellCcwToSplitLine != isCcw(splitLine, voronoiCellPoints.get(i)));
 
 			if (i < voronoiCellPoints.size())
 			{
@@ -94,7 +94,7 @@ public class VoronoiDiagram
 				previousPoint = voronoiCellPoints.get(i);
 				i++;
 
-				while (i < voronoiCellPoints.size() && pointInVoroniCellCcwToSplitLine == isCcw(splitLine, voronoiCellPoints.get(i)))
+				while (i < voronoiCellPoints.size() && pointInVoronoiCellCcwToSplitLine == isCcw(splitLine, voronoiCellPoints.get(i)))
 				{
 					previousPoint = voronoiCellPoints.get(i);
 					i++;
@@ -121,7 +121,7 @@ public class VoronoiDiagram
 			{
 				i++;
 			}
-			while (i < voronoiCellPoints.size() && pointInVoroniCellCcwToSplitLine == isCcw(splitLine, voronoiCellPoints.get(i)));
+			while (i < voronoiCellPoints.size() && pointInVoronoiCellCcwToSplitLine == isCcw(splitLine, voronoiCellPoints.get(i)));
 
 			if (i < voronoiCellPoints.size())
 			{
@@ -131,14 +131,14 @@ public class VoronoiDiagram
 						splitLine,
 						voronoiCellPoints.get(i - 1),
 						voronoiCellPoints.get(i)));
-				previousPoint = voronoiCellPoints.get(i);
+				//previousPoint = voronoiCellPoints.get(i); // TODO: maybe this is the cause of some problems. (it is currently never used because of the do-while below)
 				i++;
 
 				do
 				{
 					previousPoint = voronoiCellPoints.remove(i);
 				}
-				while (i < voronoiCellPoints.size() && pointInVoroniCellCcwToSplitLine != isCcw(splitLine, voronoiCellPoints.get(i)));
+				while (i < voronoiCellPoints.size() && pointInVoronoiCellCcwToSplitLine != isCcw(splitLine, voronoiCellPoints.get(i)));
 
 				voronoiCellPoints.add(
 					i,
