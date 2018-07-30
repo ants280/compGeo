@@ -54,7 +54,7 @@ public class CompGeoActionListener implements ActionListener
 		commandMap.put(SET_CONVEX_HULL_COLOR_MI, this::handleSetConvexHullColor);
 		commandMap.put(SET_DRAW_POINTS_MI, () -> flipPreferenceBooleanValue(CompGeoCanvasPreference.DRAW_POINTS, canvas::flipDrawPoints, canvas::shouldDrawPoints));
 		commandMap.put(SET_SMOOTH_EDGES_MI, () -> flipPreferenceBooleanValue(CompGeoCanvasPreference.SMOOTH_EDGES, canvas::flipSmoothEdges, canvas::shouldSmoothEdges));
-		commandMap.put(SET_COLOR_VORONOI_CELL_REGIONS_MI, () -> flipPreferenceBooleanValue(CompGeoCanvasPreference.COLOR_VORONOI_CELL_REGIONS, canvas::flipColorVoronoiCellRegions, canvas::shouldColorVoronoiCellRegoins));
+		commandMap.put(SET_COLOR_VORONOI_CELL_REGIONS_MI, () -> flipPreferenceBooleanValue(CompGeoCanvasPreference.COLOR_VORONOI_CELL_REGIONS, canvas::flipColorVoronoiCellRegions, canvas::shouldColorVoronoiCellRegions));
 		commandMap.put(SET_SHOW_POINTS_MI, () -> flipPreferenceBooleanValue(CompGeoCanvasPreference.SHOW_POINTS_LABEL, canvas::flipShowPointsLabel, canvas::shouldShowPointsLabel));
 		commandMap.put(SET_DRAW_DELAUNAY_CIRCUMCIRCLES_MI, () -> flipPreferenceBooleanValue(CompGeoCanvasPreference.DRAW_DELAUNAY_CIRCUMCIRCLES, canvas::flipDrawDelaunayCircumcircles, canvas::shouldDrawDelaunayCircumcircles));
 		commandMap.put(RESET_ALL_PREFERENCES_MI, this::handleResetAllPreferences);
@@ -85,11 +85,13 @@ public class CompGeoActionListener implements ActionListener
 			return;
 		}
 
-		Point randomPoint;
 		Collection<Point> canvasPoints = canvas.getPoints();
 		Set<Point> existingPoints = new HashSet<>(canvasPoints);
+		Set<Point> newPoints = new HashSet<>();
 		for (int i = 0; i < numberRandomPointsToAdd; i++)
 		{
+			Point randomPoint;
+
 			do
 			{
 				int x = POINT_GENERATOR.nextInt(canvas.getWidth());
@@ -97,11 +99,12 @@ public class CompGeoActionListener implements ActionListener
 				randomPoint = new Point(x, y);
 			}
 			while (!existingPoints.add(randomPoint));
-		}
-		Set<Point> newPoints = existingPoints;
 
-		newPoints.removeAll(canvasPoints);
-		frame.addPoints(newPoints.stream().toArray(Point[]::new));
+			newPoints.add(randomPoint);
+		}
+
+		Point[] points = newPoints.toArray(new Point[0]);
+		frame.addPoints(points);
 	}
 
 	private void toggleConvexHull()
@@ -120,7 +123,7 @@ public class CompGeoActionListener implements ActionListener
 
 	private void toggleVoronoiDiagram()
 	{
-		if (frame.getCanvas().hasVoroniCells())
+		if (frame.getCanvas().hasVoronoiCells())
 		{
 			frame.setVoronoiCells(null);
 		}
@@ -236,7 +239,7 @@ public class CompGeoActionListener implements ActionListener
 			+ "\n"
 			+ "\nA Bezier Curve can be drawn between the first point and most recently drawn"
 			+ "\npoint by clicking \"" + TOGGLE_BEZIER_CURVE_MI + "\".  This curves toward intermediate points"
-			+ "\nby a factor relative to the amount of the line that has been dwawn.",
+			+ "\nby a factor relative to the amount of the line that has been drawn.",
 			"Help",
 			JOptionPane.QUESTION_MESSAGE);
 	}
@@ -348,7 +351,7 @@ public class CompGeoActionListener implements ActionListener
 			{
 				return null;
 			}
-			return fileName.substring(lastIndexOfPeriod + 1, fileName.length());
+			return fileName.substring(lastIndexOfPeriod + 1);
 		}
 	}
 }

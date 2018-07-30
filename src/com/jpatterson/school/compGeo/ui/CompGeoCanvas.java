@@ -15,7 +15,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class CompGeoCanvas extends Canvas
 {
@@ -82,7 +81,7 @@ public class CompGeoCanvas extends Canvas
 		return convexHull != null;
 	}
 
-	public boolean hasVoroniCells()
+	public boolean hasVoronoiCells()
 	{
 		return voronoiCells != null;
 	}
@@ -197,7 +196,7 @@ public class CompGeoCanvas extends Canvas
 		}
 	}
 
-	public boolean shouldColorVoronoiCellRegoins()
+	public boolean shouldColorVoronoiCellRegions()
 	{
 		return colorVoronoiCellRegions;
 	}
@@ -271,7 +270,7 @@ public class CompGeoCanvas extends Canvas
 		this.whiteoutRectangle(g);
 		this.drawVoronoiCells(g);
 		this.drawConvexHull(g);
-		this.drawDelanauyTriangulation(g);
+		this.drawDelaunayTriangulation(g);
 		this.drawBezierCurvePoints(g);
 		this.drawPoints(g);
 		this.drawPointsLabel(g);
@@ -308,7 +307,7 @@ public class CompGeoCanvas extends Canvas
 		}
 	}
 
-	private void drawDelanauyTriangulation(Graphics g)
+	private void drawDelaunayTriangulation(Graphics g)
 	{
 		if (delaunayTriangulationTriangles != null)
 		{
@@ -440,8 +439,7 @@ public class CompGeoCanvas extends Canvas
 	 */
 	public List<Point> getPoints()
 	{
-		return points.stream()
-			.collect(Collectors.toList());
+		return new ArrayList<>(points);
 	}
 
 	/**

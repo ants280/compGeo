@@ -11,14 +11,26 @@ public abstract class CompGeoCanvasPreference<T>
 {
 	private static final Preferences PREFERENCES_API = Preferences.userNodeForPackage(CompGeoCanvas.class);
 
-	public static final CompGeoCanvasPreference<Integer> POINT_RADIUS = new CompGeoCanvasIntegerPreference("POINT_RADIUS", 4);
-	public static final CompGeoCanvasPreference<Integer> RANDOM_POINT_COUNT = new CompGeoCanvasIntegerPreference("RANDOM_POINT_COUNT", 3);
-	public static final CompGeoCanvasPreference<Integer> CONVEX_HULL_COLOR = new CompGeoCanvasIntegerPreference("CONVEX_HULL_COLOR", 0x7fff0000); // new Color(255, 0, 0, 127) (transparent red)
-	public static final CompGeoCanvasPreference<Boolean> DRAW_POINTS = new CompGeoCanvasBooleanPreference("DRAW_POINTS", true);
-	public static final CompGeoCanvasPreference<Boolean> SMOOTH_EDGES = new CompGeoCanvasBooleanPreference("SMOOTH_EDGES", true);
-	public static final CompGeoCanvasPreference<Boolean> COLOR_VORONOI_CELL_REGIONS = new CompGeoCanvasBooleanPreference("COLOR_VORONOI_CELL_REGIONS", true);
-	public static final CompGeoCanvasPreference<Boolean> SHOW_POINTS_LABEL = new CompGeoCanvasBooleanPreference("SHOW_POINTS_LABEL", true);
-	public static final CompGeoCanvasPreference<Boolean> DRAW_DELAUNAY_CIRCUMCIRCLES = new CompGeoCanvasBooleanPreference("DRAW_DELAUNAY_CIRCUMCIRCLES", true);
+	public static final CompGeoCanvasPreference<Integer> POINT_RADIUS;
+	public static final CompGeoCanvasPreference<Integer> RANDOM_POINT_COUNT;
+	public static final CompGeoCanvasPreference<Integer> CONVEX_HULL_COLOR;
+	public static final CompGeoCanvasPreference<Boolean> DRAW_POINTS;
+	public static final CompGeoCanvasPreference<Boolean> SMOOTH_EDGES;
+	public static final CompGeoCanvasPreference<Boolean> COLOR_VORONOI_CELL_REGIONS;
+	public static final CompGeoCanvasPreference<Boolean> SHOW_POINTS_LABEL;
+	public static final CompGeoCanvasPreference<Boolean> DRAW_DELAUNAY_CIRCUMCIRCLES;
+
+	static
+	{
+		POINT_RADIUS = new CompGeoCanvasIntegerPreference("POINT_RADIUS", 4);
+		RANDOM_POINT_COUNT = new CompGeoCanvasIntegerPreference("RANDOM_POINT_COUNT", 3);
+		CONVEX_HULL_COLOR = new CompGeoCanvasIntegerPreference("CONVEX_HULL_COLOR", 0x7fff0000); // new Color(255, 0, 0, 127) (transparent red)
+		DRAW_POINTS = new CompGeoCanvasBooleanPreference("DRAW_POINTS", true);
+		SMOOTH_EDGES = new CompGeoCanvasBooleanPreference("SMOOTH_EDGES", true);
+		COLOR_VORONOI_CELL_REGIONS = new CompGeoCanvasBooleanPreference("COLOR_VORONOI_CELL_REGIONS", true);
+		SHOW_POINTS_LABEL = new CompGeoCanvasBooleanPreference("SHOW_POINTS_LABEL", true);
+		DRAW_DELAUNAY_CIRCUMCIRCLES = new CompGeoCanvasBooleanPreference("DRAW_DELAUNAY_CIRCUMCIRCLES", true);
+	}
 
 	protected static final Set<CompGeoCanvasPreference<?>> ALL_PREFERENCES
 		= new HashSet<>(Arrays.asList(

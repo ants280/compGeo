@@ -3,6 +3,7 @@ package com.jpatterson.school.compGeo.ui;
 import com.jpatterson.school.compGeo.Point;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -20,5 +21,15 @@ public class PointUiUtilsTest
 		Double actualMaxPointValue = PointUiUtils.getMaxPointValue(points, Point::getX);
 
 		assertEquals(expectedMaxPointValue, actualMaxPointValue);
+	}
+
+	@Test
+	public void testGetMaxPointValue_noValue()
+	{
+		Collection<Point> points = Collections.emptyList();
+
+		Double actualMaxPointValue = PointUiUtils.getMaxPointValue(points, Point::getX);
+
+		assertNull(actualMaxPointValue);
 	}
 }

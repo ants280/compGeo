@@ -50,7 +50,7 @@ public class CompGeoFrame extends JFrame
 	private final JMenuItem saveAsImage_MI;
 	private final JCheckBoxMenuItem drawPoints_MI;
 	private final JCheckBoxMenuItem smoothEdges_MI;
-	private final JCheckBoxMenuItem colorVoronoiCellRegoins_MI;
+	private final JCheckBoxMenuItem colorVoronoiCellRegions_MI;
 	private final JCheckBoxMenuItem showPointsLabel_MI;
 	private final JCheckBoxMenuItem drawDelaunayCircumcircles_MI;
 	private final CompGeoCanvas canvas;
@@ -68,7 +68,7 @@ public class CompGeoFrame extends JFrame
 		this.saveAsImage_MI = new JMenuItem(SAVE_IMAGE, KeyEvent.VK_S);
 		this.drawPoints_MI = new JCheckBoxMenuItem(SET_DRAW_POINTS_MI, true);
 		this.smoothEdges_MI = new JCheckBoxMenuItem(SET_SMOOTH_EDGES_MI, true);
-		this.colorVoronoiCellRegoins_MI = new JCheckBoxMenuItem(SET_COLOR_VORONOI_CELL_REGIONS_MI, true);
+		this.colorVoronoiCellRegions_MI = new JCheckBoxMenuItem(SET_COLOR_VORONOI_CELL_REGIONS_MI, true);
 		this.showPointsLabel_MI = new JCheckBoxMenuItem(SET_SHOW_POINTS_MI, true);
 		this.drawDelaunayCircumcircles_MI = new JCheckBoxMenuItem(SET_DRAW_DELAUNAY_CIRCUMCIRCLES_MI, true);
 
@@ -93,7 +93,7 @@ public class CompGeoFrame extends JFrame
 		JMenuItem setConvexHullColor_MI = new JMenuItem(SET_CONVEX_HULL_COLOR_MI, KeyEvent.VK_C);
 		drawPoints_MI.setSelected(canvas.shouldDrawPoints());
 		smoothEdges_MI.setSelected(canvas.shouldSmoothEdges());
-		colorVoronoiCellRegoins_MI.setSelected(canvas.shouldColorVoronoiCellRegoins());
+		colorVoronoiCellRegions_MI.setSelected(canvas.shouldColorVoronoiCellRegions());
 		showPointsLabel_MI.setSelected(canvas.shouldShowPointsLabel());
 		drawDelaunayCircumcircles_MI.setSelected(canvas.shouldDrawDelaunayCircumcircles());
 		JMenuItem resetAllPreferences_MI = new JMenuItem(RESET_ALL_PREFERENCES_MI);
@@ -124,7 +124,7 @@ public class CompGeoFrame extends JFrame
 		imageMenu.addSeparator();
 		imageMenu.add(drawPoints_MI);
 		imageMenu.add(smoothEdges_MI);
-		imageMenu.add(colorVoronoiCellRegoins_MI);
+		imageMenu.add(colorVoronoiCellRegions_MI);
 		imageMenu.add(showPointsLabel_MI);
 		imageMenu.add(drawDelaunayCircumcircles_MI);
 		imageMenu.addSeparator();
@@ -241,9 +241,8 @@ public class CompGeoFrame extends JFrame
 	 *
 	 * @param points The Point to add the Set of Points to create the Convex
 	 * Hull from.
-	 * @return True if the point was added to the Set of Point, otherwise false.
 	 */
-	public boolean addPoints(Point... points)
+	public void addPoints(Point... points)
 	{
 		boolean pointAdded = canvas.addPoints(points);
 
@@ -259,7 +258,6 @@ public class CompGeoFrame extends JFrame
 			}
 		}
 
-		return pointAdded;
 	}
 
 	public void clear()
@@ -290,7 +288,7 @@ public class CompGeoFrame extends JFrame
 
 		drawPoints_MI.setSelected(canvas.shouldDrawPoints());
 		smoothEdges_MI.setSelected(canvas.shouldSmoothEdges());
-		colorVoronoiCellRegoins_MI.setSelected(canvas.shouldColorVoronoiCellRegoins());
+		colorVoronoiCellRegions_MI.setSelected(canvas.shouldColorVoronoiCellRegions());
 		showPointsLabel_MI.setSelected(canvas.shouldShowPointsLabel());
 		drawDelaunayCircumcircles_MI.setSelected(canvas.shouldDrawDelaunayCircumcircles());
 	}

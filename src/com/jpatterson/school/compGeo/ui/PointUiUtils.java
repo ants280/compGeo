@@ -20,20 +20,19 @@ public class PointUiUtils
 
 	public static Polygon createPolygon(List<Point> points)
 	{
-		int[] xpoints = getPointValues(points, Point::getX);
-		int[] ypoints = getPointValues(points, Point::getY);
-		int npoints = points.size();
+		int[] xPoints = getPointValues(points, Point::getX);
+		int[] yPoints = getPointValues(points, Point::getY);
+		int nPoints = points.size();
 
-		return new Polygon(xpoints, ypoints, npoints);
+		return new Polygon(xPoints, yPoints, nPoints);
 	}
 
 	public static Double getMaxPointValue(Collection<Point> points, Function<Point, Double> valueExtractor)
 	{
 		return points.stream()
-			.sorted(Comparator.comparing(valueExtractor).reversed())
-			.findFirst()
-			.map(valueExtractor)
-			.get();
+				.max(Comparator.comparing(valueExtractor))
+				.map(valueExtractor)
+				.orElse(null);
 	}
 
 	public static Point getPoint(MouseEvent event)
