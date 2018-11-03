@@ -86,7 +86,7 @@ public class CompGeoFrame extends JFrame
 		delaunayTriangulation_MI.setEnabled(false);
 		bezierCurve_MI.setEnabled(false);
 		JMenuItem exit_MI = new JMenuItem(EXIT_MI, KeyEvent.VK_X);
-		exit_MI.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, KeyEvent.ALT_MASK));
+		exit_MI.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, KeyEvent.ALT_DOWN_MASK));
 
 		JMenuItem setRadius_MI = new JMenuItem(SET_RADIUS_MI, KeyEvent.VK_R);
 		JMenuItem setNumPoints_MI = new JMenuItem(SET_NUMBER_RANDOM_POINTS_MI, KeyEvent.VK_N);
