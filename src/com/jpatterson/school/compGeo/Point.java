@@ -1,6 +1,5 @@
 package com.jpatterson.school.compGeo;
 
-import org.jetbrains.annotations.NotNull;
 
 public class Point implements Comparable<Point>
 {
@@ -40,7 +39,7 @@ public class Point implements Comparable<Point>
 	 * @return The lowest or leftmost point.
 	 */
 	@Override
-	public int compareTo(@NotNull Point other)
+	public int compareTo(Point other)
 	{
 		double diffY = this.getY() - other.getY();
 
