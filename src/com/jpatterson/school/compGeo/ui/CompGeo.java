@@ -43,11 +43,7 @@ public final class CompGeo implements Runnable
 	{
 		try
 		{
-			if (!System.getProperty("os.name").toLowerCase().contains("mac"))
-			{
-				UIManager.setLookAndFeel(
-					"com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-			}
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		}
 		catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex)
 		{
