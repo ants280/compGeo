@@ -1,6 +1,6 @@
-package com.jpatterson.school.compGeo.line;
+package com.github.ants280.compGeo.line;
 
-import com.jpatterson.school.compGeo.Point;
+import com.github.ants280.compGeo.Point;
 
 public class ParametricLine implements Line<ParametricLine>
 {
@@ -32,21 +32,21 @@ public class ParametricLine implements Line<ParametricLine>
 		double otherLineB = getB(otherLine.startPoint, otherLineM);
 
 		if ((thisLineM == null && otherLineM == null)
-			|| (thisLineM != null && otherLineM != null
-			&& thisLineM.doubleValue() == otherLineM.doubleValue()))
+				|| (thisLineM != null && otherLineM != null
+				&& thisLineM.doubleValue() == otherLineM.doubleValue()))
 		{
 			throw new IllegalArgumentException("Equal slopes: " + this + " " + otherLine);
 		}
 
 		double x
-			= (thisLineM == null)
-				? thisLineB
-				: (otherLineM == null)
-					? otherLineB
-					: (thisLineB - otherLineB) / (otherLineM - thisLineM);
+				= (thisLineM == null)
+						? thisLineB
+						: (otherLineM == null)
+								? otherLineB
+								: (thisLineB - otherLineB) / (otherLineM - thisLineM);
 		double y = (thisLineM == null)
-			? otherLineM * x + otherLineB
-			: thisLineM * x + thisLineB;
+				? otherLineM * x + otherLineB
+				: thisLineM * x + thisLineB;
 
 		return new Point(x, y);
 	}
@@ -60,14 +60,14 @@ public class ParametricLine implements Line<ParametricLine>
 	private static Double getM(Point startPoint, Point endPoint)
 	{
 		return (startPoint.getX() == endPoint.getX())
-			? null
-			: (0.0 + endPoint.getY() - startPoint.getY()) / (endPoint.getX() - startPoint.getX());
+				? null
+				: (0.0 + endPoint.getY() - startPoint.getY()) / (endPoint.getX() - startPoint.getX());
 	}
 
 	private static double getB(Point startPoint, Double m)
 	{
 		return (m == null)
-			? startPoint.getX()
-			: startPoint.getY() - (m * startPoint.getX());
+				? startPoint.getX()
+				: startPoint.getY() - (m * startPoint.getX());
 	}
 }

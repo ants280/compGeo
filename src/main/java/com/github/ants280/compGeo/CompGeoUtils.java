@@ -1,4 +1,4 @@
-package com.jpatterson.school.compGeo;
+package com.github.ants280.compGeo;
 
 /**
  * An Set of utilities for doing math on Points.
@@ -38,7 +38,7 @@ public class CompGeoUtils
 		Vector v1 = new Vector(p2, p1);
 
 		return Math.acos(v0.getDotProduct(v1)
-			/ (v0.getLength() * v1.getLength()));
+				/ (v0.getLength() * v1.getLength()));
 	}
 
 	/**
@@ -68,7 +68,7 @@ public class CompGeoUtils
 	public static double getDistance(Point p0, Point p1)
 	{
 		return Math.sqrt(Math.pow(p1.getX() - p0.getX(), 2)
-			+ Math.pow(p1.getY() - p0.getY(), 2));
+				+ Math.pow(p1.getY() - p0.getY(), 2));
 	}
 
 	public static IllegalArgumentException createIllegalArgumentException(String message, Object... variables)

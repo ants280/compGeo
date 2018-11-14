@@ -1,9 +1,9 @@
-package com.jpatterson.school.compGeo.ui.worker;
+package com.github.ants280.compGeo.ui.worker;
 
-import com.jpatterson.school.compGeo.Point;
-import com.jpatterson.school.compGeo.algorithm.VoronoiDiagram;
-import com.jpatterson.school.compGeo.ui.CompGeoFrame;
-import com.jpatterson.school.compGeo.ui.VoronoiCell;
+import com.github.ants280.compGeo.Point;
+import com.github.ants280.compGeo.algorithm.VoronoiDiagram;
+import com.github.ants280.compGeo.ui.CompGeoFrame;
+import com.github.ants280.compGeo.ui.VoronoiCell;
 import java.util.Collection;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -19,9 +19,9 @@ public class VoronoiDiagramPopupWorker extends CompGeoPopupWorker<Collection<Vor
 		super(completedAction, frame, "Voronoi Diagram being created...");
 		this.points = frame.getCanvas().getPoints();
 		this.voronoiDiagram = new VoronoiDiagram(
-			points,
-			frame.getCanvas().getWidth() - 1,
-			frame.getCanvas().getHeight() - 1);
+				points,
+				frame.getCanvas().getWidth() - 1,
+				frame.getCanvas().getHeight() - 1);
 		this.progressPerPoint = 1d / points.size();
 	}
 
@@ -29,8 +29,8 @@ public class VoronoiDiagramPopupWorker extends CompGeoPopupWorker<Collection<Vor
 	protected Collection<VoronoiCell> doInBackground()
 	{
 		return points.stream()
-			.map(this::createVoronoiCell)
-			.collect(Collectors.toList());
+				.map(this::createVoronoiCell)
+				.collect(Collectors.toList());
 	}
 
 	private VoronoiCell createVoronoiCell(Point point)

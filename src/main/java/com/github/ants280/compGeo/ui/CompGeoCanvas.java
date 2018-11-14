@@ -1,6 +1,6 @@
-package com.jpatterson.school.compGeo.ui;
+package com.github.ants280.compGeo.ui;
 
-import com.jpatterson.school.compGeo.Point;
+import com.github.ants280.compGeo.Point;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.FontMetrics;
@@ -41,8 +41,8 @@ public class CompGeoCanvas extends Canvas
 
 	protected static final Set<CompGeoCanvasPreference<?>> ALL_PREFERENCES
 			= new HashSet<>(Arrays.asList(
-			POINT_RADIUS, RANDOM_POINT_COUNT, CONVEX_HULL_COLOR,
-			DRAW_POINTS, SMOOTH_EDGES, COLOR_VORONOI_CELL_REGIONS, SHOW_POINTS_LABEL, DRAW_DELAUNAY_CIRCUMCIRCLES));
+					POINT_RADIUS, RANDOM_POINT_COUNT, CONVEX_HULL_COLOR,
+					DRAW_POINTS, SMOOTH_EDGES, COLOR_VORONOI_CELL_REGIONS, SHOW_POINTS_LABEL, DRAW_DELAUNAY_CIRCUMCIRCLES));
 
 	public CompGeoCanvas()
 	{
@@ -267,8 +267,8 @@ public class CompGeoCanvas extends Canvas
 	public void update(Graphics g)
 	{
 		BufferedImage lastDrawnImage
-			= (BufferedImage) this.createImage(this.getWidth(),
-				this.getHeight());
+				= (BufferedImage) this.createImage(this.getWidth(),
+						this.getHeight());
 
 		//Draws the shape onto the BufferedImage
 		this.paint(lastDrawnImage.getGraphics());
@@ -282,8 +282,8 @@ public class CompGeoCanvas extends Canvas
 	{
 		Graphics2D g2 = (Graphics2D) g;
 		RenderingHints rh = new RenderingHints(
-			RenderingHints.KEY_ANTIALIASING,
-			smoothEdges ? RenderingHints.VALUE_ANTIALIAS_ON : RenderingHints.VALUE_ANTIALIAS_OFF);
+				RenderingHints.KEY_ANTIALIASING,
+				smoothEdges ? RenderingHints.VALUE_ANTIALIAS_ON : RenderingHints.VALUE_ANTIALIAS_OFF);
 		g2.setRenderingHints(rh);
 
 		this.whiteoutRectangle(g);
@@ -340,15 +340,15 @@ public class CompGeoCanvas extends Canvas
 					g.setColor(Color.LIGHT_GRAY);
 
 					g.drawLine(
-						(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getX() - pointRadius,
-						(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getY() - pointRadius,
-						(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getX() + pointRadius,
-						(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getY() + pointRadius);
+							(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getX() - pointRadius,
+							(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getY() - pointRadius,
+							(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getX() + pointRadius,
+							(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getY() + pointRadius);
 					g.drawLine(
-						(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getX() - pointRadius,
-						(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getY() + pointRadius,
-						(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getX() + pointRadius,
-						(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getY() - pointRadius);
+							(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getX() - pointRadius,
+							(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getY() + pointRadius,
+							(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getX() + pointRadius,
+							(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getY() - pointRadius);
 
 					int x = (int) (delaunayTriangulationTriangle.getCircumcircleCenterPoint().getX() - delaunayTriangulationTriangle.getCircumcircleRadius());
 					int y = (int) (delaunayTriangulationTriangle.getCircumcircleCenterPoint().getY() - delaunayTriangulationTriangle.getCircumcircleRadius());
@@ -367,13 +367,13 @@ public class CompGeoCanvas extends Canvas
 
 			GeneralPath polyLine = new GeneralPath();
 			polyLine.moveTo(
-				bezierCurvePoints.get(0).getX(),
-				bezierCurvePoints.get(0).getY());
+					bezierCurvePoints.get(0).getX(),
+					bezierCurvePoints.get(0).getY());
 			for (int i = 1; i < bezierCurvePoints.size(); i++)
 			{
 				polyLine.lineTo(
-					bezierCurvePoints.get(i).getX(),
-					bezierCurvePoints.get(i).getY());
+						bezierCurvePoints.get(i).getX(),
+						bezierCurvePoints.get(i).getY());
 			}
 			((Graphics2D) g).draw(polyLine);
 		}
@@ -387,22 +387,22 @@ public class CompGeoCanvas extends Canvas
 			{
 				g.setColor(Color.GRAY);
 				g.fillOval(
-					(int) point.getX() - pointRadius,
-					(int) point.getY() - pointRadius,
-					2 * pointRadius,
-					2 * pointRadius);
+						(int) point.getX() - pointRadius,
+						(int) point.getY() - pointRadius,
+						2 * pointRadius,
+						2 * pointRadius);
 
 				g.setColor(Color.BLACK);
 				g.drawOval(
-					(int) point.getX() - pointRadius,
-					(int) point.getY() - pointRadius,
-					2 * pointRadius,
-					2 * pointRadius);
+						(int) point.getX() - pointRadius,
+						(int) point.getY() - pointRadius,
+						2 * pointRadius,
+						2 * pointRadius);
 				g.drawLine(
-					(int) point.getX(),
-					(int) point.getY(),
-					(int) point.getX(),
-					(int) point.getY());
+						(int) point.getX(),
+						(int) point.getY(),
+						(int) point.getX(),
+						(int) point.getY());
 			}
 		}
 	}
@@ -427,8 +427,8 @@ public class CompGeoCanvas extends Canvas
 
 			String pointCount = "Points: " + points.size() + " ";
 			int pointCountWidth = pointCount.chars()
-				.map(fontMetrics::charWidth)
-				.sum();
+					.map(fontMetrics::charWidth)
+					.sum();
 			int pointCountHeight = fontMetrics.getHeight() / 2;
 
 			int x = this.getWidth() - pointCountWidth;

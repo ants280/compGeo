@@ -1,4 +1,4 @@
-package com.jpatterson.school.compGeo;
+package com.github.ants280.compGeo;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +27,7 @@ public class Binomial
 //		{
 //			return 1;
 //		}
-//		
+//
 //		BinomialValueKey binomialValueKey = new BinomialValueKey(n, k);
 //		if (cache.containsKey(binomialValueKey))
 //		{
@@ -109,10 +109,10 @@ public class Binomial
 		public boolean equals(Object obj)
 		{
 			return (this == obj)
-				|| ((obj != null)
-				&& (this.getClass() == obj.getClass())
-				&& (this.n == ((BinomialValueKey) obj).n)
-				&& (this.k == ((BinomialValueKey) obj).k));
+					|| ((obj != null)
+					&& (this.getClass() == obj.getClass())
+					&& (this.n == ((BinomialValueKey) obj).n)
+					&& (this.k == ((BinomialValueKey) obj).k));
 		}
 	}
 }

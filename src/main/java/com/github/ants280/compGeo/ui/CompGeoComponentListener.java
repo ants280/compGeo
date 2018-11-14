@@ -1,6 +1,6 @@
-package com.jpatterson.school.compGeo.ui;
+package com.github.ants280.compGeo.ui;
 
-import com.jpatterson.school.compGeo.Point;
+import com.github.ants280.compGeo.Point;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.Collection;
@@ -21,8 +21,8 @@ public class CompGeoComponentListener extends ComponentAdapter
 		Collection<Point> points = canvas.getPoints();
 
 		if (!points.isEmpty()
-			&& ((PointUiUtils.getMaxPointValue(points, Point::getX) > canvas.getWidth())
-			|| (PointUiUtils.getMaxPointValue(points, Point::getY) > canvas.getHeight())))
+				&& ((PointUiUtils.getMaxPointValue(points, Point::getX) > canvas.getWidth())
+				|| (PointUiUtils.getMaxPointValue(points, Point::getY) > canvas.getHeight())))
 		{
 			frame.clear();
 		}

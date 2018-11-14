@@ -1,7 +1,7 @@
-package com.jpatterson.school.compGeo.ui;
+package com.github.ants280.compGeo.ui;
 
-import com.jpatterson.school.compGeo.CompGeoUtils;
-import com.jpatterson.school.compGeo.Point;
+import com.github.ants280.compGeo.CompGeoUtils;
+import com.github.ants280.compGeo.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Comparator;
@@ -40,14 +40,14 @@ public class CompGeoMouseListener extends MouseAdapter
 		System.out.printf("Distances from %s to points:\n", point);
 
 		frame.getCanvas().getPoints()
-			.stream()
-			.collect(Collectors.toMap(
-				Function.identity(),
-				otherPoint -> CompGeoUtils.getDistance(point, otherPoint)))
-			.entrySet()
-			.stream()
-			.sorted(Comparator.comparing(Map.Entry::getValue))
-			.forEach(entry -> System.out.printf(
+				.stream()
+				.collect(Collectors.toMap(
+						Function.identity(),
+						otherPoint -> CompGeoUtils.getDistance(point, otherPoint)))
+				.entrySet()
+				.stream()
+				.sorted(Comparator.comparing(Map.Entry::getValue))
+				.forEach(entry -> System.out.printf(
 				"\t%s is at distance %.2f\n",
 				entry.getKey(),
 				entry.getValue()));

@@ -1,4 +1,4 @@
-package com.jpatterson.school.compGeo.ui;
+package com.github.ants280.compGeo.ui;
 
 import java.awt.Component;
 import java.io.PrintWriter;
@@ -44,14 +44,14 @@ public class CompGeoUncaughtExceptionHandler implements UncaughtExceptionHandler
 			panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
 			JOptionPane.showOptionDialog(
-				parentComponent,
-				panel,
-				"Error",
-				JOptionPane.DEFAULT_OPTION,
-				JOptionPane.ERROR_MESSAGE,
-				null,
-				null,
-				null);
+					parentComponent,
+					panel,
+					"Error",
+					JOptionPane.DEFAULT_OPTION,
+					JOptionPane.ERROR_MESSAGE,
+					null,
+					null,
+					null);
 		}
 		catch (Throwable throwable)
 		{

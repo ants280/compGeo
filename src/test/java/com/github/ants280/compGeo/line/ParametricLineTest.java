@@ -1,7 +1,7 @@
-package com.jpatterson.school.compGeo.line;
+package com.github.ants280.compGeo.line;
 
-import static com.jpatterson.school.compGeo.CompGeoUtils.DELTA;
-import com.jpatterson.school.compGeo.Point;
+import static com.github.ants280.compGeo.CompGeoUtils.DELTA;
+import com.github.ants280.compGeo.Point;
 import static org.junit.Assert.*;
 import org.junit.Test;
 

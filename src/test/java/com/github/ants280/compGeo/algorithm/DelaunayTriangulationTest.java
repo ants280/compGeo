@@ -1,6 +1,6 @@
-package com.jpatterson.school.compGeo.algorithm;
+package com.github.ants280.compGeo.algorithm;
 
-import com.jpatterson.school.compGeo.Point;
+import com.github.ants280.compGeo.Point;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Assert;

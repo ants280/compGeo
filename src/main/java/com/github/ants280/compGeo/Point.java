@@ -1,5 +1,4 @@
-package com.jpatterson.school.compGeo;
-
+package com.github.ants280.compGeo;
 
 public class Point implements Comparable<Point>
 {
@@ -63,8 +62,8 @@ public class Point implements Comparable<Point>
 	public boolean equals(Object obj)
 	{
 		return obj instanceof Point
-			&& this.x == ((Point) obj).x
-			&& this.y == ((Point) obj).y;
+				&& this.x == ((Point) obj).x
+				&& this.y == ((Point) obj).y;
 //			&& Math.abs(this.x - ((Point) obj).x) < CompGeoUtils.DELTA
 //			&& Math.abs(this.y - ((Point) obj).y) < CompGeoUtils.DELTA;
 	}

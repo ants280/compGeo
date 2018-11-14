@@ -1,13 +1,12 @@
-package com.jpatterson.school.compGeo;
+package com.github.ants280.compGeo;
 
+import java.util.Arrays;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
-
-import java.util.Arrays;
 
 @RunWith(Parameterized.class)
 public class BinomialTest
@@ -23,17 +22,17 @@ public class BinomialTest
 	public static Iterable<Object[]> data()
 	{
 		return Arrays.asList(
-			createTestCase(0, 0, 1L),
-			createTestCase(1, 1, 1L),
-			createTestCase(10, 10, 1L),
-			createTestCase(1, 0, 1L),
-			createTestCase(10, 0, 1L),
-			createTestCase(7, 1, 7L),
-			createTestCase(7, 6, 7L),
-			createTestCase(5, 2, 10L),
-			createTestCase(5, 3, 10L),
-			createTestCase(6, 3, 20L),
-			createTestCase(499, 4, 2552446876L));
+				createTestCase(0, 0, 1L),
+				createTestCase(1, 1, 1L),
+				createTestCase(10, 10, 1L),
+				createTestCase(1, 0, 1L),
+				createTestCase(10, 0, 1L),
+				createTestCase(7, 1, 7L),
+				createTestCase(7, 6, 7L),
+				createTestCase(5, 2, 10L),
+				createTestCase(5, 3, 10L),
+				createTestCase(6, 3, 20L),
+				createTestCase(499, 4, 2552446876L));
 	}
 
 	private static Object[] createTestCase(int n, int k, Object expectedValue)

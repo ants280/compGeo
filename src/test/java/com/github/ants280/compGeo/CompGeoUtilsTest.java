@@ -1,6 +1,6 @@
-package com.jpatterson.school.compGeo;
+package com.github.ants280.compGeo;
 
-import static com.jpatterson.school.compGeo.CompGeoUtils.DELTA;
+import static com.github.ants280.compGeo.CompGeoUtils.DELTA;
 import static java.lang.Math.PI;
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -57,7 +57,7 @@ public class CompGeoUtilsTest
 		double expectedAngle = PI / 2;
 
 		assertEquals("angles between 0 and PI should only be returned",
-			expectedAngle, actualAngle, DELTA);
+				expectedAngle, actualAngle, DELTA);
 	}
 
 	/**
@@ -73,7 +73,7 @@ public class CompGeoUtilsTest
 		double expectedDeterminant = CompGeoUtils.getDeterminant(p0, p1, p2);
 
 		assertTrue("The determinant should be greater than 0 because the points are in clockwise direction",
-			expectedDeterminant > 0);
+				expectedDeterminant > 0);
 	}
 
 	/**
@@ -89,7 +89,7 @@ public class CompGeoUtilsTest
 		double expectedDeterminant = CompGeoUtils.getDeterminant(p0, p1, p2);
 
 		assertTrue("The determinant should be less than 0 because the points are in counterClockwise direction",
-			expectedDeterminant < 0);
+				expectedDeterminant < 0);
 	}
 
 	@Test

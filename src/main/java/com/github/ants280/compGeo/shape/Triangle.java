@@ -1,9 +1,9 @@
-package com.jpatterson.school.compGeo.shape;
+package com.github.ants280.compGeo.shape;
 
-import com.jpatterson.school.compGeo.CompGeoUtils;
-import com.jpatterson.school.compGeo.Point;
-import com.jpatterson.school.compGeo.line.BisectorLine;
-import com.jpatterson.school.compGeo.line.ParametricLine;
+import com.github.ants280.compGeo.CompGeoUtils;
+import com.github.ants280.compGeo.Point;
+import com.github.ants280.compGeo.line.BisectorLine;
+import com.github.ants280.compGeo.line.ParametricLine;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -60,9 +60,9 @@ public class Triangle implements Shape
 	public List<Point> getSharedPoints(Triangle other)
 	{
 		return pointsList
-			.stream()
-			.filter(point -> other.getPoints().contains(point))
-			.collect(Collectors.toList());
+				.stream()
+				.filter(point -> other.getPoints().contains(point))
+				.collect(Collectors.toList());
 	}
 
 	// Next two methods (getTwiceArea, containsPointInCircle) copied from "Incremental Delaunay Triangulation", ACM 1993, Dani Lischinski.
@@ -74,9 +74,9 @@ public class Triangle implements Shape
 	public boolean containsPointInCircle(Point p4)
 	{
 		return (p1.getX() * p1.getX() + p1.getY() * p1.getY()) * getTwiceArea(p2, p3, p4)
-			- (p2.getX() * p2.getX() + p2.getY() * p2.getY()) * getTwiceArea(p1, p3, p4)
-			+ (p3.getX() * p3.getX() + p3.getY() * p3.getY()) * getTwiceArea(p1, p2, p4)
-			- (p4.getX() * p4.getX() + p4.getY() * p4.getY()) * getTwiceArea(p1, p2, p3) > 0;
+				- (p2.getX() * p2.getX() + p2.getY() * p2.getY()) * getTwiceArea(p1, p3, p4)
+				+ (p3.getX() * p3.getX() + p3.getY() * p3.getY()) * getTwiceArea(p1, p2, p4)
+				- (p4.getX() * p4.getX() + p4.getY() * p4.getY()) * getTwiceArea(p1, p2, p3) > 0;
 	}
 
 	public Point getCircumcircleCenterPoint()

@@ -1,6 +1,6 @@
-package com.jpatterson.school.compGeo.ui;
+package com.github.ants280.compGeo.ui;
 
-import com.jpatterson.school.compGeo.Point;
+import com.github.ants280.compGeo.Point;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -13,9 +13,9 @@ public class PointUiUtilsTest
 	public void testGetMaxPointValue()
 	{
 		Collection<Point> points = Arrays.asList(
-			new Point(3d, 4d),
-			new Point(5d, 6d),
-			new Point(1d, 2d));
+				new Point(3d, 4d),
+				new Point(5d, 6d),
+				new Point(1d, 2d));
 
 		Double expectedMaxPointValue = 5d;
 		Double actualMaxPointValue = PointUiUtils.getMaxPointValue(points, Point::getX);

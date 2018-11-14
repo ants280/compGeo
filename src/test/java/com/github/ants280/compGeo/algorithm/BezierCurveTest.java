@@ -1,7 +1,7 @@
-package com.jpatterson.school.compGeo.algorithm;
+package com.github.ants280.compGeo.algorithm;
 
-import com.jpatterson.school.compGeo.CompGeoUtils;
-import com.jpatterson.school.compGeo.Point;
+import com.github.ants280.compGeo.CompGeoUtils;
+import com.github.ants280.compGeo.Point;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
@@ -49,8 +49,8 @@ public class BezierCurveTest
 		BezierCurve bezierCurve = new BezierCurve(new Point(1, 1), new Point(7, 4));
 		List<Point> actualBezierCurvePoints = bezierCurve.getPoints(1 / 3d, 2 / 3d, 1, 2d);
 		Assert.assertNull(
-			"The points should be null because they are more than 2 apart ([3,2]&[5,3] are sqrt(5) apart",
-			actualBezierCurvePoints);
+				"The points should be null because they are more than 2 apart ([3,2]&[5,3] are sqrt(5) apart",
+				actualBezierCurvePoints);
 	}
 
 	private void assertPointsAre(List<Point> actualBezierCurvePoints, Point... expectedBezierCurvePoints)
@@ -71,8 +71,8 @@ public class BezierCurveTest
 	private void assertCoordinatesAreClose(Point expectedPoint, Point actualPoint, Function<Point, Double> coordinateFunction)
 	{
 		Assert.assertEquals(
-			coordinateFunction.apply(expectedPoint),
-			coordinateFunction.apply(actualPoint),
-			CompGeoUtils.DELTA);
+				coordinateFunction.apply(expectedPoint),
+				coordinateFunction.apply(actualPoint),
+				CompGeoUtils.DELTA);
 	}
 }

@@ -1,7 +1,7 @@
-package com.jpatterson.school.compGeo.line;
+package com.github.ants280.compGeo.line;
 
-import static com.jpatterson.school.compGeo.CompGeoUtils.DELTA;
-import com.jpatterson.school.compGeo.Point;
+import static com.github.ants280.compGeo.CompGeoUtils.DELTA;
+import com.github.ants280.compGeo.Point;
 
 public class LineSegment extends ParametricLine
 {
@@ -21,9 +21,9 @@ public class LineSegment extends ParametricLine
 		Point intersectionPoint = super.getIntersectionPoint(line);
 
 		if ((intersectionPoint.getX() - DELTA > startPoint.getX() && intersectionPoint.getX() - DELTA > endPoint.getX())
-			|| (intersectionPoint.getX() + DELTA < startPoint.getX() && intersectionPoint.getX() + DELTA < endPoint.getX())
-			|| (intersectionPoint.getY() - DELTA > startPoint.getY() && intersectionPoint.getY() - DELTA > endPoint.getY()
-			|| (intersectionPoint.getY() + DELTA < startPoint.getY() && intersectionPoint.getY() + DELTA < endPoint.getY())))
+				|| (intersectionPoint.getX() + DELTA < startPoint.getX() && intersectionPoint.getX() + DELTA < endPoint.getX())
+				|| (intersectionPoint.getY() - DELTA > startPoint.getY() && intersectionPoint.getY() - DELTA > endPoint.getY()
+				|| (intersectionPoint.getY() + DELTA < startPoint.getY() && intersectionPoint.getY() + DELTA < endPoint.getY())))
 		{
 			throw new IllegalArgumentException(String.format("Line %s does not intersect with line segment %s", line, this));
 		}

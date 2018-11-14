@@ -1,6 +1,6 @@
-package com.jpatterson.school.compGeo.ui;
+package com.github.ants280.compGeo.ui;
 
-import com.jpatterson.school.compGeo.Point;
+import com.github.ants280.compGeo.Point;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Polygon;

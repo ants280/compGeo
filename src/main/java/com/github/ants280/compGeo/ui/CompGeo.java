@@ -1,4 +1,4 @@
-package com.jpatterson.school.compGeo.ui;
+package com.github.ants280.compGeo.ui;
 
 import java.awt.Window;
 import javax.swing.JOptionPane;
@@ -32,7 +32,7 @@ public final class CompGeo implements Runnable
 
 		Window frame = new CompGeoFrame();
 		Thread.setDefaultUncaughtExceptionHandler(
-			new CompGeoUncaughtExceptionHandler(frame));
+				new CompGeoUncaughtExceptionHandler(frame));
 
 		// Center the Window on the screen.
 		frame.setLocationRelativeTo(null);

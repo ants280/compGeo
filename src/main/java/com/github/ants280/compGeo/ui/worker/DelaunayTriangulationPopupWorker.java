@@ -1,9 +1,9 @@
-package com.jpatterson.school.compGeo.ui.worker;
+package com.github.ants280.compGeo.ui.worker;
 
-import com.jpatterson.school.compGeo.Point;
-import com.jpatterson.school.compGeo.algorithm.DelaunayTriangulation;
-import com.jpatterson.school.compGeo.ui.CompGeoFrame;
-import com.jpatterson.school.compGeo.ui.DelaunayTriangle;
+import com.github.ants280.compGeo.Point;
+import com.github.ants280.compGeo.algorithm.DelaunayTriangulation;
+import com.github.ants280.compGeo.ui.CompGeoFrame;
+import com.github.ants280.compGeo.ui.DelaunayTriangle;
 import java.util.Collection;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -28,9 +28,9 @@ public class DelaunayTriangulationPopupWorker extends CompGeoPopupWorker<Collect
 		points.forEach(this::addPointToTriangulation);
 
 		return delaunayTriangulation.getTriangulationTriangles()
-			.stream()
-			.map(DelaunayTriangle::new)
-			.collect(Collectors.toList());
+				.stream()
+				.map(DelaunayTriangle::new)
+				.collect(Collectors.toList());
 	}
 
 	private void addPointToTriangulation(Point point)

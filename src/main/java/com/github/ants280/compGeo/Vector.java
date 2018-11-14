@@ -1,4 +1,4 @@
-package com.jpatterson.school.compGeo;
+package com.github.ants280.compGeo;
 
 public class Vector extends Point
 {

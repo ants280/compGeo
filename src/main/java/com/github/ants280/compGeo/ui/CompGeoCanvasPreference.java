@@ -1,4 +1,4 @@
-package com.jpatterson.school.compGeo.ui;
+package com.github.ants280.compGeo.ui;
 
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
@@ -14,10 +14,10 @@ public abstract class CompGeoCanvasPreference<T>
 	private final BiConsumer<String, T> preferenceSetter;
 
 	private CompGeoCanvasPreference(
-		String preferenceName,
-		T defaultValue,
-		BiFunction<String, T, T> preferenceGetter,
-		BiConsumer<String, T> preferenceSetter)
+			String preferenceName,
+			T defaultValue,
+			BiFunction<String, T, T> preferenceGetter,
+			BiConsumer<String, T> preferenceSetter)
 	{
 		this.preferenceName = preferenceName;
 		this.defaultValue = defaultValue;

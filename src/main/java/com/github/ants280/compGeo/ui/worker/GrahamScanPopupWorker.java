@@ -1,8 +1,8 @@
-package com.jpatterson.school.compGeo.ui.worker;
+package com.github.ants280.compGeo.ui.worker;
 
-import com.jpatterson.school.compGeo.Point;
-import com.jpatterson.school.compGeo.algorithm.GrahamScan;
-import com.jpatterson.school.compGeo.ui.CompGeoFrame;
+import com.github.ants280.compGeo.Point;
+import com.github.ants280.compGeo.algorithm.GrahamScan;
+import com.github.ants280.compGeo.ui.CompGeoFrame;
 import java.util.List;
 import java.util.function.Consumer;
 

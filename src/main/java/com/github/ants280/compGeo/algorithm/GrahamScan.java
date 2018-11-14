@@ -1,7 +1,7 @@
-package com.jpatterson.school.compGeo.algorithm;
+package com.github.ants280.compGeo.algorithm;
 
-import com.jpatterson.school.compGeo.CompGeoUtils;
-import com.jpatterson.school.compGeo.Point;
+import com.github.ants280.compGeo.CompGeoUtils;
+import com.github.ants280.compGeo.Point;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -39,30 +39,30 @@ public class GrahamScan
 		Point lowestPoint = getLowestPoint();
 		Point rightOfLowestPoint = new Point(lowestPoint.getX() + 1, lowestPoint.getY());
 		Function<Point, Double> getAngleToLowestPoint
-			= point -> CompGeoUtils.getAngle(rightOfLowestPoint, lowestPoint, point);
+				= point -> CompGeoUtils.getAngle(rightOfLowestPoint, lowestPoint, point);
 
 		return points.stream()
-			.collect(Collectors.groupingBy(getAngleToLowestPoint));
+				.collect(Collectors.groupingBy(getAngleToLowestPoint));
 	}
 
 	private List<List<Point>> getSortedCcwPoints(Map<Double, List<Point>> ccwPoints)
 	{
 		return ccwPoints.entrySet()
-			.stream()
-			.sorted(Comparator.comparing(Map.Entry::getKey))
-			.map(Map.Entry::getValue)
-			.collect(Collectors.toList());
+				.stream()
+				.sorted(Comparator.comparing(Map.Entry::getKey))
+				.map(Map.Entry::getValue)
+				.collect(Collectors.toList());
 	}
 
 	private List<Point> getExteriorCcwPoints(List<List<Point>> sortedCcwPoints)
 	{
 		Point lowestPoint = getLowestPoint();
 		Function<List<Point>, Point> getFarthestPointAtAngle
-			= pointsAtAngle -> getFarthestPoint(pointsAtAngle, lowestPoint);
+				= pointsAtAngle -> getFarthestPoint(pointsAtAngle, lowestPoint);
 
 		return sortedCcwPoints.stream()
-			.map(getFarthestPointAtAngle)
-			.collect(Collectors.toList());
+				.map(getFarthestPointAtAngle)
+				.collect(Collectors.toList());
 	}
 
 	private static List<Point> getNecessaryConvexHullPoints(List<Point> ccwExteriorPoints)
@@ -89,18 +89,18 @@ public class GrahamScan
 	private Point getLowestPoint()
 	{
 		return points.stream()
-			.min(Point::compareTo)
-			.orElse(null);
+				.min(Point::compareTo)
+				.orElse(null);
 	}
 
 	private static Point getFarthestPoint(List<Point> pointsAtAngle, Point sourcePoint)
 	{
 		ToDoubleFunction<Point> getDistanceToSourcePoint
-			= point -> CompGeoUtils.getDistance(point, sourcePoint);
+				= point -> CompGeoUtils.getDistance(point, sourcePoint);
 
 		return pointsAtAngle.stream()
-			.max(Comparator.comparingDouble(getDistanceToSourcePoint))
-			.orElse(null);
+				.max(Comparator.comparingDouble(getDistanceToSourcePoint))
+				.orElse(null);
 	}
 
 	/**

@@ -1,10 +1,10 @@
-package com.jpatterson.school.compGeo.algorithm;
+package com.github.ants280.compGeo.algorithm;
 
-import com.jpatterson.school.compGeo.CompGeoUtils;
-import com.jpatterson.school.compGeo.Point;
-import com.jpatterson.school.compGeo.line.BisectorLine;
-import com.jpatterson.school.compGeo.line.LineSegment;
-import com.jpatterson.school.compGeo.line.ParametricLine;
+import com.github.ants280.compGeo.CompGeoUtils;
+import com.github.ants280.compGeo.Point;
+import com.github.ants280.compGeo.line.BisectorLine;
+import com.github.ants280.compGeo.line.LineSegment;
+import com.github.ants280.compGeo.line.ParametricLine;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -29,9 +29,9 @@ public class VoronoiDiagram
 	public Map<Point, List<Point>> getVoronoiCells()
 	{
 		return points.stream()
-			.collect(Collectors.toMap(
-				Function.identity(),
-				this::getVoronoiCellPoints));
+				.collect(Collectors.toMap(
+						Function.identity(),
+						this::getVoronoiCellPoints));
 	}
 
 	public List<Point> getVoronoiCellPoints(Point point)
@@ -39,19 +39,19 @@ public class VoronoiDiagram
 		try
 		{
 			List<Point> voronoiCellPoints = new LinkedList<>(Arrays.asList(
-				new Point(0, 0),
-				new Point(maxWidth, 0),
-				new Point(maxWidth, maxHeight),
-				new Point(0, maxHeight)));
+					new Point(0, 0),
+					new Point(maxWidth, 0),
+					new Point(maxWidth, maxHeight),
+					new Point(0, maxHeight)));
 
 			for (Point otherPoint : points)
 			{
 				if (!otherPoint.equals(point))
 				{
 					splitVoronoiCellPoints(
-						voronoiCellPoints,
-						new BisectorLine(point, otherPoint),
-						point);
+							voronoiCellPoints,
+							new BisectorLine(point, otherPoint),
+							point);
 				}
 			}
 
@@ -86,11 +86,11 @@ public class VoronoiDiagram
 			if (i < voronoiCellPoints.size())
 			{
 				voronoiCellPoints.add(
-					i,
-					getIntersectionPoint(
-						splitLine,
-						previousPoint,
-						voronoiCellPoints.get(i)));
+						i,
+						getIntersectionPoint(
+								splitLine,
+								previousPoint,
+								voronoiCellPoints.get(i)));
 				previousPoint = voronoiCellPoints.get(i);
 				i++;
 
@@ -101,11 +101,11 @@ public class VoronoiDiagram
 				}
 
 				voronoiCellPoints.add(
-					i,
-					getIntersectionPoint(
-						splitLine,
-						previousPoint,
-						i == voronoiCellPoints.size() ? firstPoint : voronoiCellPoints.get(i)));
+						i,
+						getIntersectionPoint(
+								splitLine,
+								previousPoint,
+								i == voronoiCellPoints.size() ? firstPoint : voronoiCellPoints.get(i)));
 				i++;
 
 				// Remove remaining points.  They should all be out of the voronoi cell.
@@ -126,11 +126,11 @@ public class VoronoiDiagram
 			if (i < voronoiCellPoints.size())
 			{
 				voronoiCellPoints.add(
-					i,
-					getIntersectionPoint(
-						splitLine,
-						voronoiCellPoints.get(i - 1),
-						voronoiCellPoints.get(i)));
+						i,
+						getIntersectionPoint(
+								splitLine,
+								voronoiCellPoints.get(i - 1),
+								voronoiCellPoints.get(i)));
 				//previousPoint = voronoiCellPoints.get(i); // TODO: maybe this is the cause of some problems. (it is currently never used because of the do-while below)
 				i++;
 
@@ -141,11 +141,11 @@ public class VoronoiDiagram
 				while (i < voronoiCellPoints.size() && pointInVoronoiCellCcwToSplitLine != isCcw(splitLine, voronoiCellPoints.get(i)));
 
 				voronoiCellPoints.add(
-					i,
-					getIntersectionPoint(
-						splitLine,
-						previousPoint,
-						i == voronoiCellPoints.size() ? firstPoint : voronoiCellPoints.get(i)));
+						i,
+						getIntersectionPoint(
+								splitLine,
+								previousPoint,
+								i == voronoiCellPoints.size() ? firstPoint : voronoiCellPoints.get(i)));
 
 				// keep remaining points.  they are all in the voronoi cell.
 			}
@@ -169,7 +169,7 @@ public class VoronoiDiagram
 	private static Point getIntersectionPoint(ParametricLine splitLine, Point startPoint, Point endPoint)
 	{
 		return new LineSegment(startPoint, endPoint)
-			.getIntersectionPoint(splitLine);
+				.getIntersectionPoint(splitLine);
 	}
 
 	@Override

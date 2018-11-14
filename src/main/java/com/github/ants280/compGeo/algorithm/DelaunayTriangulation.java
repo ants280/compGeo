@@ -1,8 +1,8 @@
-package com.jpatterson.school.compGeo.algorithm;
+package com.github.ants280.compGeo.algorithm;
 
-import com.jpatterson.school.compGeo.CompGeoUtils;
-import com.jpatterson.school.compGeo.Point;
-import com.jpatterson.school.compGeo.shape.Triangle;
+import com.github.ants280.compGeo.CompGeoUtils;
+import com.github.ants280.compGeo.Point;
+import com.github.ants280.compGeo.shape.Triangle;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -57,8 +57,8 @@ public class DelaunayTriangulation
 		}
 
 		List<Triangle> trianglesContainingPoint = triangulationTriangles.stream()
-			.filter(triangle -> triangle.contains(point))
-			.collect(Collectors.toList());
+				.filter(triangle -> triangle.contains(point))
+				.collect(Collectors.toList());
 		assert trianglesContainingPoint.size() > 0;
 		assert trianglesContainingPoint.size() <= 2;
 
@@ -117,14 +117,14 @@ public class DelaunayTriangulation
 	public List<Triangle> getTriangulationTriangles()
 	{
 		return triangulationTriangles.stream()
-			.collect(Collectors.toMap(Function.identity(), Triangle::getPoints))
-			.entrySet()
-			.stream()
-			.filter(entry -> !entry.getValue().contains(p1))
-			.filter(entry -> !entry.getValue().contains(p2))
-			.filter(entry -> !entry.getValue().contains(p3))
-			.map(Map.Entry::getKey)
-			.collect(Collectors.toList());
+				.collect(Collectors.toMap(Function.identity(), Triangle::getPoints))
+				.entrySet()
+				.stream()
+				.filter(entry -> !entry.getValue().contains(p1))
+				.filter(entry -> !entry.getValue().contains(p2))
+				.filter(entry -> !entry.getValue().contains(p3))
+				.map(Map.Entry::getKey)
+				.collect(Collectors.toList());
 	}
 
 	private void flipTrianglesAround(Triangle sourceTriangle)

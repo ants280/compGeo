@@ -1,8 +1,8 @@
-package com.jpatterson.school.compGeo.algorithm;
+package com.github.ants280.compGeo.algorithm;
 
-import com.jpatterson.school.compGeo.Binomial;
-import com.jpatterson.school.compGeo.CompGeoUtils;
-import com.jpatterson.school.compGeo.Point;
+import com.github.ants280.compGeo.Binomial;
+import com.github.ants280.compGeo.CompGeoUtils;
+import com.github.ants280.compGeo.Point;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -69,15 +69,15 @@ public class BezierCurve
 
 		double stepAmount = (tMax - tMin) / stepCount;
 
-		// B(t) = SUM(i=0,n, binomial(n,i) * t^i * (1-t)^(n-i) * P(i) 
+		// B(t) = SUM(i=0,n, binomial(n,i) * t^i * (1-t)^(n-i) * P(i)
 		for (int step = 0; step <= stepCount; step++)
 		{
 			double t = tMin + (step * stepAmount);
 			points[step] = getPoint(t);
 
 			if (maxPointDifference != null
-				&& step > 0
-				&& CompGeoUtils.getDistance(points[step - 1], points[step]) > maxPointDifference)
+					&& step > 0
+					&& CompGeoUtils.getDistance(points[step - 1], points[step]) > maxPointDifference)
 			{
 				return null;
 			}
@@ -97,10 +97,10 @@ public class BezierCurve
 			if (scale < 0 || controlPoints.get(i).getX() < 0 || controlPoints.get(i).getY() < 0)
 			{
 				throw CompGeoUtils.createIllegalArgumentException(
-					"Invalid scale or point [x,y]",
-					scale,
-					controlPoints.get(i).getX(),
-					controlPoints.get(i).getY());
+						"Invalid scale or point [x,y]",
+						scale,
+						controlPoints.get(i).getX(),
+						controlPoints.get(i).getY());
 			}
 
 			x += (scale * controlPoints.get(i).getX());

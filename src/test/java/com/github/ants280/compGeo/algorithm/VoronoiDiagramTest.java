@@ -1,6 +1,6 @@
-package com.jpatterson.school.compGeo.algorithm;
+package com.github.ants280.compGeo.algorithm;
 
-import com.jpatterson.school.compGeo.Point;
+import com.github.ants280.compGeo.Point;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -21,10 +21,10 @@ public class VoronoiDiagramTest
 
 		Map<Point, List<Point>> actualVoronoiCellPoints = voronoiDiagram.getVoronoiCells();
 		List<Point> expectedP0VoronoiCellPoints = Arrays.asList(
-			new Point(0, 0),
-			new Point(20, 0),
-			new Point(20, 20),
-			new Point(0, 20));
+				new Point(0, 0),
+				new Point(20, 0),
+				new Point(20, 20),
+				new Point(0, 20));
 
 		assertSame(1, actualVoronoiCellPoints.size());
 		assertEquals(expectedP0VoronoiCellPoints, actualVoronoiCellPoints.get(p0));
@@ -42,15 +42,15 @@ public class VoronoiDiagramTest
 
 		Map<Point, List<Point>> actualVoronoiCellPoints = voronoiDiagram.getVoronoiCells();
 		List<Point> expectedP0VoronoiCellPoints = Arrays.asList(
-			new Point(0, 0),
-			new Point(2, 0),
-			new Point(2, 2),
-			new Point(0, 2));
+				new Point(0, 0),
+				new Point(2, 0),
+				new Point(2, 2),
+				new Point(0, 2));
 		List<Point> expectedP1VoronoiCellPoints = Arrays.asList(
-			new Point(2, 0),
-			new Point(4, 0),
-			new Point(4, 2),
-			new Point(2, 2));
+				new Point(2, 0),
+				new Point(4, 0),
+				new Point(4, 2),
+				new Point(2, 2));
 
 		assertSame(2, actualVoronoiCellPoints.size());
 		assertEquals(expectedP0VoronoiCellPoints, actualVoronoiCellPoints.get(p0));
@@ -69,15 +69,15 @@ public class VoronoiDiagramTest
 
 		Map<Point, List<Point>> actualVoronoiCellPoints = voronoiDiagram.getVoronoiCells();
 		List<Point> expectedP0VoronoiCellPoints = Arrays.asList(
-			new Point(0, 0),
-			new Point(4, 0),
-			new Point(4, 4),
-			new Point(3, 4),
-			new Point(0, 1));
+				new Point(0, 0),
+				new Point(4, 0),
+				new Point(4, 4),
+				new Point(3, 4),
+				new Point(0, 1));
 		List<Point> expectedP1VoronoiCellPoints = Arrays.asList(
-			new Point(3, 4),
-			new Point(0, 4),
-			new Point(0, 1));
+				new Point(3, 4),
+				new Point(0, 4),
+				new Point(0, 1));
 
 		assertSame(2, actualVoronoiCellPoints.size());
 		assertEquals(expectedP0VoronoiCellPoints, actualVoronoiCellPoints.get(p0));
@@ -97,20 +97,20 @@ public class VoronoiDiagramTest
 
 		Map<Point, List<Point>> actualVoronoiCellPoints = voronoiDiagram.getVoronoiCells();
 		List<Point> expectedP0VoronoiCellPoints = Arrays.asList(
-			new Point(0, 0),
-			new Point(2, 0),
-			new Point(2, 2),
-			new Point(0, 2));
+				new Point(0, 0),
+				new Point(2, 0),
+				new Point(2, 2),
+				new Point(0, 2));
 		List<Point> expectedP1VoronoiCellPoints = Arrays.asList(
-			new Point(2, 2),
-			new Point(2, 4),
-			new Point(0, 4),
-			new Point(0, 2));
+				new Point(2, 2),
+				new Point(2, 4),
+				new Point(0, 4),
+				new Point(0, 2));
 		List<Point> expectedP2VoronoiCellPoints = Arrays.asList(
-			new Point(2, 4),
-			new Point(2, 7),
-			new Point(0, 7),
-			new Point(0, 4));
+				new Point(2, 4),
+				new Point(2, 7),
+				new Point(0, 7),
+				new Point(0, 4));
 
 		assertSame(3, actualVoronoiCellPoints.size());
 		assertEquals(expectedP0VoronoiCellPoints, actualVoronoiCellPoints.get(p0));

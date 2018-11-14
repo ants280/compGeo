@@ -1,4 +1,4 @@
-package com.jpatterson.school.compGeo;
+package com.github.ants280.compGeo;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -13,7 +13,7 @@ public class PointTest
 
 		int actualCompareToValue = p0.compareTo(p1);
 		assertTrue("p0 should be < p1 because it has a larger x cordinate when the y coordinates are the same",
-			actualCompareToValue < 0);
+				actualCompareToValue < 0);
 	}
 
 	@Test
@@ -24,6 +24,6 @@ public class PointTest
 
 		int actualCompareToValue = p0.compareTo(p1);
 		assertTrue("p0 should be > p1 because it has a larger x cordinate when the y coordinates are the same",
-			actualCompareToValue > 0);
+				actualCompareToValue > 0);
 	}
 }

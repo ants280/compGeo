@@ -1,8 +1,8 @@
-package com.jpatterson.school.compGeo.ui.worker;
+package com.github.ants280.compGeo.ui.worker;
 
-import com.jpatterson.school.compGeo.Point;
-import com.jpatterson.school.compGeo.algorithm.BezierCurve;
-import com.jpatterson.school.compGeo.ui.CompGeoFrame;
+import com.github.ants280.compGeo.Point;
+import com.github.ants280.compGeo.algorithm.BezierCurve;
+import com.github.ants280.compGeo.ui.CompGeoFrame;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -44,8 +44,8 @@ public class BezierCurvePopupWorker extends CompGeoPopupWorker<List<Point>>
 		if (!points1.get(points1.size() - 1).equals(points2.get(0)))
 		{
 			throw new RuntimeException(String.format(
-				"Last point of first half of points should equal first point of last half of points. %s, tMin=%f, tMax=%f",
-				bezierCurve, tMin, tMax));
+					"Last point of first half of points should equal first point of last half of points. %s, tMin=%f, tMax=%f",
+					bezierCurve, tMin, tMax));
 		}
 
 		points.addAll(points1);

@@ -1,6 +1,6 @@
-package com.jpatterson.school.compGeo.ui;
+package com.github.ants280.compGeo.ui;
 
-import com.jpatterson.school.compGeo.Point;
+import com.github.ants280.compGeo.Point;
 import java.awt.Polygon;
 import java.awt.event.MouseEvent;
 import java.util.Collection;
@@ -43,8 +43,8 @@ public class PointUiUtils
 	private static int[] getPointValues(List<Point> points, ToDoubleFunction<Point> valueExtractor)
 	{
 		return points.stream()
-			.mapToDouble(valueExtractor)
-			.mapToInt(TRUNCATE_DOUBLE_FUNCTION)
-			.toArray();
+				.mapToDouble(valueExtractor)
+				.mapToInt(TRUNCATE_DOUBLE_FUNCTION)
+				.toArray();
 	}
 }
