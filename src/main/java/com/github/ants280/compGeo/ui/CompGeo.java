@@ -8,6 +8,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 public final class CompGeo implements Runnable
 {
+	// NOTE: The version only shows as non-null when `mvn package` is run.
 	public static final String VERSION = CompGeo.class.getPackage().getSpecificationVersion();
 
 	public static void main(final String[] args)
