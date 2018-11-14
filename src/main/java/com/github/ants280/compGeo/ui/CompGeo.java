@@ -8,7 +8,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 public final class CompGeo implements Runnable
 {
-	public static final String VERSION = "5.0-SNAPSHOT";
+	public static final String VERSION = CompGeo.class.getPackage().getImplementationVersion();
 
 	public static void main(final String[] args)
 	{
