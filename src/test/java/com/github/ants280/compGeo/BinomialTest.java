@@ -5,20 +5,23 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
 public class BinomialTest
 {
-	@Parameter() // default is 0
-	public int n;
-	@Parameter(1)
-	public int k;
-	@Parameter(2)
-	public Object expectedValue;
+	private final int n;
+	private final int k;
+	private final Object expectedValue;
 
-	@Parameters
+	public BinomialTest(int n, int k, Object expectedValue)
+	{
+		this.n = n;
+		this.k = k;
+		this.expectedValue = expectedValue;
+	}
+
+	@Parameters(name = "{index}: binomial.of(n:{0},  k:{1}) = expectedValue:{2}")
 	public static Iterable<Object[]> data()
 	{
 		return Arrays.asList(
