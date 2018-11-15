@@ -96,6 +96,16 @@ public class Binomial
 			this.k = k;
 		}
 
+		private int getN()
+		{
+			return n;
+		}
+
+		private int getK()
+		{
+			return k;
+		}
+
 		@Override
 		public int hashCode()
 		{
@@ -111,8 +121,8 @@ public class Binomial
 			return (this == obj)
 					|| ((obj != null)
 					&& (this.getClass() == obj.getClass())
-					&& (this.n == ((BinomialValueKey) obj).n)
-					&& (this.k == ((BinomialValueKey) obj).k));
+					&& (this.n == ((BinomialValueKey) obj).getN())
+					&& (this.k == ((BinomialValueKey) obj).getK()));
 		}
 	}
 }

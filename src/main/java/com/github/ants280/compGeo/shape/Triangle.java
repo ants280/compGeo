@@ -30,13 +30,13 @@ public class Triangle implements Shape
 		this.p1 = tempPointsList.get(0);
 		this.p2 = ccw ? tempPointsList.get(1) : tempPointsList.get(2);
 		this.p3 = ccw ? tempPointsList.get(2) : tempPointsList.get(1);
-		this.pointsList = Collections.unmodifiableList(Arrays.asList(this.p1, this.p2, this.p3));
+		this.pointsList = Arrays.asList(this.p1, this.p2, this.p3);
 	}
 
 	@Override
 	public List<Point> getPoints()
 	{
-		return pointsList;
+		return Collections.unmodifiableList(pointsList);
 	}
 
 	public boolean contains(Point point)

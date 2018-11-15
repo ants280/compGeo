@@ -66,10 +66,8 @@ public class DelaunayTriangulation
 
 		triangulationTriangles.removeAll(trianglesContainingPoint);
 		triangulationTriangles.addAll(splitTriangles);
-		for (Triangle splitTriangle : splitTriangles)
-		{
-			flipTrianglesAround(splitTriangle); // TODO: only need to flip triangles around splitTriangles (and then add those to splitTriangles).
-		}
+		// TODO: only need to flip triangles around splitTriangles (and then add those to splitTriangles).
+		splitTriangles.forEach(this::flipTrianglesAround);
 	}
 
 	private List<Triangle> splitTriangles(List<Triangle> trianglesContainingPoint, Point point)

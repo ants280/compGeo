@@ -55,11 +55,16 @@ public class CompGeoCanvas extends Canvas
 		// use a LinkedHashSet so the points stay ordered from insertion order.
 //		this.points = new LinkedHashSet<>();
 		this.points = new ArrayList<>();
-
 		this.convexHull = null;
 		this.voronoiCells = null;
 		this.delaunayTriangulationTriangles = null;
 		this.bezierCurvePoints = null;
+
+		init();
+	}
+
+	private void init()
+	{
 		this.reloadPreferences();
 	}
 
@@ -79,10 +84,7 @@ public class CompGeoCanvas extends Canvas
 
 	public void resetSavedPreferences()
 	{
-		for (CompGeoCanvasPreference preference : ALL_PREFERENCES)
-		{
-			preference.setDefaultValue();
-		}
+		ALL_PREFERENCES.stream().forEach(CompGeoCanvasPreference::setDefaultValue);
 	}
 
 	/**
@@ -123,19 +125,25 @@ public class CompGeoCanvas extends Canvas
 
 	public void setVoronoiCells(Collection<VoronoiCell> voronoiCells)
 	{
-		this.voronoiCells = voronoiCells;
+		this.voronoiCells = voronoiCells == null
+				? null
+				: Collections.unmodifiableCollection(voronoiCells);
 		this.repaint();
 	}
 
 	public void setDelaunayTriangulationTriangles(Collection<DelaunayTriangle> delaunayTriangulationTriangles)
 	{
-		this.delaunayTriangulationTriangles = delaunayTriangulationTriangles;
+		this.delaunayTriangulationTriangles = delaunayTriangulationTriangles == null
+				? null
+				: Collections.unmodifiableCollection(delaunayTriangulationTriangles);
 		this.repaint();
 	}
 
 	public void setBezierCurvePoints(List<Point> bezierCurvePoints)
 	{
-		this.bezierCurvePoints = bezierCurvePoints;
+		this.bezierCurvePoints = bezierCurvePoints == null
+				? null
+				: Collections.unmodifiableList(bezierCurvePoints);
 		this.repaint();
 	}
 
@@ -330,32 +338,36 @@ public class CompGeoCanvas extends Canvas
 	{
 		if (delaunayTriangulationTriangles != null)
 		{
-			for (DelaunayTriangle delaunayTriangulationTriangle : delaunayTriangulationTriangles)
-			{
-				g.setColor(Color.DARK_GRAY);
-				g.drawPolygon(delaunayTriangulationTriangle.getTriangle());
+			delaunayTriangulationTriangles.stream()
+					.forEach(delaunayTriangulationTriangle
+							-> this.drawDelaunayTriangulation(g, delaunayTriangulationTriangle));
+		}
+	}
 
-				if (drawDelaunayCircumcircles)
-				{
-					g.setColor(Color.LIGHT_GRAY);
+	private void drawDelaunayTriangulation(Graphics g, DelaunayTriangle delaunayTriangulationTriangle)
+	{
+		g.setColor(Color.DARK_GRAY);
+		g.drawPolygon(delaunayTriangulationTriangle.getTriangle());
 
-					g.drawLine(
-							(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getX() - pointRadius,
-							(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getY() - pointRadius,
-							(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getX() + pointRadius,
-							(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getY() + pointRadius);
-					g.drawLine(
-							(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getX() - pointRadius,
-							(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getY() + pointRadius,
-							(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getX() + pointRadius,
-							(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getY() - pointRadius);
+		if (drawDelaunayCircumcircles)
+		{
+			g.setColor(Color.LIGHT_GRAY);
 
-					int x = (int) (delaunayTriangulationTriangle.getCircumcircleCenterPoint().getX() - delaunayTriangulationTriangle.getCircumcircleRadius());
-					int y = (int) (delaunayTriangulationTriangle.getCircumcircleCenterPoint().getY() - delaunayTriangulationTriangle.getCircumcircleRadius());
-					int diameter = (int) (delaunayTriangulationTriangle.getCircumcircleRadius() * 2);
-					g.drawOval(x, y, diameter, diameter);
-				}
-			}
+			g.drawLine(
+					(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getX() - pointRadius,
+					(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getY() - pointRadius,
+					(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getX() + pointRadius,
+					(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getY() + pointRadius);
+			g.drawLine(
+					(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getX() - pointRadius,
+					(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getY() + pointRadius,
+					(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getX() + pointRadius,
+					(int) delaunayTriangulationTriangle.getCircumcircleCenterPoint().getY() - pointRadius);
+
+			int x = (int) (delaunayTriangulationTriangle.getCircumcircleCenterPoint().getX() - delaunayTriangulationTriangle.getCircumcircleRadius());
+			int y = (int) (delaunayTriangulationTriangle.getCircumcircleCenterPoint().getY() - delaunayTriangulationTriangle.getCircumcircleRadius());
+			int diameter = (int) (delaunayTriangulationTriangle.getCircumcircleRadius() * 2);
+			g.drawOval(x, y, diameter, diameter);
 		}
 	}
 
@@ -383,28 +395,30 @@ public class CompGeoCanvas extends Canvas
 	{
 		if (drawPoints)
 		{
-			for (Point point : points)
-			{
-				g.setColor(Color.GRAY);
-				g.fillOval(
-						(int) point.getX() - pointRadius,
-						(int) point.getY() - pointRadius,
-						2 * pointRadius,
-						2 * pointRadius);
-
-				g.setColor(Color.BLACK);
-				g.drawOval(
-						(int) point.getX() - pointRadius,
-						(int) point.getY() - pointRadius,
-						2 * pointRadius,
-						2 * pointRadius);
-				g.drawLine(
-						(int) point.getX(),
-						(int) point.getY(),
-						(int) point.getX(),
-						(int) point.getY());
-			}
+			points.stream().forEach(point -> this.drawPoint(g, point));
 		}
+	}
+
+	private void drawPoint(Graphics g, Point point)
+	{
+		g.setColor(Color.GRAY);
+		g.fillOval(
+				(int) point.getX() - pointRadius,
+				(int) point.getY() - pointRadius,
+				2 * pointRadius,
+				2 * pointRadius);
+
+		g.setColor(Color.BLACK);
+		g.drawOval(
+				(int) point.getX() - pointRadius,
+				(int) point.getY() - pointRadius,
+				2 * pointRadius,
+				2 * pointRadius);
+		g.drawLine(
+				(int) point.getX(),
+				(int) point.getY(),
+				(int) point.getX(),
+				(int) point.getY());
 	}
 
 	private void drawVoronoiCell(VoronoiCell voronoiCell, Graphics g)

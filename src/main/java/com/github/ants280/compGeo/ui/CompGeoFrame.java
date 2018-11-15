@@ -159,7 +159,7 @@ public class CompGeoFrame extends JFrame
 
 	private void addIncrementalAccelerators(JMenu menu, int modifiers)
 	{
-		int i = 0;
+		int i = 1;
 
 		for (Component menuComponent : menu.getMenuComponents())
 		{
@@ -168,7 +168,8 @@ public class CompGeoFrame extends JFrame
 				JMenuItem menuItem = (JMenuItem) menuComponent;
 				if (menuItem.getAccelerator() == null)
 				{
-					menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_0 + ++i, modifiers));
+					menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_0 + i, modifiers));
+					i++;
 				}
 			}
 		}
