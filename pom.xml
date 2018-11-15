@@ -14,6 +14,7 @@
 		<main.class>com.github.ants280.compGeo.ui.CompGeo</main.class>
 	</properties>
 	<build>
+		<!-- package and increment version: mvn clean && mvn versions:set -DremoveSnapshot && mvn package && mvn versions:set -DnextSnapshot=true -->
 		<plugins>
 			<plugin>
 				<!-- mvn versions:display-plugin-updates -->
