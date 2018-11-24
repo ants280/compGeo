@@ -6,11 +6,9 @@ Some cool computational geometry algorithms drawn in a window
 * Get the code with the command "git clone https://github.com/ants280/compGeo.git" (url is from the "Clone and download" button near the top of this page).
 * Run "mvn package" to build the code.  It places a jar file in /target named something like compGeo-VERSION.jar.
 * Run "mvn clean" to delete the built code.
-
-#RUN:
+# RUN:
 * Run the jar file created in the build step or run "mvn package exec:java" from the command line.
-
-#ABOUT:
+# ABOUT:
 * https://en.wikipedia.org/wiki/Graham_scan
 * https://en.wikipedia.org/wiki/Bezier_curve
 * https://en.wikipedia.org/wiki/Voronoi_diagram
