@@ -15,7 +15,7 @@ Some cool computational geometry algorithms drawn in a window
 * https://en.wikipedia.org/wiki/Delaunay_triangulation
 
 ## Screenshot
-![slideGame screenshot](screenshot.png)
+![screenshot](screenshot.png)
 
 ## License
 Project is licensed under the [MIT license](LICENSE).
