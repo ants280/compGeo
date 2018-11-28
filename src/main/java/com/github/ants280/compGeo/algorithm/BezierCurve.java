@@ -93,7 +93,7 @@ public class BezierCurve
 
 		for (int i = 0; i <= n; i++)
 		{
-			double scale = binomial.of(n, i) * Math.pow(t, i) * Math.pow(1 - t, n - i);
+			double scale = binomial.of(n, i) * Math.pow(t, i) * Math.pow(1 - t, (double) n - i);
 			if (scale < 0 || controlPoints.get(i).getX() < 0 || controlPoints.get(i).getY() < 0)
 			{
 				throw CompGeoUtils.createIllegalArgumentException(
