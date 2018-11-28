@@ -8,6 +8,7 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.ToDoubleFunction;
 import java.util.stream.Collectors;
@@ -23,29 +24,43 @@ public class GrahamScan
 
 	public List<Point> getConvexHullPoints()
 	{
-		if (points.isEmpty())
+		Optional<Point> optionalLowestPoint = points.stream()
+				.min(Point::compareTo);
+
+		if (!optionalLowestPoint.isPresent())
 		{
 			return Collections.emptyList();
 		}
 
-		Map<Double, List<Point>> ccwPoints = getCcwPoints();
-		List<List<Point>> sortedCcwPoints = getSortedCcwPoints(ccwPoints);
-		List<Point> exteriorCcwPoints = getExteriorCcwPoints(sortedCcwPoints);
-		return getNecessaryConvexHullPoints(exteriorCcwPoints);
+		Point lowestPoint = optionalLowestPoint.get();
+		Map<Double, List<Point>> ccwPoints = getCcwPoints(
+				lowestPoint);
+		List<List<Point>> sortedCcwPoints = getSortedCcwPoints(
+				ccwPoints);
+		List<Point> exteriorCcwPoints = getExteriorCcwPoints(
+				sortedCcwPoints,
+				lowestPoint);
+		return getNecessaryConvexHullPoints(
+				exteriorCcwPoints);
 	}
 
-	private Map<Double, List<Point>> getCcwPoints()
+	private Map<Double, List<Point>> getCcwPoints(Point lowestPoint)
 	{
-		Point lowestPoint = getLowestPoint();
-		Point rightOfLowestPoint = new Point(lowestPoint.getX() + 1, lowestPoint.getY());
+		Point rightOfLowestPoint = new Point(
+				lowestPoint.getX() + 1,
+				lowestPoint.getY());
 		Function<Point, Double> getAngleToLowestPoint
-				= point -> CompGeoUtils.getAngle(rightOfLowestPoint, lowestPoint, point);
+				= point -> CompGeoUtils.getAngle(
+						rightOfLowestPoint,
+						lowestPoint,
+						point);
 
 		return points.stream()
 				.collect(Collectors.groupingBy(getAngleToLowestPoint));
 	}
 
-	private List<List<Point>> getSortedCcwPoints(Map<Double, List<Point>> ccwPoints)
+	private List<List<Point>> getSortedCcwPoints(
+			Map<Double, List<Point>> ccwPoints)
 	{
 		return ccwPoints.entrySet()
 				.stream()
@@ -54,9 +69,10 @@ public class GrahamScan
 				.collect(Collectors.toList());
 	}
 
-	private List<Point> getExteriorCcwPoints(List<List<Point>> sortedCcwPoints)
+	private List<Point> getExteriorCcwPoints(
+			List<List<Point>> sortedCcwPoints,
+			Point lowestPoint)
 	{
-		Point lowestPoint = getLowestPoint();
 		Function<List<Point>, Point> getFarthestPointAtAngle
 				= pointsAtAngle -> getFarthestPoint(pointsAtAngle, lowestPoint);
 
@@ -65,7 +81,8 @@ public class GrahamScan
 				.collect(Collectors.toList());
 	}
 
-	private static List<Point> getNecessaryConvexHullPoints(List<Point> ccwExteriorPoints)
+	private static List<Point> getNecessaryConvexHullPoints(
+			List<Point> ccwExteriorPoints)
 	{
 		if (ccwExteriorPoints.size() <= 3)
 		{
@@ -73,10 +90,13 @@ public class GrahamScan
 		}
 		else
 		{
-			LinkedList<Point> necessaryConvexHullPoints = new LinkedList<>(ccwExteriorPoints.subList(0, 3));
+			LinkedList<Point> necessaryConvexHullPoints
+					= new LinkedList<>(ccwExteriorPoints.subList(0, 3));
 			for (int i = 3; i < ccwExteriorPoints.size(); i++)
 			{
-				while (isInteriorPoint(ccwExteriorPoints.get(i), necessaryConvexHullPoints))
+				while (isInteriorPoint(
+						ccwExteriorPoints.get(i),
+						necessaryConvexHullPoints))
 				{
 					necessaryConvexHullPoints.removeLast();
 				}
@@ -86,14 +106,9 @@ public class GrahamScan
 		}
 	}
 
-	private Point getLowestPoint()
-	{
-		return points.stream()
-				.min(Point::compareTo)
-				.orElse(null);
-	}
-
-	private static Point getFarthestPoint(List<Point> pointsAtAngle, Point sourcePoint)
+	private static Point getFarthestPoint(
+			List<Point> pointsAtAngle,
+			Point sourcePoint)
 	{
 		ToDoubleFunction<Point> getDistanceToSourcePoint
 				= point -> CompGeoUtils.getDistance(point, sourcePoint);
@@ -113,12 +128,19 @@ public class GrahamScan
 	 * @return Whether or not nextPoint is inside of rectangle formed by
 	 * necessaryPoints.
 	 */
-	private static boolean isInteriorPoint(Point point, List<Point> necessaryPoints)
+	private static boolean isInteriorPoint(
+			Point point,
+			List<Point> necessaryPoints)
 	{
-		Point secondToLastPoint = necessaryPoints.get(necessaryPoints.size() - 2);
-		Point lastPoint = necessaryPoints.get(necessaryPoints.size() - 1);
+		int necessaryPointsCount = necessaryPoints.size();
+		Point secondToLastPoint = necessaryPoints.get(necessaryPointsCount - 2);
+		Point lastPoint = necessaryPoints.get(necessaryPointsCount - 1);
+		double determinant = CompGeoUtils.getDeterminant(
+				secondToLastPoint,
+				lastPoint,
+				point);
 
-		return CompGeoUtils.getDeterminant(secondToLastPoint, lastPoint, point) >= 0;
+		return determinant >= 0;
 	}
 
 	@Override
