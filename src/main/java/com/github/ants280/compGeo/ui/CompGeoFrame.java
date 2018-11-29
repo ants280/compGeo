@@ -41,36 +41,36 @@ public class CompGeoFrame extends JFrame
 	public static final String EXIT_MI = "Exit";
 	private static final int MAX_BEZIER_CURVE_POINTS = 67;
 	private static final String BEZIER_CURVE_DISABLED_MESSAGE = String.format("The bezier curve only works when there are less than %d points.", MAX_BEZIER_CURVE_POINTS);
-	private final JMenuItem clearPoints_MI;
-	private final JMenuItem randomPoints_MI;
-	private final JCheckBoxMenuItem convexHull_MI;
-	private final JCheckBoxMenuItem voronoiDiagram_MI;
-	private final JCheckBoxMenuItem delaunayTriangulation_MI;
-	private final JCheckBoxMenuItem bezierCurve_MI;
-	private final JMenuItem saveAsImage_MI;
-	private final JCheckBoxMenuItem drawPoints_MI;
-	private final JCheckBoxMenuItem smoothEdges_MI;
-	private final JCheckBoxMenuItem colorVoronoiCellRegions_MI;
-	private final JCheckBoxMenuItem showPointsLabel_MI;
-	private final JCheckBoxMenuItem drawDelaunayCircumcircles_MI;
+	private final JMenuItem clearPointsMenuItem;
+	private final JMenuItem randomPointsMenuItem;
+	private final JCheckBoxMenuItem convexHullMenuItem;
+	private final JCheckBoxMenuItem voronoiDiagramMenuItem;
+	private final JCheckBoxMenuItem delaunayTriangulationMenuItem;
+	private final JCheckBoxMenuItem bezierCurveMenuItem;
+	private final JMenuItem saveAsImageMenuItem;
+	private final JCheckBoxMenuItem drawPointsMenuItem;
+	private final JCheckBoxMenuItem smoothEdgesMenuItem;
+	private final JCheckBoxMenuItem colorVoronoiCellRegionsMenuItem;
+	private final JCheckBoxMenuItem showPointsLabelMenuItem;
+	private final JCheckBoxMenuItem drawDelaunayCircumcirclesMenuItem;
 	private final CompGeoCanvas canvas;
 
 	public CompGeoFrame()
 	{
 		super("Comp Geo Demo");
 
-		this.randomPoints_MI = new JMenuItem(RANDOM_POINTS_MI);
-		this.clearPoints_MI = new JMenuItem(CLEAR_POINTS_MI);
-		this.convexHull_MI = new JCheckBoxMenuItem(TOGGLE_CONVEX_HULL_MI, false);
-		this.voronoiDiagram_MI = new JCheckBoxMenuItem(TOGGLE_VORONOI_DIAGRAM_MI, false);
-		this.delaunayTriangulation_MI = new JCheckBoxMenuItem(TOGGLE_DELAUNAY_TRIANGULATION_MI, false);
-		this.bezierCurve_MI = new JCheckBoxMenuItem(TOGGLE_BEZIER_CURVE_MI, false);
-		this.saveAsImage_MI = new JMenuItem(SAVE_IMAGE, KeyEvent.VK_S);
-		this.drawPoints_MI = new JCheckBoxMenuItem(SET_DRAW_POINTS_MI, true);
-		this.smoothEdges_MI = new JCheckBoxMenuItem(SET_SMOOTH_EDGES_MI, true);
-		this.colorVoronoiCellRegions_MI = new JCheckBoxMenuItem(SET_COLOR_VORONOI_CELL_REGIONS_MI, true);
-		this.showPointsLabel_MI = new JCheckBoxMenuItem(SET_SHOW_POINTS_MI, true);
-		this.drawDelaunayCircumcircles_MI = new JCheckBoxMenuItem(SET_DRAW_DELAUNAY_CIRCUMCIRCLES_MI, true);
+		this.randomPointsMenuItem = new JMenuItem(RANDOM_POINTS_MI);
+		this.clearPointsMenuItem = new JMenuItem(CLEAR_POINTS_MI);
+		this.convexHullMenuItem = new JCheckBoxMenuItem(TOGGLE_CONVEX_HULL_MI, false);
+		this.voronoiDiagramMenuItem = new JCheckBoxMenuItem(TOGGLE_VORONOI_DIAGRAM_MI, false);
+		this.delaunayTriangulationMenuItem = new JCheckBoxMenuItem(TOGGLE_DELAUNAY_TRIANGULATION_MI, false);
+		this.bezierCurveMenuItem = new JCheckBoxMenuItem(TOGGLE_BEZIER_CURVE_MI, false);
+		this.saveAsImageMenuItem = new JMenuItem(SAVE_IMAGE, KeyEvent.VK_S);
+		this.drawPointsMenuItem = new JCheckBoxMenuItem(SET_DRAW_POINTS_MI, true);
+		this.smoothEdgesMenuItem = new JCheckBoxMenuItem(SET_SMOOTH_EDGES_MI, true);
+		this.colorVoronoiCellRegionsMenuItem = new JCheckBoxMenuItem(SET_COLOR_VORONOI_CELL_REGIONS_MI, true);
+		this.showPointsLabelMenuItem = new JCheckBoxMenuItem(SET_SHOW_POINTS_MI, true);
+		this.drawDelaunayCircumcirclesMenuItem = new JCheckBoxMenuItem(SET_DRAW_DELAUNAY_CIRCUMCIRCLES_MI, true);
 
 		this.canvas = new CompGeoCanvas();
 		this.addMenu(new CompGeoActionListener(this));
@@ -80,60 +80,60 @@ public class CompGeoFrame extends JFrame
 
 	private void addMenu(ActionListener actionListener)
 	{
-		clearPoints_MI.setEnabled(false);
-		convexHull_MI.setEnabled(false);
-		voronoiDiagram_MI.setEnabled(false);
-		delaunayTriangulation_MI.setEnabled(false);
-		bezierCurve_MI.setEnabled(false);
-		JMenuItem exit_MI = new JMenuItem(EXIT_MI, KeyEvent.VK_X);
-		exit_MI.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, KeyEvent.ALT_DOWN_MASK));
+		clearPointsMenuItem.setEnabled(false);
+		convexHullMenuItem.setEnabled(false);
+		voronoiDiagramMenuItem.setEnabled(false);
+		delaunayTriangulationMenuItem.setEnabled(false);
+		bezierCurveMenuItem.setEnabled(false);
+		JMenuItem exitMenuItem = new JMenuItem(EXIT_MI, KeyEvent.VK_X);
+		exitMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, KeyEvent.ALT_DOWN_MASK));
 
-		JMenuItem setRadius_MI = new JMenuItem(SET_RADIUS_MI, KeyEvent.VK_R);
-		JMenuItem setNumPoints_MI = new JMenuItem(SET_NUMBER_RANDOM_POINTS_MI, KeyEvent.VK_N);
-		JMenuItem setConvexHullColor_MI = new JMenuItem(SET_CONVEX_HULL_COLOR_MI, KeyEvent.VK_C);
-		drawPoints_MI.setSelected(canvas.shouldDrawPoints());
-		smoothEdges_MI.setSelected(canvas.shouldSmoothEdges());
-		colorVoronoiCellRegions_MI.setSelected(canvas.shouldColorVoronoiCellRegions());
-		showPointsLabel_MI.setSelected(canvas.shouldShowPointsLabel());
-		drawDelaunayCircumcircles_MI.setSelected(canvas.shouldDrawDelaunayCircumcircles());
-		JMenuItem resetAllPreferences_MI = new JMenuItem(RESET_ALL_PREFERENCES_MI);
-		resetAllPreferences_MI.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, KeyEvent.CTRL_DOWN_MASK));
-		saveAsImage_MI.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK));
-		saveAsImage_MI.setEnabled(false);
+		JMenuItem setRadiusMenuItem = new JMenuItem(SET_RADIUS_MI, KeyEvent.VK_R);
+		JMenuItem setNumPointsMenuItem = new JMenuItem(SET_NUMBER_RANDOM_POINTS_MI, KeyEvent.VK_N);
+		JMenuItem setConvexHullColorMenuItem = new JMenuItem(SET_CONVEX_HULL_COLOR_MI, KeyEvent.VK_C);
+		drawPointsMenuItem.setSelected(canvas.shouldDrawPoints());
+		smoothEdgesMenuItem.setSelected(canvas.shouldSmoothEdges());
+		colorVoronoiCellRegionsMenuItem.setSelected(canvas.shouldColorVoronoiCellRegions());
+		showPointsLabelMenuItem.setSelected(canvas.shouldShowPointsLabel());
+		drawDelaunayCircumcirclesMenuItem.setSelected(canvas.shouldDrawDelaunayCircumcircles());
+		JMenuItem resetAllPreferencesMenuItem = new JMenuItem(RESET_ALL_PREFERENCES_MI);
+		resetAllPreferencesMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, KeyEvent.CTRL_DOWN_MASK));
+		saveAsImageMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK));
+		saveAsImageMenuItem.setEnabled(false);
 
-		JMenuItem help_MI = new JMenuItem(HELP_MI, KeyEvent.VK_H);
-		help_MI.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, KeyEvent.ALT_DOWN_MASK));
-		JMenuItem about_MI = new JMenuItem(ABOUT_MI, KeyEvent.VK_A);
-		about_MI.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, KeyEvent.ALT_DOWN_MASK));
+		JMenuItem helpMenuItem = new JMenuItem(HELP_MI, KeyEvent.VK_H);
+		helpMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, KeyEvent.ALT_DOWN_MASK));
+		JMenuItem aboutMenuItem = new JMenuItem(ABOUT_MI, KeyEvent.VK_A);
+		aboutMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, KeyEvent.ALT_DOWN_MASK));
 
 		JMenu actionMenu = new JMenu("Action");
-		actionMenu.add(randomPoints_MI);
-		actionMenu.add(clearPoints_MI);
+		actionMenu.add(randomPointsMenuItem);
+		actionMenu.add(clearPointsMenuItem);
 		actionMenu.addSeparator();
-		actionMenu.add(convexHull_MI);
-		actionMenu.add(voronoiDiagram_MI);
-		actionMenu.add(delaunayTriangulation_MI);
-		actionMenu.add(bezierCurve_MI);
+		actionMenu.add(convexHullMenuItem);
+		actionMenu.add(voronoiDiagramMenuItem);
+		actionMenu.add(delaunayTriangulationMenuItem);
+		actionMenu.add(bezierCurveMenuItem);
 		actionMenu.addSeparator();
-		actionMenu.add(exit_MI);
+		actionMenu.add(exitMenuItem);
 
 		JMenu imageMenu = new JMenu("Image");
-		imageMenu.add(setRadius_MI);
-		imageMenu.add(setNumPoints_MI);
-		imageMenu.add(setConvexHullColor_MI);
+		imageMenu.add(setRadiusMenuItem);
+		imageMenu.add(setNumPointsMenuItem);
+		imageMenu.add(setConvexHullColorMenuItem);
 		imageMenu.addSeparator();
-		imageMenu.add(drawPoints_MI);
-		imageMenu.add(smoothEdges_MI);
-		imageMenu.add(colorVoronoiCellRegions_MI);
-		imageMenu.add(showPointsLabel_MI);
-		imageMenu.add(drawDelaunayCircumcircles_MI);
+		imageMenu.add(drawPointsMenuItem);
+		imageMenu.add(smoothEdgesMenuItem);
+		imageMenu.add(colorVoronoiCellRegionsMenuItem);
+		imageMenu.add(showPointsLabelMenuItem);
+		imageMenu.add(drawDelaunayCircumcirclesMenuItem);
 		imageMenu.addSeparator();
-		imageMenu.add(resetAllPreferences_MI);
-		imageMenu.add(saveAsImage_MI);
+		imageMenu.add(resetAllPreferencesMenuItem);
+		imageMenu.add(saveAsImageMenuItem);
 
 		JMenu helpMenu = new JMenu("Help");
-		helpMenu.add(help_MI);
-		helpMenu.add(about_MI);
+		helpMenu.add(helpMenuItem);
+		helpMenu.add(aboutMenuItem);
 
 		JMenuBar mainMenu = new JMenuBar();
 		mainMenu.add(actionMenu);
@@ -200,40 +200,40 @@ public class CompGeoFrame extends JFrame
 		Polygon convexHull = convexHullPoints == null ? null : PointUiUtils.createPolygon(convexHullPoints);
 		canvas.setConvexHull(convexHull);
 
-		convexHull_MI.setEnabled(canvas.getPointCount() > 0);
-		convexHull_MI.setSelected(convexHull != null);
+		convexHullMenuItem.setEnabled(canvas.getPointCount() > 0);
+		convexHullMenuItem.setSelected(convexHull != null);
 	}
 
 	public void setVoronoiCells(Collection<VoronoiCell> voronoiCells)
 	{
 		canvas.setVoronoiCells(voronoiCells);
 
-		voronoiDiagram_MI.setEnabled(canvas.getPointCount() > 0);
-		voronoiDiagram_MI.setSelected(voronoiCells != null);
+		voronoiDiagramMenuItem.setEnabled(canvas.getPointCount() > 0);
+		voronoiDiagramMenuItem.setSelected(voronoiCells != null);
 	}
 
 	public void setDelaunayTriangulationTriangles(Collection<DelaunayTriangle> delaunayTriangulationTriangles)
 	{
 		canvas.setDelaunayTriangulationTriangles(delaunayTriangulationTriangles);
 
-		delaunayTriangulation_MI.setEnabled(canvas.getPointCount() > 0);
-		delaunayTriangulation_MI.setSelected(delaunayTriangulationTriangles != null);
+		delaunayTriangulationMenuItem.setEnabled(canvas.getPointCount() > 0);
+		delaunayTriangulationMenuItem.setSelected(delaunayTriangulationTriangles != null);
 	}
 
 	public void setBezierCurvePoints(List<Point> bezierCurvePoints)
 	{
 		canvas.setBezierCurvePoints(bezierCurvePoints);
 
-		bezierCurve_MI.setEnabled(canvas.getPointCount() > 1);
-		bezierCurve_MI.setSelected(bezierCurvePoints != null);
+		bezierCurveMenuItem.setEnabled(canvas.getPointCount() > 1);
+		bezierCurveMenuItem.setSelected(bezierCurvePoints != null);
 	}
 
 	public void updatePointControls()
 	{
 		boolean hasPoints = canvas.getPointCount() > 0;
-		clearPoints_MI.setEnabled(hasPoints);
-		saveAsImage_MI.setEnabled(hasPoints);
-		randomPoints_MI.setEnabled(canvas.canAcceptPoints(1));
+		clearPointsMenuItem.setEnabled(hasPoints);
+		saveAsImageMenuItem.setEnabled(hasPoints);
+		randomPointsMenuItem.setEnabled(canvas.canAcceptPoints(1));
 	}
 
 	/**
@@ -254,8 +254,8 @@ public class CompGeoFrame extends JFrame
 
 			if (canvas.getPointCount() > MAX_BEZIER_CURVE_POINTS)
 			{
-				bezierCurve_MI.setToolTipText(BEZIER_CURVE_DISABLED_MESSAGE); // Investigate this number (67) and why things break for larger point counts.
-				bezierCurve_MI.setEnabled(false);
+				bezierCurveMenuItem.setToolTipText(BEZIER_CURVE_DISABLED_MESSAGE); // Investigate this number (67) and why things break for larger point counts.
+				bezierCurveMenuItem.setEnabled(false);
 			}
 		}
 
@@ -265,8 +265,8 @@ public class CompGeoFrame extends JFrame
 	{
 		if (canvas.getPointCount() > MAX_BEZIER_CURVE_POINTS) // Remove the warning tooltip.
 		{
-			bezierCurve_MI.setToolTipText(null);
-			bezierCurve_MI.setEnabled(true);
+			bezierCurveMenuItem.setToolTipText(null);
+			bezierCurveMenuItem.setEnabled(true);
 		}
 
 		canvas.clear();
@@ -287,10 +287,10 @@ public class CompGeoFrame extends JFrame
 	{
 		canvas.reloadPreferences();
 
-		drawPoints_MI.setSelected(canvas.shouldDrawPoints());
-		smoothEdges_MI.setSelected(canvas.shouldSmoothEdges());
-		colorVoronoiCellRegions_MI.setSelected(canvas.shouldColorVoronoiCellRegions());
-		showPointsLabel_MI.setSelected(canvas.shouldShowPointsLabel());
-		drawDelaunayCircumcircles_MI.setSelected(canvas.shouldDrawDelaunayCircumcircles());
+		drawPointsMenuItem.setSelected(canvas.shouldDrawPoints());
+		smoothEdgesMenuItem.setSelected(canvas.shouldSmoothEdges());
+		colorVoronoiCellRegionsMenuItem.setSelected(canvas.shouldColorVoronoiCellRegions());
+		showPointsLabelMenuItem.setSelected(canvas.shouldShowPointsLabel());
+		drawDelaunayCircumcirclesMenuItem.setSelected(canvas.shouldDrawDelaunayCircumcircles());
 	}
 }
