@@ -59,7 +59,7 @@ public class DelaunayTriangulation
 		List<Triangle> trianglesContainingPoint = triangulationTriangles.stream()
 				.filter(triangle -> triangle.contains(point))
 				.collect(Collectors.toList());
-		assert trianglesContainingPoint.size() > 0;
+		assert !trianglesContainingPoint.isEmpty();
 		assert trianglesContainingPoint.size() <= 2;
 
 		List<Triangle> splitTriangles = splitTriangles(trianglesContainingPoint, point);
