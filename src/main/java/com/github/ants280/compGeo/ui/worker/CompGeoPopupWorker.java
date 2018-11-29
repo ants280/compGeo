@@ -9,6 +9,8 @@ import java.beans.PropertyChangeEvent;
 import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -145,7 +147,16 @@ public abstract class CompGeoPopupWorker<T>
 				}
 				catch (InterruptedException | ExecutionException ex)
 				{
-					throw new RuntimeException("Problem completing action", ex);
+					this.cancel(false);
+
+					Logger.getLogger(CompGeoSwingWorker.class.getName())
+							.log(
+									Level.SEVERE,
+									"Problem giving the completed action "
+									+ "to the consumer.",
+									ex);
+
+					Thread.currentThread().interrupt();
 				}
 			}
 
