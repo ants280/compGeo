@@ -1,4 +1,4 @@
-package com.github.ants280.compGeo;
+package com.github.ants280.compgeo;
 
 /**
  * An Set of utilities for doing math on Points.

@@ -1,8 +1,8 @@
-package com.github.ants280.compGeo.ui;
+package com.github.ants280.compgeo.ui;
 
-import com.github.ants280.compGeo.CompGeoUtils;
-import com.github.ants280.compGeo.Point;
-import com.github.ants280.compGeo.shape.Triangle;
+import com.github.ants280.compgeo.CompGeoUtils;
+import com.github.ants280.compgeo.Point;
+import com.github.ants280.compgeo.shape.Triangle;
 import java.awt.Polygon;
 
 public class DelaunayTriangle

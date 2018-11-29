@@ -1,8 +1,8 @@
-package com.github.ants280.compGeo.algorithm;
+package com.github.ants280.compgeo.algorithm;
 
-import com.github.ants280.compGeo.CompGeoUtils;
-import com.github.ants280.compGeo.Point;
-import com.github.ants280.compGeo.shape.Triangle;
+import com.github.ants280.compgeo.CompGeoUtils;
+import com.github.ants280.compgeo.Point;
+import com.github.ants280.compgeo.shape.Triangle;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;

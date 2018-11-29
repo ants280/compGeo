@@ -1,12 +1,12 @@
-package com.github.ants280.compGeo.ui;
+package com.github.ants280.compgeo.ui;
 
-import com.github.ants280.compGeo.Point;
-import static com.github.ants280.compGeo.ui.CompGeoFrame.*;
-import com.github.ants280.compGeo.ui.worker.BezierCurvePopupWorker;
-import com.github.ants280.compGeo.ui.worker.CompGeoPopupWorker;
-import com.github.ants280.compGeo.ui.worker.DelaunayTriangulationPopupWorker;
-import com.github.ants280.compGeo.ui.worker.GrahamScanPopupWorker;
-import com.github.ants280.compGeo.ui.worker.VoronoiDiagramPopupWorker;
+import com.github.ants280.compgeo.Point;
+import static com.github.ants280.compgeo.ui.CompGeoFrame.*;
+import com.github.ants280.compgeo.ui.worker.BezierCurvePopupWorker;
+import com.github.ants280.compgeo.ui.worker.CompGeoPopupWorker;
+import com.github.ants280.compgeo.ui.worker.DelaunayTriangulationPopupWorker;
+import com.github.ants280.compgeo.ui.worker.GrahamScanPopupWorker;
+import com.github.ants280.compgeo.ui.worker.VoronoiDiagramPopupWorker;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

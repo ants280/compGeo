@@ -1,6 +1,6 @@
-package com.github.ants280.compGeo.line;
+package com.github.ants280.compgeo.line;
 
-import com.github.ants280.compGeo.Point;
+import com.github.ants280.compgeo.Point;
 import static org.junit.Assert.*;
 import org.junit.Test;
 

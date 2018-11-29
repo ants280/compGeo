@@ -1,6 +1,6 @@
-package com.github.ants280.compGeo.line;
+package com.github.ants280.compgeo.line;
 
-import com.github.ants280.compGeo.Point;
+import com.github.ants280.compgeo.Point;
 
 /**
  * A line perpendicular to the specified points.

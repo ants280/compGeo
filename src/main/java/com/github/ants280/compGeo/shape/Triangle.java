@@ -1,9 +1,9 @@
-package com.github.ants280.compGeo.shape;
+package com.github.ants280.compgeo.shape;
 
-import com.github.ants280.compGeo.CompGeoUtils;
-import com.github.ants280.compGeo.Point;
-import com.github.ants280.compGeo.line.BisectorLine;
-import com.github.ants280.compGeo.line.ParametricLine;
+import com.github.ants280.compgeo.CompGeoUtils;
+import com.github.ants280.compgeo.Point;
+import com.github.ants280.compgeo.line.BisectorLine;
+import com.github.ants280.compgeo.line.ParametricLine;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;

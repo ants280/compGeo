@@ -1,7 +1,7 @@
-package com.github.ants280.compGeo.line;
+package com.github.ants280.compgeo.line;
 
-import static com.github.ants280.compGeo.CompGeoUtils.DELTA;
-import com.github.ants280.compGeo.Point;
+import static com.github.ants280.compgeo.CompGeoUtils.DELTA;
+import com.github.ants280.compgeo.Point;
 
 public class LineSegment extends ParametricLine
 {

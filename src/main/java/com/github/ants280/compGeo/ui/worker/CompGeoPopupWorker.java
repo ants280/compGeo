@@ -1,4 +1,4 @@
-package com.github.ants280.compGeo.ui.worker;
+package com.github.ants280.compgeo.ui.worker;
 
 import java.awt.BorderLayout;
 import java.awt.Frame;

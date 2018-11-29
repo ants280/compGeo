@@ -1,8 +1,8 @@
-package com.github.ants280.compGeo.ui.worker;
+package com.github.ants280.compgeo.ui.worker;
 
-import com.github.ants280.compGeo.Point;
-import com.github.ants280.compGeo.algorithm.BezierCurve;
-import com.github.ants280.compGeo.ui.CompGeoFrame;
+import com.github.ants280.compgeo.Point;
+import com.github.ants280.compgeo.algorithm.BezierCurve;
+import com.github.ants280.compgeo.ui.CompGeoFrame;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;

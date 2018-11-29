@@ -1,4 +1,4 @@
-package com.github.ants280.compGeo.ui;
+package com.github.ants280.compgeo.ui;
 
 import java.awt.Component;
 import java.io.PrintWriter;

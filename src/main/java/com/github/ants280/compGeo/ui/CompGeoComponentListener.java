@@ -1,6 +1,6 @@
-package com.github.ants280.compGeo.ui;
+package com.github.ants280.compgeo.ui;
 
-import com.github.ants280.compGeo.Point;
+import com.github.ants280.compgeo.Point;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.Collection;

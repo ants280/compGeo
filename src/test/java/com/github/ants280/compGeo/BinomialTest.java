@@ -1,4 +1,4 @@
-package com.github.ants280.compGeo;
+package com.github.ants280.compgeo;
 
 import java.util.Arrays;
 import org.junit.Assert;

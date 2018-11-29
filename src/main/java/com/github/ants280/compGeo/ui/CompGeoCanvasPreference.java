@@ -1,4 +1,4 @@
-package com.github.ants280.compGeo.ui;
+package com.github.ants280.compgeo.ui;
 
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;

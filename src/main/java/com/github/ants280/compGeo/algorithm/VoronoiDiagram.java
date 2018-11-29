@@ -1,10 +1,10 @@
-package com.github.ants280.compGeo.algorithm;
+package com.github.ants280.compgeo.algorithm;
 
-import com.github.ants280.compGeo.CompGeoUtils;
-import com.github.ants280.compGeo.Point;
-import com.github.ants280.compGeo.line.BisectorLine;
-import com.github.ants280.compGeo.line.LineSegment;
-import com.github.ants280.compGeo.line.ParametricLine;
+import com.github.ants280.compgeo.CompGeoUtils;
+import com.github.ants280.compgeo.Point;
+import com.github.ants280.compgeo.line.BisectorLine;
+import com.github.ants280.compgeo.line.LineSegment;
+import com.github.ants280.compgeo.line.ParametricLine;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;

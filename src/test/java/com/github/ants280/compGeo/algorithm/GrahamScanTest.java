@@ -1,6 +1,6 @@
-package com.github.ants280.compGeo.algorithm;
+package com.github.ants280.compgeo.algorithm;
 
-import com.github.ants280.compGeo.Point;
+import com.github.ants280.compgeo.Point;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
