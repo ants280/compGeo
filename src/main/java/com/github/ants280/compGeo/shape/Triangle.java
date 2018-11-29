@@ -15,7 +15,7 @@ public class Triangle implements Shape
 	protected final Point p1;
 	protected final Point p2;
 	protected final Point p3;
-	private transient final List<Point> pointsList;
+	private final transient List<Point> pointsList;
 
 	public Triangle(Point p1, Point p2, Point p3)
 	{
