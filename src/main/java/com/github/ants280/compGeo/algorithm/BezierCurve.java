@@ -11,8 +11,8 @@ import java.util.List;
 public class BezierCurve
 {
 	private final List<Point> controlPoints;
-	private final transient Binomial binomial;
-	private final transient int n;
+	private final Binomial binomial;
+	private final int n;
 
 	public BezierCurve(Point... controlPoints)
 	{
