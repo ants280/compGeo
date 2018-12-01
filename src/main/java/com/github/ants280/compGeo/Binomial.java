@@ -13,7 +13,7 @@ public class Binomial
 		cache = new HashMap<>();
 	}
 
-	public long of(int n, int k) throws IllegalArgumentException
+	public long of(int n, int k)
 	{
 		validateParameters(n, k);
 
@@ -69,7 +69,7 @@ public class Binomial
 		}
 	}
 
-	private static void validateParameters(int n, int k) throws IllegalArgumentException
+	private static void validateParameters(int n, int k)
 	{
 		if (n < 0)
 		{

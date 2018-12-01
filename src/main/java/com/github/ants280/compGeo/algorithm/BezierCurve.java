@@ -110,7 +110,7 @@ public class BezierCurve
 		return new Point(x, y);
 	}
 
-	private static void validateParametricValues(double tMin, double tMax, int stepCount) throws IllegalArgumentException
+	private static void validateParametricValues(double tMin, double tMax, int stepCount)
 	{
 		if (tMin < 0)
 		{
