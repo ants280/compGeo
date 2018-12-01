@@ -79,7 +79,7 @@ public class BezierCurve
 					&& step > 0
 					&& CompGeoUtils.getDistance(points[step - 1], points[step]) > maxPointDifference)
 			{
-				return null;
+				return null; // TODO: rework this to indicate that the points are far apart.  DON'T USE AN EXCEPTION,
 			}
 		}
 
