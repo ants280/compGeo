@@ -37,7 +37,7 @@ public class CompGeoMouseListener extends MouseAdapter
 
 	private void printPointDistances(Point point)
 	{
-		System.out.printf("Distances from %s to points:\n", point);
+		System.out.printf("Distances from %s to points:%n", point);
 
 		frame.getCanvas().getPoints()
 				.stream()
@@ -48,7 +48,7 @@ public class CompGeoMouseListener extends MouseAdapter
 				.stream()
 				.sorted(Comparator.comparing(Map.Entry::getValue))
 				.forEach(entry -> System.out.printf(
-				"\t%s is at distance %.2f\n",
+				"\t%s is at distance %.2f%n",
 				entry.getKey(),
 				entry.getValue()));
 	}
