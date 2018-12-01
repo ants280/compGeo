@@ -41,14 +41,23 @@ public class ParametricLine implements Line<ParametricLine>
 		double x
 				= (thisLineM == null)
 						? thisLineB
-						: (otherLineM == null)
-								? otherLineB
-								: (thisLineB - otherLineB) / (otherLineM - thisLineM);
+						: getOtherLineB(
+								thisLineM, thisLineB,
+								otherLineM, otherLineB);
 		double y = (thisLineM == null)
 				? otherLineM * x + otherLineB
 				: thisLineM * x + thisLineB;
 
 		return new Point(x, y);
+	}
+
+	private static double getOtherLineB(
+			Double thisLineM, double thisLineB,
+			Double otherLineM, double otherLineB)
+	{
+		return (otherLineM == null)
+				? otherLineB
+				: (thisLineB - otherLineB) / (otherLineM - thisLineM);
 	}
 
 	@Override
