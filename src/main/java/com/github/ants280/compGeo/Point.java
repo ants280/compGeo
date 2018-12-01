@@ -64,8 +64,6 @@ public class Point implements Comparable<Point>
 		return obj instanceof Point
 				&& this.x == ((Point) obj).x
 				&& this.y == ((Point) obj).y;
-//			&& Math.abs(this.x - ((Point) obj).x) < CompGeoUtils.DELTA
-//			&& Math.abs(this.y - ((Point) obj).y) < CompGeoUtils.DELTA;
 	}
 
 	@Override
