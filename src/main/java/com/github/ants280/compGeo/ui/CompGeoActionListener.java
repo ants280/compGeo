@@ -21,7 +21,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.function.BooleanSupplier;
-import java.util.function.Consumer;
+import java.util.function.IntConsumer;
 import javax.imageio.ImageIO;
 import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
@@ -307,7 +307,7 @@ public class CompGeoActionListener implements ActionListener
 			int max,
 			int stepSize,
 			String title,
-			Consumer<Integer> valueConsumer,
+			IntConsumer valueConsumer,
 			CompGeoCanvasPreference<Integer> preferenceType)
 	{
 		SpinnerNumberModel model = new SpinnerNumberModel(currentValue, min, max, stepSize);
