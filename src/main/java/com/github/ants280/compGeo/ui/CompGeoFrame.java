@@ -19,7 +19,7 @@ import javax.swing.KeyStroke;
 
 public class CompGeoFrame extends JFrame
 {
-	private static final long serialVersionUID = -8857520805111704416L;
+	private static final long serialVersionUID = 1L;
 	public static final String RANDOM_POINTS_MI = "Draw Random Points";
 	public static final String CLEAR_POINTS_MI = "Clear Points";
 	public static final String TOGGLE_CONVEX_HULL_MI = "Show Convex Hull";

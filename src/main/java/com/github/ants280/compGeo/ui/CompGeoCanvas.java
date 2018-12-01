@@ -14,7 +14,7 @@ import java.util.*;
 
 public class CompGeoCanvas extends Canvas
 {
-	private static final long serialVersionUID = 5270647793920053227L;
+	private static final long serialVersionUID = 1L;
 	private final transient List<Point> points;
 	private Polygon convexHull;
 	private transient Collection<VoronoiCell> voronoiCells;
