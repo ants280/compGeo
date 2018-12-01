@@ -20,8 +20,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 import javax.imageio.ImageIO;
 import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
@@ -204,10 +204,10 @@ public class CompGeoActionListener implements ActionListener
 		}
 	}
 
-	private static void flipPreferenceBooleanValue(CompGeoCanvasPreference<Boolean> preference, Runnable preferenceFlipper, Supplier<Boolean> preferenceSupplier)
+	private static void flipPreferenceBooleanValue(CompGeoCanvasPreference<Boolean> preference, Runnable preferenceFlipper, BooleanSupplier preferenceSupplier)
 	{
 		preferenceFlipper.run();
-		preference.setValue(preferenceSupplier.get());
+		preference.setValue(preferenceSupplier.getAsBoolean());
 	}
 
 	private void handleResetAllPreferences()
