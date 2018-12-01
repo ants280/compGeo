@@ -2,10 +2,10 @@ package com.github.ants280.compgeo.ui.worker;
 
 import com.github.ants280.compgeo.Point;
 import com.github.ants280.compgeo.algorithm.BezierCurve;
-import com.github.ants280.compgeo.ui.CompGeoFrame;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import javax.swing.JFrame;
 
 public class BezierCurvePopupWorker extends CompGeoPopupWorker<List<Point>>
 {
@@ -14,10 +14,13 @@ public class BezierCurvePopupWorker extends CompGeoPopupWorker<List<Point>>
 	// It might be useful to recalculate with higher precision if the points are only slightly past the max difference.
 	private static final Double MAX_POINT_DIFFERENCE = 0.5d;
 
-	public BezierCurvePopupWorker(Consumer<List<Point>> completedAction, CompGeoFrame frame)
+	public BezierCurvePopupWorker(
+			Consumer<List<Point>> completedAction,
+			JFrame frame,
+			List<Point> points)
 	{
 		super(completedAction, frame, "Bezier Curve being created...");
-		this.bezierCurve = new BezierCurve(frame.getCanvas().getPoints());
+		this.bezierCurve = new BezierCurve(points);
 	}
 
 	@Override

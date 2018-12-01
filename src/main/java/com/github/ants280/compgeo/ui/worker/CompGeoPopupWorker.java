@@ -1,7 +1,6 @@
 package com.github.ants280.compgeo.ui.worker;
 
 import java.awt.BorderLayout;
-import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -14,6 +13,7 @@ import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingWorker;
@@ -28,7 +28,7 @@ public abstract class CompGeoPopupWorker<T>
 	private final JDialog popupDialog;
 	private final Timer delayTimer;
 
-	public CompGeoPopupWorker(Consumer<T> completedActionConsumer, Frame popupOwner, String popupDialogTitle)
+	public CompGeoPopupWorker(Consumer<T> completedActionConsumer, JFrame popupOwner, String popupDialogTitle)
 	{
 		this.swingWorker = new CompGeoSwingWorker<>(this::doInBackground, completedActionConsumer);
 		this.popupDialog = new JDialog(popupOwner, popupDialogTitle, true);

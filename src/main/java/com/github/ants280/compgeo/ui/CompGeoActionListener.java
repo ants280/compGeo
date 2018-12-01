@@ -116,7 +116,10 @@ public class CompGeoActionListener implements ActionListener
 		else
 		{
 			CompGeoPopupWorker<List<Point>> compGeoPopupWorker
-					= new GrahamScanPopupWorker(frame::setConvexHullPoints, frame);
+					= new GrahamScanPopupWorker(
+							frame::setConvexHullPoints,
+							frame.getFrame(),
+							frame.getCanvas().getPoints());
 			compGeoPopupWorker.start();
 		}
 	}
@@ -130,7 +133,12 @@ public class CompGeoActionListener implements ActionListener
 		else
 		{
 			CompGeoPopupWorker<Collection<VoronoiCell>> compGeoPopupWorker
-					= new VoronoiDiagramPopupWorker(frame::setVoronoiCells, frame);
+					= new VoronoiDiagramPopupWorker(
+							frame::setVoronoiCells,
+							frame.getFrame(),
+							frame.getCanvas().getPoints(),
+							frame.getCanvas().getWidth(),
+							frame.getCanvas().getHeight());
 			compGeoPopupWorker.start();
 		}
 	}
@@ -144,7 +152,12 @@ public class CompGeoActionListener implements ActionListener
 		else
 		{
 			CompGeoPopupWorker<Collection<DelaunayTriangle>> compGeoPopupWorker
-					= new DelaunayTriangulationPopupWorker(frame::setDelaunayTriangulationTriangles, frame);
+					= new DelaunayTriangulationPopupWorker(
+							frame::setDelaunayTriangulationTriangles,
+							frame.getFrame(),
+							frame.getCanvas().getPoints(),
+							frame.getCanvas().getWidth(),
+							frame.getCanvas().getHeight());
 			compGeoPopupWorker.start();
 		}
 	}
@@ -158,7 +171,10 @@ public class CompGeoActionListener implements ActionListener
 		else
 		{
 			CompGeoPopupWorker<List<Point>> compGeoPopupWorker
-					= new BezierCurvePopupWorker(frame::setBezierCurvePoints, frame);
+					= new BezierCurvePopupWorker(
+							frame::setBezierCurvePoints,
+							frame.getFrame(),
+							frame.getCanvas().getPoints());
 			compGeoPopupWorker.start();
 		}
 	}
@@ -195,7 +211,14 @@ public class CompGeoActionListener implements ActionListener
 		CompGeoCanvas canvas = frame.getCanvas();
 		JColorChooser colorChooser = new JColorChooser(canvas.getConvexHullColor());
 
-		int optionChoice = JOptionPane.showOptionDialog(frame, colorChooser, SET_CONVEX_HULL_COLOR_MI, JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+		int optionChoice = JOptionPane.showOptionDialog(
+				frame.getFrame(),
+				colorChooser, SET_CONVEX_HULL_COLOR_MI,
+				JOptionPane.OK_CANCEL_OPTION,
+				JOptionPane.QUESTION_MESSAGE,
+				null,
+				null,
+				null);
 		if (JOptionPane.OK_OPTION == optionChoice)
 		{
 			Color newValue = colorChooser.getColor();
@@ -220,7 +243,7 @@ public class CompGeoActionListener implements ActionListener
 	private void handleHelpItem()
 	{
 		JOptionPane.showMessageDialog(
-				frame,
+				frame.getFrame(),
 				"This program draws the smallest convex polygon around a group of points."
 				+ "\n"
 				+ "\nClick in the window to create points, or click \"" + RANDOM_POINTS_MI + "\" to draw "
@@ -247,7 +270,7 @@ public class CompGeoActionListener implements ActionListener
 	private void handleAboutItem()
 	{
 		JOptionPane.showMessageDialog(
-				frame,
+				frame.getFrame(),
 				"By: Jacob Patterson"
 				+ "\n"
 				+ "\nVersion " + CompGeo.VERSION
@@ -258,19 +281,20 @@ public class CompGeoActionListener implements ActionListener
 				+ "\nIntroduction To Algorithms, 2 Ed."
 				+ "\n"
 				+ "\nVoronoi Algorithm is brute-force and slow.",
-				"About " + frame.getTitle(),
+				"About " + frame.getFrame().getTitle(),
 				JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	private void handleExitItem()
 	{
-		frame.setVisible(false);
+		frame.getFrame().setVisible(false);
 		Runtime.getRuntime().exit(0);
 	}
 
 	private void showSaveDialog(JFileChooser fileChooser)
 	{
-		if (fileChooser.showSaveDialog(frame) == JFileChooser.APPROVE_OPTION)
+		if (fileChooser.showSaveDialog(frame.getFrame())
+				== JFileChooser.APPROVE_OPTION)
 		{
 			File outputFile = fileChooser.getSelectedFile();
 			if (outputFile.exists()
@@ -313,7 +337,7 @@ public class CompGeoActionListener implements ActionListener
 		SpinnerNumberModel model = new SpinnerNumberModel(currentValue, min, max, stepSize);
 		JSpinner spinner = new JSpinner(model);
 		if (JOptionPane.showOptionDialog(
-				frame,
+				frame.getFrame(),
 				spinner,
 				title,
 				JOptionPane.OK_CANCEL_OPTION,
