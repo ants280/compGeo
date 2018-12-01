@@ -15,11 +15,11 @@ import java.util.*;
 public class CompGeoCanvas extends Canvas
 {
 	private static final long serialVersionUID = 5270647793920053227L;
-	private final List<Point> points;
+	private final transient List<Point> points;
 	private Polygon convexHull;
-	private Collection<VoronoiCell> voronoiCells;
-	private Collection<DelaunayTriangle> delaunayTriangulationTriangles;
-	private List<Point> bezierCurvePoints;
+	private transient Collection<VoronoiCell> voronoiCells;
+	private transient Collection<DelaunayTriangle> delaunayTriangulationTriangles;
+	private transient List<Point> bezierCurvePoints;
 	private int pointRadius;
 	private int numberRandomPointsToAdd;
 	private Color convexHullColor;
