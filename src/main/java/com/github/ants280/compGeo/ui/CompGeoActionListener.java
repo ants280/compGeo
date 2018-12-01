@@ -346,7 +346,7 @@ public class CompGeoActionListener implements ActionListener
 		private static String getExtension(File file)
 		{
 			String fileName = file.getName();
-			int lastIndexOfPeriod = fileName.lastIndexOf(".");
+			int lastIndexOfPeriod = fileName.lastIndexOf('.');
 			if (lastIndexOfPeriod < 0 || lastIndexOfPeriod + 1 >= fileName.length())
 			{
 				return null;
