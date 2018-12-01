@@ -3,7 +3,6 @@ package com.github.ants280.compgeo;
 import java.util.HashMap;
 import java.util.Map;
 
-// (n k) = n! / k!(n-k)!
 public class Binomial
 {
 	private final Map<BinomialValueKey, Long> cache;
@@ -20,35 +19,15 @@ public class Binomial
 		return ofInternal(n, k);
 	}
 
-//	// https://en.wikipedia.org/wiki/Binomial_coefficient#Multiplicative_formula
-//	private long ofInternal(int n, int k)
-//	{
-//		if (n == k || k == 0)
-//		{
-//			return 1;
-//		}
-//
-//		BinomialValueKey binomialValueKey = new BinomialValueKey(n, k);
-//		if (cache.containsKey(binomialValueKey))
-//		{
-//			return cache.get(binomialValueKey);
-//		}
-//		else
-//		{
-//			k = k > n / 2 ? n - k : k;
-//			long numerator = 1;
-//			long denominator = 1;
-//			for (int i = 1; i <= k; i++)
-//			{
-//				numerator = Math.multiplyExact(numerator, n + 1 - i);
-//				denominator =  Math.multiplyExact(denominator, i);
-//			}
-//			long binomialValue = numerator / denominator;
-//			cache.put(binomialValueKey, binomialValue);
-//			return binomialValue;
-//		}
-//	}
-	// https://en.wikipedia.org/wiki/Binomial_coefficient#Recursive_formula
+	/**
+	 * Calculates the binomial using the recursive formula rather than the
+	 * multiplicative one. See
+	 * {@link https://en.wikipedia.org/wiki/Binomial_coefficient}.
+	 *
+	 * @param n The n argument of the binomial
+	 * @param k The k argument of the binomial
+	 * @return The binomial of n and k : (n k) == n! / k!(n-k)!
+	 */
 	private long ofInternal(int n, int k)
 	{
 		if (n == k || k == 0)
@@ -63,7 +42,9 @@ public class Binomial
 		}
 		else
 		{
-			long binomialValue = Math.addExact(ofInternal(n - 1, k - 1), ofInternal(n - 1, k));
+			long binomialValue = Math.addExact(
+					ofInternal(n - 1, k - 1),
+					ofInternal(n - 1, k));
 			cache.put(binomialValueKey, binomialValue);
 			return binomialValue;
 		}

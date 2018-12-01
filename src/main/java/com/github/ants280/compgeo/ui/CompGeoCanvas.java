@@ -31,7 +31,6 @@ public class CompGeoCanvas extends Canvas
 
 	public static final CompGeoCanvasPreference<Integer> POINT_RADIUS = new CompGeoCanvasPreference.CompGeoCanvasIntegerPreference("POINT_RADIUS", 4);
 	public static final CompGeoCanvasPreference<Integer> RANDOM_POINT_COUNT = new CompGeoCanvasPreference.CompGeoCanvasIntegerPreference("RANDOM_POINT_COUNT", 3);
-	// new Color(255, 0, 0, 127) (transparent red)
 	public static final CompGeoCanvasPreference<Integer> CONVEX_HULL_COLOR = new CompGeoCanvasPreference.CompGeoCanvasIntegerPreference("CONVEX_HULL_COLOR", 0x7fff0000);
 	public static final CompGeoCanvasPreference<Boolean> DRAW_POINTS = new CompGeoCanvasPreference.CompGeoCanvasBooleanPreference("DRAW_POINTS", true);
 	public static final CompGeoCanvasPreference<Boolean> SMOOTH_EDGES = new CompGeoCanvasPreference.CompGeoCanvasBooleanPreference("SMOOTH_EDGES", true);
@@ -48,12 +47,6 @@ public class CompGeoCanvas extends Canvas
 	{
 		super();
 
-		// Using a HashSet leads to unpredictable point drawing, but is fast
-//		this.points = new HashSet<>();
-		// use a TreeSet so the points stay ordered.  This makes it is predictable which point will be drawn over others (the bottom-right point)
-		//this.points = new TreeSet<>();
-		// use a LinkedHashSet so the points stay ordered from insertion order.
-//		this.points = new LinkedHashSet<>();
 		this.points = new ArrayList<>();
 		this.convexHull = null;
 		this.voronoiCells = null;
@@ -278,10 +271,10 @@ public class CompGeoCanvas extends Canvas
 				= (BufferedImage) this.createImage(this.getWidth(),
 						this.getHeight());
 
-		//Draws the shape onto the BufferedImage
+		// Draws the shape onto the BufferedImage
 		this.paint(lastDrawnImage.getGraphics());
 
-		//Draws the BufferedImage onto the PaintPanel
+		// Draws the BufferedImage onto the PaintPanel
 		g.drawImage(lastDrawnImage, 0, 0, this);
 	}
 
