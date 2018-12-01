@@ -1,8 +1,8 @@
 package com.github.ants280.compgeo.ui;
 
-import java.awt.Window;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -32,7 +32,7 @@ public final class CompGeo implements Runnable
 	{
 		setLookAndFeel();
 
-		Window frame = new CompGeoFrame();
+		JFrame frame = new CompGeoFrame().getFrame();
 		Thread.setDefaultUncaughtExceptionHandler(
 				new CompGeoUncaughtExceptionHandler(frame));
 

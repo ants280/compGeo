@@ -17,9 +17,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
-public class CompGeoFrame extends JFrame
+public class CompGeoFrame
 {
-	private static final long serialVersionUID = 1L;
 	public static final String RANDOM_POINTS_MI = "Draw Random Points";
 	public static final String CLEAR_POINTS_MI = "Clear Points";
 	public static final String TOGGLE_CONVEX_HULL_MI = "Show Convex Hull";
@@ -41,8 +40,9 @@ public class CompGeoFrame extends JFrame
 	public static final String EXIT_MI = "Exit";
 	private static final int MAX_BEZIER_CURVE_POINTS = 67;
 	private static final String BEZIER_CURVE_DISABLED_MESSAGE = String.format("The bezier curve only works when there are less than %d points.", MAX_BEZIER_CURVE_POINTS);
-	private final JMenuItem clearPointsMenuItem;
+	private final JFrame frame;
 	private final JMenuItem randomPointsMenuItem;
+	private final JMenuItem clearPointsMenuItem;
 	private final JCheckBoxMenuItem convexHullMenuItem;
 	private final JCheckBoxMenuItem voronoiDiagramMenuItem;
 	private final JCheckBoxMenuItem delaunayTriangulationMenuItem;
@@ -57,7 +57,7 @@ public class CompGeoFrame extends JFrame
 
 	public CompGeoFrame()
 	{
-		super("Comp Geo Demo");
+		this.frame = new JFrame("Comp Geo Demo");
 
 		this.randomPointsMenuItem = new JMenuItem(RANDOM_POINTS_MI);
 		this.clearPointsMenuItem = new JMenuItem(CLEAR_POINTS_MI);
@@ -76,6 +76,11 @@ public class CompGeoFrame extends JFrame
 		this.addMenu(new CompGeoActionListener(this));
 		this.addCanvas(new CompGeoMouseListener(this));
 		this.initSize();
+	}
+
+	public JFrame getFrame()
+	{
+		return frame;
 	}
 
 	private void addMenu(ActionListener actionListener)
@@ -154,7 +159,7 @@ public class CompGeoFrame extends JFrame
 		addIncrementalAccelerators(actionMenu, KeyEvent.ALT_DOWN_MASK);
 		addIncrementalAccelerators(imageMenu, KeyEvent.CTRL_DOWN_MASK);
 
-		this.setJMenuBar(mainMenu);
+		frame.setJMenuBar(mainMenu);
 	}
 
 	private void addIncrementalAccelerators(JMenu menu, int modifiers)
@@ -177,17 +182,17 @@ public class CompGeoFrame extends JFrame
 
 	private void addCanvas(MouseListener mouseListener)
 	{
-		this.add(canvas);
+		frame.add(canvas);
 		canvas.setSize(600, 400);
 		canvas.addMouseListener(mouseListener);
 	}
 
 	private void initSize()
 	{
-		this.setMinimumSize(new Dimension(400, 100));
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.addComponentListener(new CompGeoComponentListener(this));
-		this.pack();
+		frame.setMinimumSize(new Dimension(400, 100));
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.addComponentListener(new CompGeoComponentListener(this));
+		frame.pack();
 	}
 
 	public CompGeoCanvas getCanvas()
