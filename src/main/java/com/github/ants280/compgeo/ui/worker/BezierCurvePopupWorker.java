@@ -41,11 +41,21 @@ public class BezierCurvePopupWorker extends CompGeoPopupWorker<List<Point>>
 
 		points = new ArrayList<>(POINTS_PER_CALCULATION * 2);
 		double tMid = (tMin + tMax) / 2d;
-		List<Point> points1 = this.getBezierCurvePoints(tMin, tMid, calculationPercentage / 2d);
-		List<Point> points2 = this.getBezierCurvePoints(tMid, tMax, calculationPercentage / 2d);
+		List<Point> leftPoints = this.getBezierCurvePoints(
+				tMin,
+				tMid,
+				calculationPercentage / 2d);
+		List<Point> rightPoints = this.getBezierCurvePoints(
+				tMid,
+				tMax,
+				calculationPercentage / 2d);
 
-		points.addAll(points1);
-		points.addAll(points2.subList(1, points2.size()));
+		assert leftPoints.get(leftPoints.size() - 1)
+				.equals(rightPoints.get(0));
+		rightPoints = rightPoints.subList(1, rightPoints.size());
+
+		points.addAll(leftPoints);
+		points.addAll(rightPoints);
 		return points;
 	}
 }
