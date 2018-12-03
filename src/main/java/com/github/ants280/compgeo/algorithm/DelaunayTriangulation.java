@@ -145,25 +145,23 @@ public class DelaunayTriangulation
 			{
 				Point otherPoint = getOtherPoint(otherTriangle, sharedPoints);
 
-				if (!sourceTriangle.containsPointInCircle(otherPoint))
+				if (sourceTriangle.containsPointInCircle(otherPoint))
 				{
-					continue;
+					Point sourceTrianglePoint = getOtherPoint(sourceTriangle, sharedPoints);
+
+					Triangle t1 = new Triangle(sourceTrianglePoint, otherPoint, sharedPoints.get(0));
+					Triangle t2 = new Triangle(sourceTrianglePoint, otherPoint, sharedPoints.get(1));
+
+					triangulationTriangles.remove(sourceTriangle);
+					triangulationTriangles.remove(otherTriangle);
+					triangulationTriangles.add(t1);
+					triangulationTriangles.add(t2);
+
+					flipTrianglesAround(t1);
+					flipTrianglesAround(t2);
+
+					return; // points flipped
 				}
-
-				Point sourceTrianglePoint = getOtherPoint(sourceTriangle, sharedPoints);
-
-				Triangle t1 = new Triangle(sourceTrianglePoint, otherPoint, sharedPoints.get(0));
-				Triangle t2 = new Triangle(sourceTrianglePoint, otherPoint, sharedPoints.get(1));
-
-				triangulationTriangles.remove(sourceTriangle);
-				triangulationTriangles.remove(otherTriangle);
-				triangulationTriangles.add(t1);
-				triangulationTriangles.add(t2);
-
-				flipTrianglesAround(t1);
-				flipTrianglesAround(t2);
-
-				return; // points flipped
 			}
 		}
 
