@@ -1,5 +1,6 @@
 package com.github.ants280.compgeo.ui;
 
+import com.github.ants280.compgeo.CompGeoException;
 import com.github.ants280.compgeo.Point;
 import static com.github.ants280.compgeo.ui.CompGeoFrame.*;
 import com.github.ants280.compgeo.ui.worker.BezierCurvePopupWorker;
@@ -319,7 +320,7 @@ public class CompGeoActionListener implements ActionListener
 				}
 				catch (IOException ex)
 				{
-					throw new RuntimeException(ex);
+					throw new CompGeoException("Problem saving image.", ex);
 				}
 			}
 		}
