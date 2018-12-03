@@ -7,7 +7,6 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.DoubleToIntFunction;
-import java.util.function.Function;
 import java.util.function.ToDoubleFunction;
 
 public class PointUiUtils
@@ -27,11 +26,11 @@ public class PointUiUtils
 		return new Polygon(xPoints, yPoints, nPoints);
 	}
 
-	public static Double getMaxPointValue(Collection<Point> points, Function<Point, Double> valueExtractor)
+	public static Double getMaxPointValue(Collection<Point> points, ToDoubleFunction<Point> valueExtractor)
 	{
 		return points.stream()
-				.max(Comparator.comparing(valueExtractor))
-				.map(valueExtractor)
+				.max(Comparator.comparing(valueExtractor::applyAsDouble))
+				.map(valueExtractor::applyAsDouble)
 				.orElse(null);
 	}
 

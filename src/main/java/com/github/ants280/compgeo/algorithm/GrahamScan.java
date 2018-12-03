@@ -49,14 +49,15 @@ public class GrahamScan
 		Point rightOfLowestPoint = new Point(
 				lowestPoint.getX() + 1,
 				lowestPoint.getY());
-		Function<Point, Double> getAngleToLowestPoint
+		ToDoubleFunction<Point> getAngleToLowestPoint
 				= point -> CompGeoUtils.getAngle(
 						rightOfLowestPoint,
 						lowestPoint,
 						point);
 
 		return points.stream()
-				.collect(Collectors.groupingBy(getAngleToLowestPoint));
+				.collect(Collectors.groupingBy(
+						getAngleToLowestPoint::applyAsDouble));
 	}
 
 	private List<List<Point>> getSortedCcwPoints(
