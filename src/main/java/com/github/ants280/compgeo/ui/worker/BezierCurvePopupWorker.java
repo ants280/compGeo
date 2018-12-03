@@ -44,13 +44,6 @@ public class BezierCurvePopupWorker extends CompGeoPopupWorker<List<Point>>
 		List<Point> points1 = getBezierCurvePoints(tMin, tMid, calculationPercentage / 2);
 		List<Point> points2 = getBezierCurvePoints(tMid, tMax, calculationPercentage / 2);
 
-		if (!points1.get(points1.size() - 1).equals(points2.get(0)))
-		{
-			throw new RuntimeException(String.format(
-					"Last point of first half of points should equal first point of last half of points. %s, tMin=%f, tMax=%f",
-					bezierCurve, tMin, tMax));
-		}
-
 		points.addAll(points1);
 		points.addAll(points2.subList(1, points2.size()));
 		return points;
