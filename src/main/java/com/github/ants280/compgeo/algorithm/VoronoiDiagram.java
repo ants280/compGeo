@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class VoronoiDiagram
@@ -42,16 +43,12 @@ public class VoronoiDiagram
 				new Point(maxWidth, maxHeight),
 				new Point(0, maxHeight)));
 
-		for (Point otherPoint : points)
-		{
-			if (!otherPoint.equals(point))
-			{
-				splitVoronoiCellPoints(
-						voronoiCellPoints,
-						new BisectorLine(point, otherPoint),
-						point);
-			}
-		}
+		points.stream()
+				.filter(Predicate.isEqual(point).negate())
+				.forEachOrdered(otherPoint -> splitVoronoiCellPoints(
+				voronoiCellPoints,
+				new BisectorLine(point, otherPoint),
+				point));
 
 		return voronoiCellPoints;
 	}
