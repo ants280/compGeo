@@ -4,7 +4,6 @@ import com.github.ants280.compgeo.Point;
 import java.awt.Polygon;
 import java.awt.event.MouseEvent;
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.List;
 import java.util.function.DoubleToIntFunction;
 import java.util.function.ToDoubleFunction;
@@ -32,8 +31,9 @@ public class PointUiUtils
 			ToDoubleFunction<Point> valueExtractor)
 	{
 		return points.stream()
-				.max(Comparator.comparing(valueExtractor::applyAsDouble))
-				.map(valueExtractor::applyAsDouble)
+				.mapToDouble(valueExtractor::applyAsDouble)
+				.boxed()
+				.reduce(Double::max)
 				.orElse(null);
 	}
 
