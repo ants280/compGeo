@@ -7,6 +7,7 @@ import com.github.ants280.compgeo.line.LineSegment;
 import com.github.ants280.compgeo.line.ParametricLine;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -17,14 +18,16 @@ import java.util.stream.Collectors;
 public class VoronoiDiagram
 {
 	private final Collection<Point> points;
-	private final int maxWidth;
-	private final int maxHeight;
+	private final List<Point> outerPoints;
 
 	public VoronoiDiagram(Collection<Point> points, int maxWidth, int maxHeight)
 	{
 		this.points = points;
-		this.maxWidth = maxWidth;
-		this.maxHeight = maxHeight;
+		this.outerPoints = Collections.unmodifiableList(Arrays.asList(
+				new Point(0, 0),
+				new Point(maxWidth, 0),
+				new Point(maxWidth, maxHeight),
+				new Point(0, maxHeight)));
 	}
 
 	public Map<Point, List<Point>> getVoronoiCells()
@@ -37,11 +40,7 @@ public class VoronoiDiagram
 
 	public List<Point> getVoronoiCellPoints(Point point)
 	{
-		List<Point> voronoiCellPoints = new LinkedList<>(Arrays.asList(
-				new Point(0, 0),
-				new Point(maxWidth, 0),
-				new Point(maxWidth, maxHeight),
-				new Point(0, maxHeight)));
+		List<Point> voronoiCellPoints = new LinkedList<>(outerPoints);
 
 		points.stream()
 				.filter(Predicate.isEqual(point).negate())
@@ -165,6 +164,9 @@ public class VoronoiDiagram
 	@Override
 	public String toString()
 	{
-		return String.format("VoronoiDiagram{points=%s, maxWidth=%s, maxHeight=%s}", points, maxWidth, maxHeight);
+		return String.format(
+				"VoronoiDiagram{points=%s, outerPoints=%s}",
+				points,
+				outerPoints);
 	}
 }
