@@ -36,11 +36,6 @@ public class BezierCurve
 		return getPoints(0, 1, stepCount);
 	}
 
-	public List<Point> getPoints(final double tMin, final double tMax, final int stepCount)
-	{
-		return getPoints(tMin, tMax, stepCount, null);
-	}
-
 	/**
 	 * Get the points on the Bezier curve between tMin and tMax using the
 	 * specified stepCount with a short-circuiting maxPointDifference to return
@@ -51,12 +46,9 @@ public class BezierCurve
 	 * @param tMax The ending parametric value. Use 1 for complete Bezier
 	 * curves.
 	 * @param stepCount The number of steps to take between tMin and tMax.
-	 * @param maxPointDifference The max linear distance between consecutive
-	 * points.
-	 * @return The points of the Bezier curve between tMin and tMax, or null if
-	 * any of the points are farther than <code>maxPointDifference</code> apart.
+	 * @return The points of the Bezier curve between tMin and tMax
 	 */
-	public List<Point> getPoints(final double tMin, final double tMax, final int stepCount, final Double maxPointDifference)
+	public List<Point> getPoints(final double tMin, final double tMax, final int stepCount)
 	{
 		validateParametricValues(tMin, tMax, stepCount);
 
@@ -74,13 +66,6 @@ public class BezierCurve
 		{
 			double t = tMin + (step * stepAmount);
 			points[step] = getPoint(t);
-
-			if (maxPointDifference != null
-					&& step > 0
-					&& CompGeoUtils.getDistance(points[step - 1], points[step]) > maxPointDifference)
-			{
-				return null; // TODO: rework this to indicate that the points are far apart.  DON'T USE AN EXCEPTION,
-			}
 		}
 
 		return Arrays.asList(points);

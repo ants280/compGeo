@@ -43,16 +43,6 @@ public class BezierCurveTest
 		assertPointsAre(actualBezierCurvePoints, Collections.nCopies(steps + 1, new Point(7, 4)).toArray(new Point[0]));
 	}
 
-	@Test
-	public void testGetPoints_linear_toFarApart()
-	{
-		BezierCurve bezierCurve = new BezierCurve(new Point(1, 1), new Point(7, 4));
-		List<Point> actualBezierCurvePoints = bezierCurve.getPoints(1 / 3d, 2 / 3d, 1, 2d);
-		Assert.assertNull(
-				"The points should be null because they are more than 2 apart ([3,2]&[5,3] are sqrt(5) apart",
-				actualBezierCurvePoints);
-	}
-
 	private void assertPointsAre(List<Point> actualBezierCurvePoints, Point... expectedBezierCurvePoints)
 	{
 		Assert.assertNotNull(actualBezierCurvePoints);

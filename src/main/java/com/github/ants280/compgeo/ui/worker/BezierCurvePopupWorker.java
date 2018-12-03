@@ -1,10 +1,12 @@
 package com.github.ants280.compgeo.ui.worker;
 
+import com.github.ants280.compgeo.CompGeoUtils;
 import com.github.ants280.compgeo.Point;
 import com.github.ants280.compgeo.algorithm.BezierCurve;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.stream.IntStream;
 import javax.swing.JFrame;
 
 public class BezierCurvePopupWorker extends CompGeoPopupWorker<List<Point>>
@@ -31,15 +33,24 @@ public class BezierCurvePopupWorker extends CompGeoPopupWorker<List<Point>>
 
 	private List<Point> getBezierCurvePoints(double tMin, double tMax, double calculationPercentage)
 	{
-		List<Point> points = bezierCurve.getPoints(tMin, tMax, POINTS_PER_CALCULATION, MAX_POINT_DIFFERENCE);
-		if (points != null)
+		final List<Point> points = bezierCurve.getPoints(
+				tMin,
+				tMax,
+				POINTS_PER_CALCULATION);
+
+		boolean allPointsCloseTogether = IntStream.range(1, points.size())
+				.noneMatch(step -> CompGeoUtils.getDistance(
+				points.get(step - 1),
+				points.get(step))
+				> MAX_POINT_DIFFERENCE);
+		if (allPointsCloseTogether)
 		{
 			this.updateProgress(calculationPercentage);
 
 			return points;
 		}
 
-		points = new ArrayList<>(POINTS_PER_CALCULATION * 2);
+		List<Point> points2 = new ArrayList<>(POINTS_PER_CALCULATION * 2);
 		double tMid = (tMin + tMax) / 2d;
 		List<Point> leftPoints = this.getBezierCurvePoints(
 				tMin,
@@ -54,8 +65,8 @@ public class BezierCurvePopupWorker extends CompGeoPopupWorker<List<Point>>
 				.equals(rightPoints.get(0));
 		rightPoints = rightPoints.subList(1, rightPoints.size());
 
-		points.addAll(leftPoints);
-		points.addAll(rightPoints);
-		return points;
+		points2.addAll(leftPoints);
+		points2.addAll(rightPoints);
+		return points2;
 	}
 }
