@@ -26,7 +26,7 @@ public class BezierCurvePopupWorker extends CompGeoPopupWorker<List<Point>>
 	@Override
 	protected List<Point> doInBackground()
 	{
-		return getBezierCurvePoints(0, 1, 1);
+		return getBezierCurvePoints(0d, 1d, 1d);
 	}
 
 	private List<Point> getBezierCurvePoints(double tMin, double tMax, double calculationPercentage)
@@ -34,15 +34,15 @@ public class BezierCurvePopupWorker extends CompGeoPopupWorker<List<Point>>
 		List<Point> points = bezierCurve.getPoints(tMin, tMax, POINTS_PER_CALCULATION, MAX_POINT_DIFFERENCE);
 		if (points != null)
 		{
-			updateProgress(calculationPercentage);
+			this.updateProgress(calculationPercentage);
 
 			return points;
 		}
 
 		points = new ArrayList<>(POINTS_PER_CALCULATION * 2); // move if recursion occurs
-		double tMid = (tMin + tMax) / 2;
-		List<Point> points1 = getBezierCurvePoints(tMin, tMid, calculationPercentage / 2);
-		List<Point> points2 = getBezierCurvePoints(tMid, tMax, calculationPercentage / 2);
+		double tMid = (tMin + tMax) / 2d;
+		List<Point> points1 = this.getBezierCurvePoints(tMin, tMid, calculationPercentage / 2d);
+		List<Point> points2 = this.getBezierCurvePoints(tMid, tMax, calculationPercentage / 2d);
 
 		points.addAll(points1);
 		points.addAll(points2.subList(1, points2.size()));
