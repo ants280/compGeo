@@ -26,15 +26,14 @@ public class PointUiUtils
 		return new Polygon(xPoints, yPoints, nPoints);
 	}
 
-	public static Double getMaxPointValue(
+	public static double getMaxPointValue(
 			Collection<Point> points,
 			ToDoubleFunction<Point> valueExtractor)
 	{
 		return points.stream()
 				.mapToDouble(valueExtractor::applyAsDouble)
-				.boxed()
-				.reduce(Double::max)
-				.orElse(null);
+				.max()
+				.getAsDouble();
 	}
 
 	public static Point getPoint(MouseEvent event)

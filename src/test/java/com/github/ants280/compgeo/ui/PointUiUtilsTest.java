@@ -3,8 +3,7 @@ package com.github.ants280.compgeo.ui;
 import com.github.ants280.compgeo.Point;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
-import static org.junit.Assert.*;
+import org.junit.Assert;
 import org.junit.Test;
 
 public class PointUiUtilsTest
@@ -17,19 +16,10 @@ public class PointUiUtilsTest
 				new Point(5d, 6d),
 				new Point(1d, 2d));
 
-		Double expectedMaxPointValue = 5d;
-		Double actualMaxPointValue = PointUiUtils.getMaxPointValue(points, Point::getX);
+		double expectedMaxPointValue = 5d;
+		double actualMaxPointValue = PointUiUtils.getMaxPointValue(points, Point::getX);
+		double delta = 0d;
 
-		assertEquals(expectedMaxPointValue, actualMaxPointValue);
-	}
-
-	@Test
-	public void testGetMaxPointValue_noValue()
-	{
-		Collection<Point> points = Collections.emptyList();
-
-		Double actualMaxPointValue = PointUiUtils.getMaxPointValue(points, Point::getX);
-
-		assertNull(actualMaxPointValue);
+		Assert.assertEquals(expectedMaxPointValue, actualMaxPointValue, delta);
 	}
 }
