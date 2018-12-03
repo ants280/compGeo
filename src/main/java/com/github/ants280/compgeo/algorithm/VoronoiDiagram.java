@@ -63,81 +63,113 @@ public class VoronoiDiagram
 
 		int i = 0;
 		Point firstPoint = voronoiCellPoints.get(0);
-		Point previousPoint;
+
 		if (pointInVoronoiCellCcwToSplitLine != isCcw(splitLine, voronoiCellPoints.get(i)))
 		{
+			splitVoronoiCellPointsCw(
+					voronoiCellPoints,
+					pointInVoronoiCellCcwToSplitLine,
+					splitLine,
+					firstPoint);
+		}
+		else
+		{
+			splitVoronoiCellPointsCCW(
+					voronoiCellPoints,
+					pointInVoronoiCellCcwToSplitLine,
+					splitLine,
+					firstPoint);
+		}
+	}
+
+	private void splitVoronoiCellPointsCw(
+			List<Point> voronoiCellPoints,
+			boolean pointInVoronoiCellCcwToSplitLine,
+			ParametricLine splitLine,
+			Point firstPoint)
+	{
+		int i = 0;
+		Point previousPoint;
+
+		do
+		{
+			previousPoint = voronoiCellPoints.remove(i);
+		}
+		while (i < voronoiCellPoints.size() && pointInVoronoiCellCcwToSplitLine != isCcw(splitLine, voronoiCellPoints.get(i)));
+
+		if (i < voronoiCellPoints.size())
+		{
+			voronoiCellPoints.add(
+					i,
+					getIntersectionPoint(
+							splitLine,
+							previousPoint,
+							voronoiCellPoints.get(i)));
+			previousPoint = voronoiCellPoints.get(i);
+			i++;
+
+			while (i < voronoiCellPoints.size() && pointInVoronoiCellCcwToSplitLine == isCcw(splitLine, voronoiCellPoints.get(i)))
+			{
+				previousPoint = voronoiCellPoints.get(i);
+				i++;
+			}
+
+			voronoiCellPoints.add(
+					i,
+					getIntersectionPoint(
+							splitLine,
+							previousPoint,
+							i == voronoiCellPoints.size() ? firstPoint : voronoiCellPoints.get(i)));
+			i++;
+
+			// Remove remaining points.  They should all be out of the voronoi cell.
+			while (i < voronoiCellPoints.size())
+			{
+				voronoiCellPoints.remove(i);
+			}
+		}
+	}
+
+	private void splitVoronoiCellPointsCCW(
+			List<Point> voronoiCellPoints,
+			boolean pointInVoronoiCellCcwToSplitLine,
+			ParametricLine splitLine,
+			Point firstPoint)
+	{
+		int i = 0;
+		Point previousPoint;
+
+		do
+		{
+			i++;
+		}
+		while (i < voronoiCellPoints.size() && pointInVoronoiCellCcwToSplitLine == isCcw(splitLine, voronoiCellPoints.get(i)));
+
+		if (i < voronoiCellPoints.size())
+		{
+			voronoiCellPoints.add(
+					i,
+					getIntersectionPoint(
+							splitLine,
+							voronoiCellPoints.get(i - 1),
+							voronoiCellPoints.get(i)));
+			//previousPoint = voronoiCellPoints.get(i); // TODO: maybe this is the cause of some problems. (it is currently never used because of the do-while below)
+			i++;
+
 			do
 			{
 				previousPoint = voronoiCellPoints.remove(i);
 			}
 			while (i < voronoiCellPoints.size() && pointInVoronoiCellCcwToSplitLine != isCcw(splitLine, voronoiCellPoints.get(i)));
 
-			if (i < voronoiCellPoints.size())
-			{
-				voronoiCellPoints.add(
-						i,
-						getIntersectionPoint(
-								splitLine,
-								previousPoint,
-								voronoiCellPoints.get(i)));
-				previousPoint = voronoiCellPoints.get(i);
-				i++;
+			voronoiCellPoints.add(
+					i,
+					getIntersectionPoint(
+							splitLine,
+							previousPoint,
+							i == voronoiCellPoints.size() ? firstPoint : voronoiCellPoints.get(i)));
 
-				while (i < voronoiCellPoints.size() && pointInVoronoiCellCcwToSplitLine == isCcw(splitLine, voronoiCellPoints.get(i)))
-				{
-					previousPoint = voronoiCellPoints.get(i);
-					i++;
-				}
-
-				voronoiCellPoints.add(
-						i,
-						getIntersectionPoint(
-								splitLine,
-								previousPoint,
-								i == voronoiCellPoints.size() ? firstPoint : voronoiCellPoints.get(i)));
-				i++;
-
-				// Remove remaining points.  They should all be out of the voronoi cell.
-				while (i < voronoiCellPoints.size())
-				{
-					voronoiCellPoints.remove(i);
-				}
-			}
-		}
-		else
-		{
-			do
-			{
-				i++;
-			}
-			while (i < voronoiCellPoints.size() && pointInVoronoiCellCcwToSplitLine == isCcw(splitLine, voronoiCellPoints.get(i)));
-
-			if (i < voronoiCellPoints.size())
-			{
-				voronoiCellPoints.add(
-						i,
-						getIntersectionPoint(
-								splitLine,
-								voronoiCellPoints.get(i - 1),
-								voronoiCellPoints.get(i)));
-				//previousPoint = voronoiCellPoints.get(i); // TODO: maybe this is the cause of some problems. (it is currently never used because of the do-while below)
-				i++;
-
-				do
-				{
-					previousPoint = voronoiCellPoints.remove(i);
-				}
-				while (i < voronoiCellPoints.size() && pointInVoronoiCellCcwToSplitLine != isCcw(splitLine, voronoiCellPoints.get(i)));
-
-				voronoiCellPoints.add(
-						i,
-						getIntersectionPoint(
-								splitLine,
-								previousPoint,
-								i == voronoiCellPoints.size() ? firstPoint : voronoiCellPoints.get(i)));
-
-				// keep remaining points.  they are all in the voronoi cell.
-			}
+			// keep remaining points.  they are all in the voronoi cell.
 		}
 	}
 
