@@ -36,31 +36,24 @@ public class VoronoiDiagram
 
 	public List<Point> getVoronoiCellPoints(Point point)
 	{
-		try
-		{
-			List<Point> voronoiCellPoints = new LinkedList<>(Arrays.asList(
-					new Point(0, 0),
-					new Point(maxWidth, 0),
-					new Point(maxWidth, maxHeight),
-					new Point(0, maxHeight)));
+		List<Point> voronoiCellPoints = new LinkedList<>(Arrays.asList(
+				new Point(0, 0),
+				new Point(maxWidth, 0),
+				new Point(maxWidth, maxHeight),
+				new Point(0, maxHeight)));
 
-			for (Point otherPoint : points)
+		for (Point otherPoint : points)
+		{
+			if (!otherPoint.equals(point))
 			{
-				if (!otherPoint.equals(point))
-				{
-					splitVoronoiCellPoints(
-							voronoiCellPoints,
-							new BisectorLine(point, otherPoint),
-							point);
-				}
+				splitVoronoiCellPoints(
+						voronoiCellPoints,
+						new BisectorLine(point, otherPoint),
+						point);
 			}
+		}
 
-			return voronoiCellPoints;
-		}
-		catch (Exception ex)
-		{
-			throw new RuntimeException("Problem getting voronoi cell for point " + point + " for points: " + points, ex);
-		}
+		return voronoiCellPoints;
 	}
 
 	private void splitVoronoiCellPoints(List<Point> voronoiCellPoints, ParametricLine splitLine, Point pointInVoronoiCell)
