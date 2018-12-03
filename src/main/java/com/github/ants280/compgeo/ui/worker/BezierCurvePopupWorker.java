@@ -39,7 +39,7 @@ public class BezierCurvePopupWorker extends CompGeoPopupWorker<List<Point>>
 			return points;
 		}
 
-		points = new ArrayList<>(POINTS_PER_CALCULATION * 2); // move if recursion occurs
+		points = new ArrayList<>(POINTS_PER_CALCULATION * 2);
 		double tMid = (tMin + tMax) / 2d;
 		List<Point> points1 = this.getBezierCurvePoints(tMin, tMid, calculationPercentage / 2d);
 		List<Point> points2 = this.getBezierCurvePoints(tMid, tMax, calculationPercentage / 2d);
