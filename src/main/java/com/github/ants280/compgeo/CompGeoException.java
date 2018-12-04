@@ -5,6 +5,8 @@ package com.github.ants280.compgeo;
  */
 public class CompGeoException extends RuntimeException
 {
+	private static final long serialVersionUID = 1L;
+
 	public CompGeoException(String message, Throwable cause)
 	{
 		super(message, cause);
