@@ -45,7 +45,8 @@ public class Triangle implements Shape
 		double d2 = CompGeoUtils.getDeterminant(p2, p3, point);
 		double d3 = CompGeoUtils.getDeterminant(p3, p1, point);
 
-		return (d1 <= 0 && d2 <= 0 && d3 <= 0) || (d1 >= 0 && d2 >= 0 && d3 >= 0);
+		return d1 <= 0 && d2 <= 0 && d3 <= 0
+				|| d1 >= 0 && d2 >= 0 && d3 >= 0;
 	}
 
 	public boolean containsPointOnEdge(Point point)

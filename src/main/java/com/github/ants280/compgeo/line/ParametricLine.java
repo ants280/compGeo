@@ -31,9 +31,8 @@ public class ParametricLine implements Line<ParametricLine>
 		double thisLineB = getB(startPoint, thisLineM);
 		double otherLineB = getB(otherLine.startPoint, otherLineM);
 
-		if ((thisLineM == null && otherLineM == null)
-				|| (thisLineM != null && otherLineM != null
-				&& thisLineM.doubleValue() == otherLineM.doubleValue()))
+		if (thisLineM == null && otherLineM == null
+				|| thisLineM != null && otherLineM != null && thisLineM.doubleValue() == otherLineM.doubleValue())
 		{
 			throw new IllegalArgumentException("Equal slopes: " + this + " " + otherLine);
 		}

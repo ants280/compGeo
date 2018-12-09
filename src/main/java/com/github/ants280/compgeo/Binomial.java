@@ -100,10 +100,10 @@ public class Binomial
 		public boolean equals(Object obj)
 		{
 			return this == obj
-					|| (obj != null
+					|| obj != null
 					&& this.getClass() == obj.getClass()
 					&& this.n == ((BinomialValueKey) obj).getN()
-					&& this.k == ((BinomialValueKey) obj).getK());
+					&& this.k == ((BinomialValueKey) obj).getK();
 		}
 	}
 }
