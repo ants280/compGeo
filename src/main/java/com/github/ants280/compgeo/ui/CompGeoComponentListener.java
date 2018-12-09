@@ -21,8 +21,8 @@ public class CompGeoComponentListener extends ComponentAdapter
 		Collection<Point> points = canvas.getPoints();
 
 		if (!points.isEmpty()
-				&& ((PointUiUtils.getMaxPointValue(points, Point::getX) > canvas.getWidth())
-				|| (PointUiUtils.getMaxPointValue(points, Point::getY) > canvas.getHeight())))
+				&& (PointUiUtils.getMaxPointValue(points, Point::getX) > canvas.getWidth()
+				|| PointUiUtils.getMaxPointValue(points, Point::getY) > canvas.getHeight()))
 		{
 			frame.clear();
 		}

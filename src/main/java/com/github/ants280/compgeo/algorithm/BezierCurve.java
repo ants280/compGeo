@@ -88,8 +88,8 @@ public class BezierCurve
 						controlPoints.get(i).getY());
 			}
 
-			x += (scale * controlPoints.get(i).getX());
-			y += (scale * controlPoints.get(i).getY());
+			x += scale * controlPoints.get(i).getX();
+			y += scale * controlPoints.get(i).getY();
 		}
 
 		return new Point(x, y);

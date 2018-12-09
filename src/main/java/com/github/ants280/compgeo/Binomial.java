@@ -99,11 +99,11 @@ public class Binomial
 		@Override
 		public boolean equals(Object obj)
 		{
-			return (this == obj)
-					|| ((obj != null)
-					&& (this.getClass() == obj.getClass())
-					&& (this.n == ((BinomialValueKey) obj).getN())
-					&& (this.k == ((BinomialValueKey) obj).getK()));
+			return this == obj
+					|| (obj != null
+					&& this.getClass() == obj.getClass()
+					&& this.n == ((BinomialValueKey) obj).getN()
+					&& this.k == ((BinomialValueKey) obj).getK());
 		}
 	}
 }

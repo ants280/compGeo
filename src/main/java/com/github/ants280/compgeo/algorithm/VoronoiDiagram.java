@@ -184,7 +184,7 @@ public class VoronoiDiagram
 	 */
 	private static boolean isCcw(ParametricLine line, Point point)
 	{
-		return (CompGeoUtils.getDeterminant(line.getStartPoint(), line.getEndPoint(), point) > 0);
+		return CompGeoUtils.getDeterminant(line.getStartPoint(), line.getEndPoint(), point) > 0;
 	}
 
 	private static Point getIntersectionPoint(ParametricLine splitLine, Point startPoint, Point endPoint)
