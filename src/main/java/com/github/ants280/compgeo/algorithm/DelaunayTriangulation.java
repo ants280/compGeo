@@ -2,56 +2,48 @@ package com.github.ants280.compgeo.algorithm;
 
 import com.github.ants280.compgeo.CompGeoUtils;
 import com.github.ants280.compgeo.Point;
+import com.github.ants280.compgeo.line.ParametricLine;
 import com.github.ants280.compgeo.shape.Triangle;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class DelaunayTriangulation
 {
-	private final Set<Point> points;
-	private final Set<Triangle> triangulationTriangles;
-	private final int maxX;
-	private final int maxY;
+	private final Map<Point, Collection<Edge>> verticies;
+
 	private final Point p1;
 	private final Point p2;
 	private final Point p3;
 
-	public DelaunayTriangulation(int maxX, int maxY)
+	public DelaunayTriangulation()
 	{
-		this(Collections.emptyList(), maxX, maxY);
+		this(Collections.emptyList());
 	}
 
-	public DelaunayTriangulation(List<Point> points, int maxX, int maxY)
+	public DelaunayTriangulation(List<Point> points)
 	{
-		if (maxX < 0 || maxX > Integer.MAX_VALUE / 2 || maxY < 0 || maxY > Integer.MAX_VALUE / 2)
-		{
-			throw new IllegalArgumentException(String.format("Invalid max x/y: [%d,%d]", maxX, maxY));
-		}
-		this.maxX = maxX;
-		this.maxY = maxY;
-		this.p1 = new Point(-1, -1);
-		this.p2 = new Point(maxX * 2, -1);
-		this.p3 = new Point(-1, maxY * 2);
-		this.points = new HashSet<>();
-		Triangle initialTriangle = new Triangle(p1, p2, p3);
-		this.triangulationTriangles = new HashSet<>(Collections.singletonList(initialTriangle));
+		this.verticies = new HashMap<>();
+		this.p1 = new Point(Double.MAX_VALUE, Double.MAX_VALUE);
+		this.p2 = new Point(-Double.MAX_VALUE, Double.MAX_VALUE);
+		this.p3 = new Point(Double.MAX_VALUE, -Double.MAX_VALUE);
 		points.forEach(this::addPoint);
 	}
 
 	public void addPoint(Point point)
 	{
-		if (point.getX() < 0 || point.getX() > maxX || point.getY() < 0 || point.getY() > maxY)
+		if (point.getX() < 0 || point.getY() < 0)
 		{
-			throw new IllegalArgumentException(String.format("The point being added to the delaunay triangulation (%s) must lie within the [0,0] and [%d,%d] rectangle.", point, maxX, maxY));
+			throw new IllegalArgumentException(
+					"The point have positive coordinates : " + point);
 		}
 
-		if (!points.add(point))
+		if (!verticies.containsKey(point))
 		{
 			return; // the point is already in the triangulation.
 		}
@@ -175,5 +167,46 @@ public class DelaunayTriangulation
 				.filter(point -> !sharedPoints.contains(point))
 				.findAny()
 				.orElse(null);
+	}
+
+	private static class Edge extends ParametricLine implements Comparable<Edge>
+	{
+		private final double angle;
+
+		public Edge(Point startPoint, Point endPoint)
+		{
+			super(startPoint, endPoint);
+
+			Point rightStartPoint = new Point(
+					startPoint.getX() + 1,
+					startPoint.getY());
+			this.angle = CompGeoUtils.getAngle(
+					rightStartPoint,
+					startPoint,
+					endPoint);
+		}
+
+		private Double getAngle()
+		{
+			return angle;
+		}
+
+		@Override
+		public int compareTo(Edge o)
+		{
+			int startPointCompareTo
+					= this.getStartPoint().compareTo(o.getStartPoint());
+
+			if (startPointCompareTo != 0)
+			{
+				return startPointCompareTo;
+			}
+
+			int angleCompareTo = this.getAngle().compareTo(o.getAngle());
+
+			return angleCompareTo == 0
+					? this.getEndPoint().compareTo(o.getEndPoint())
+					: angleCompareTo;
+		}
 	}
 }

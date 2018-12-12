@@ -14,7 +14,7 @@ public class DelaunayTriangulationTest
 	@Before
 	public void setUp()
 	{
-		delaunayTriangulation = new DelaunayTriangulation(1000, 1000);
+		delaunayTriangulation = new DelaunayTriangulation();
 	}
 
 	@Test
@@ -61,7 +61,7 @@ public class DelaunayTriangulationTest
 	public void testAddPoint4_square()
 	{
 		List<Point> points = Arrays.asList(new Point(1, 1), new Point(2, 1), new Point(1, 2), new Point(2, 2));
-		delaunayTriangulation = new DelaunayTriangulation(points, 3, 3);
+		delaunayTriangulation = new DelaunayTriangulation(points);
 		Assert.assertSame(2, delaunayTriangulation.getTriangulationTriangles().size());
 	}
 
