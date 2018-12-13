@@ -64,8 +64,8 @@ public class Point implements Comparable<Point>
 		return this == obj
 				|| obj != null
 				&& this.getClass() == obj.getClass()
-				&& this.x == ((Point) obj).x
-				&& this.y == ((Point) obj).y;
+				&& Double.doubleToLongBits(this.x) == Double.doubleToLongBits(((Point) obj).x)
+				&& Double.doubleToLongBits(this.y) == Double.doubleToLongBits(((Point) obj).y);
 	}
 
 	@Override

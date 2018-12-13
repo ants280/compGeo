@@ -96,6 +96,6 @@ public class ParametricLine implements Line<ParametricLine>
 				|| obj != null
 				&& this.getClass() == obj.getClass()
 				&& Objects.equals(this.startPoint, ((ParametricLine) obj).startPoint)
-				&& Objects.equals(this.startPoint, ((ParametricLine) obj).endPoint);
+				&& Objects.equals(this.endPoint, ((ParametricLine) obj).endPoint);
 	}
 }
