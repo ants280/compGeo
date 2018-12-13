@@ -139,6 +139,7 @@ public class DelaunayTriangulation
 					.collect(Collectors.toList());
 			if (trianglesWithPointOnEdge.size() != 1)
 			{
+				System.out.println("point: " + point);
 				System.out.println("trianglesWithPointOnEdge: " + trianglesWithPointOnEdge.stream().map(Object::toString).map(s -> "\n\t".concat(s)).collect(Collectors.joining()));
 			}
 			assert trianglesWithPointOnEdge.size() == 1;
