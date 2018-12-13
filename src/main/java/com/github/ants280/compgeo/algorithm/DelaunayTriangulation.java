@@ -182,10 +182,12 @@ public class DelaunayTriangulation
 			{
 				if (CompGeoUtils.getDeterminant(point, sharedEdge.getStartPoint(), sharedEdge.getEndPoint()) == 0)
 				{
-					continue;
+					edges.remove(sharedEdge);
 				}
-
-				splitTriangles.add(this.createTriangleFromSharedEdge(point, sharedEdge, sourceTriangle));
+				else
+				{
+					splitTriangles.add(this.createTriangleFromSharedEdge(point, sharedEdge, sourceTriangle));
+				}
 			}
 		}
 
@@ -214,7 +216,6 @@ public class DelaunayTriangulation
 
 	public List<Triangle> getTriangulationTriangles()
 	{
-		System.out.println("done");
 		return points.entrySet()
 				.stream()
 				.filter(entry -> !entry.getKey().equals(p1)
