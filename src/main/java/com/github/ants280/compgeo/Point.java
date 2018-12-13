@@ -61,15 +61,11 @@ public class Point implements Comparable<Point>
 	@Override
 	public boolean equals(Object obj)
 	{
-		return obj instanceof Point
+		return this == obj
+				|| obj != null
+				&& this.getClass() == obj.getClass()
 				&& this.x == ((Point) obj).x
 				&& this.y == ((Point) obj).y;
-		// TODO: Improve equals() to below:
-//		return this == obj
-//				|| obj != null
-//				&& this.getClass() == obj.getClass()
-//				&& this.x == ((Point) obj).x
-//				&& this.y == ((Point) obj).y;
 	}
 
 	@Override
