@@ -157,7 +157,7 @@ public class DelaunayTriangulation
 
 			for (Edge sharedEdge : sourceTriangle.getEdges())
 			{
-				if (CompGeoUtils.getDeterminant(point, sharedEdge.getStartPoint(), sharedEdge.getEndPoint()) < CompGeoUtils.DELTA)
+				if (CompGeoUtils.getDeterminant(point, sharedEdge.getStartPoint(), sharedEdge.getEndPoint()) == 0)
 				{
 					continue;
 				}
