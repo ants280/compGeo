@@ -116,6 +116,7 @@ public class DelaunayTriangulation
 					edges.put(edge, new ArrayList<>(trianglesWithEdge));
 					break;
 				default:
+					System.out.println("Point: " + point);
 					System.out.println("New splitTriangles: " + splitTriangles.stream().map(Object::toString).map(s -> "\n\t".concat(s)).collect(Collectors.joining()));
 					System.out.println("splitTriangleEdges: " + splitTriangleEdges.entrySet().stream().map(e -> String.format("\n\t%s : %d", e.getKey(), e.getValue())).collect(Collectors.joining()));
 					throw new IllegalArgumentException(String.format(
@@ -137,7 +138,7 @@ public class DelaunayTriangulation
 					.filter(sharedEdgeTriangle -> sharedEdgeTriangle.containsPointOnEdge(point))
 					.collect(Collectors.toList());
 			assert trianglesWithPointOnEdge.size() == 1;
-			Triangle otherTriangleContainingPoint = trianglesWithPointOnEdge.iterator().next();
+			Triangle otherTriangleContainingPoint = trianglesWithPointOnEdge.get(0);
 
 			return this.splitTrianglesOnEdge(
 					point,
