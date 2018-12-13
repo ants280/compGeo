@@ -148,6 +148,9 @@ public abstract class CompGeoPopupWorker<T>
 				}
 				catch (ExecutionException ex)
 				{
+					this.cancel(true);
+					popupDialog.setVisible(false);
+
 					throw new CompGeoException("Problem performing work", ex);
 				}
 				catch (InterruptedException ex)
