@@ -100,27 +100,11 @@ public class DelaunayTriangulation
 		List<Triangle> splitTriangles = new ArrayList<>(3);
 		for (Edge sharedEdge : sourceTriangle.getEdges())
 		{
-			Triangle tN = createTriangleFromSharedEdge(point, sharedEdge, sourceTriangle);
-
-			splitTriangles.add(tN);
+			splitTriangles.add(this.createTriangleFromSharedEdge(point, sharedEdge, sourceTriangle));
 		}
 
 		assert splitTriangles.size() == 3;
 		return splitTriangles;
-	}
-
-	private Triangle createTriangleFromSharedEdge(Point point, Edge sharedEdge, Triangle sourceTriangle)
-	{
-		Triangle tN = new Triangle(point, sharedEdge.getStartPoint(), sharedEdge.getEndPoint());
-		points.get(sharedEdge.getStartPoint()).remove(sourceTriangle);
-		points.get(sharedEdge.getEndPoint()).remove(sourceTriangle);
-		points.get(sharedEdge.getStartPoint()).add(tN);
-		points.get(sharedEdge.getEndPoint()).add(tN);
-
-		edges.get(sharedEdge).remove(sourceTriangle);
-		edges.get(sharedEdge).add(tN);
-
-		return tN;
 	}
 
 	private List<Triangle> splitTrianglesOnEdge(
@@ -141,15 +125,28 @@ public class DelaunayTriangulation
 					continue;
 				}
 
-				Triangle tN = createTriangleFromSharedEdge(point, sharedEdge, sourceTriangle);
-
-				splitTriangles.add(tN);
+				splitTriangles.add(this.createTriangleFromSharedEdge(point, sharedEdge, sourceTriangle));
 			}
 		}
 
 		assert splitTriangles.size() == 4 : splitTriangles.size();
 
 		return splitTriangles;
+	}
+
+	private Triangle createTriangleFromSharedEdge(Point point, Edge sharedEdge, Triangle sourceTriangle)
+	{
+		Triangle tN = new Triangle(point, sharedEdge.getStartPoint(), sharedEdge.getEndPoint());
+
+		points.get(sharedEdge.getStartPoint()).remove(sourceTriangle);
+		points.get(sharedEdge.getEndPoint()).remove(sourceTriangle);
+		points.get(sharedEdge.getStartPoint()).add(tN);
+		points.get(sharedEdge.getEndPoint()).add(tN);
+
+		edges.get(sharedEdge).remove(sourceTriangle);
+		edges.get(sharedEdge).add(tN);
+
+		return tN;
 	}
 
 	public List<Triangle> getTriangulationTriangles()
