@@ -41,6 +41,7 @@ public class Edge extends ParametricLine implements Comparable<Edge>
 	public int hashCode()
 	{
 		int hash = 3;
+		hash = 59 * hash + super.hashCode();
 		hash = 59 * hash + (int) (Double.doubleToLongBits(this.angle) ^ (Double.doubleToLongBits(this.angle) >>> 32));
 		return hash;
 	}
