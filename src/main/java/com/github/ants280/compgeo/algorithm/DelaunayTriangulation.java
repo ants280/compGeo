@@ -80,7 +80,8 @@ public class DelaunayTriangulation
 
 		addSplitTriangles(point, splitTriangles);
 
-		splitTriangles.forEach(this::flipTrianglesAround);
+		List<Triangle> trianglesToFlip = new ArrayList<>(splitTriangles);
+		trianglesToFlip.forEach(this::flipTrianglesAround);
 	}
 
 	private void addSplitTriangles(Point point, List<Triangle> splitTriangles)
