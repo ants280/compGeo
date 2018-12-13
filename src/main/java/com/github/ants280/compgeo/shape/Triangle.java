@@ -16,6 +16,7 @@ public class Triangle implements Shape
 	protected final Point p2;
 	protected final Point p3;
 	private final List<Point> pointsList;
+	private final int hashCode;
 
 	public Triangle(Point p1, Point p2, Point p3)
 	{
@@ -31,6 +32,11 @@ public class Triangle implements Shape
 		this.p2 = ccw ? tempPointsList.get(1) : tempPointsList.get(2);
 		this.p3 = ccw ? tempPointsList.get(2) : tempPointsList.get(1);
 		this.pointsList = Arrays.asList(this.p1, this.p2, this.p3);
+
+		hashCode = 97 * (97 * (97 * 5
+				+ Objects.hashCode(this.p1))
+				+ Objects.hashCode(this.p2))
+				+ Objects.hashCode(this.p3);
 	}
 
 	@Override
@@ -91,25 +97,17 @@ public class Triangle implements Shape
 	@Override
 	public int hashCode()
 	{
-		int hash = 5;
-		hash = 97 * hash + Objects.hashCode(this.p1);
-		hash = 97 * hash + Objects.hashCode(this.p2);
-		hash = 97 * hash + Objects.hashCode(this.p3);
-		return hash;
+		return hashCode;
 	}
 
 	@Override
 	public boolean equals(Object obj)
 	{
-		if (obj == null || getClass() != obj.getClass())
-		{
-			return false;
-		}
-
-		final Triangle other = (Triangle) obj;
-		return Objects.equals(this.p1, other.p1)
-				&& Objects.equals(this.p2, other.p2)
-				&& Objects.equals(this.p3, other.p3);
+		return obj != null
+				&& this.getClass() == obj.getClass()
+				&& Objects.equals(this.p1, ((Triangle) obj).p1)
+				&& Objects.equals(this.p2, ((Triangle) obj).p2)
+				&& Objects.equals(this.p3, ((Triangle) obj).p3);
 	}
 
 	@Override

@@ -115,4 +115,75 @@ public class TriangleTest
 
 		Assert.assertTrue(triangle.containsPointInCircle(p4));
 	}
+
+	@Test
+	public void testEquals_same()
+	{
+		Point p1 = new Point(0, 0);
+		Point p2 = new Point(1, 0);
+		Point p3 = new Point(0, 1);
+		Triangle triangle1 = new Triangle(p1, p2, p3);
+		Triangle triangle2 = triangle1;
+
+		boolean equals = triangle1.equals(triangle2);
+
+		Assert.assertTrue(equals);
+	}
+
+	@Test
+	public void testEquals_equal()
+	{
+		Point p1 = new Point(0, 0);
+		Point p2 = new Point(1, 0);
+		Point p3 = new Point(0, 1);
+		Triangle triangle1 = new Triangle(p1, p2, p3);
+		Triangle triangle2 = new Triangle(p1, p2, p3);
+
+		boolean equals = triangle1.equals(triangle2);
+
+		Assert.assertTrue(equals);
+	}
+
+	@Test
+	public void testEquals_differentPoints()
+	{
+		Point p1 = new Point(0, 0);
+		Point p2 = new Point(1, 0);
+		Point p3 = new Point(0, 1);
+		Point p4 = new Point(0, 2);
+		Triangle triangle1 = new Triangle(p1, p2, p3);
+		Triangle triangle2 = new Triangle(p1, p2, p4);
+
+		boolean equals = triangle1.equals(triangle2);
+
+		Assert.assertFalse(equals);
+	}
+
+	@Test
+	public void testEquals_null()
+	{
+		Point p1 = new Point(0, 0);
+		Point p2 = new Point(1, 0);
+		Point p3 = new Point(0, 1);
+		Triangle triangle1 = new Triangle(p1, p2, p3);
+		Triangle triangle2 = null;
+
+		boolean equals = triangle1.equals(triangle2);
+
+		Assert.assertFalse(equals);
+	}
+
+	@Test
+	public void testEquals_differentObj()
+	{
+		Point p1 = new Point(0, 0);
+		Point p2 = new Point(1, 0);
+		Point p3 = new Point(0, 1);
+		Triangle triangle1 = new Triangle(p1, p2, p3);
+		Object triangle2 = new Object();
+
+		boolean equals = triangle1.equals(triangle2);
+
+		Assert.assertFalse(equals);
+	}
 }
