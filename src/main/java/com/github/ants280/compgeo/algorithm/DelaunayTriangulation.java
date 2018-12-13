@@ -75,6 +75,7 @@ public class DelaunayTriangulation
 		assert trianglesContainingPoint.size() <= 2;
 
 		List<Triangle> splitTriangles = splitTriangles(trianglesContainingPoint, point);
+		points.put(point, splitTriangles);
 
 		splitTriangles.forEach(this::flipTrianglesAround);
 	}
