@@ -2,13 +2,13 @@ package com.github.ants280.compgeo.shape;
 
 import com.github.ants280.compgeo.CompGeoUtils;
 import com.github.ants280.compgeo.Point;
+import com.github.ants280.compgeo.algorithm.Edge;
 import com.github.ants280.compgeo.line.BisectorLine;
 import com.github.ants280.compgeo.line.ParametricLine;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 public class Triangle implements Shape
 {
@@ -16,6 +16,7 @@ public class Triangle implements Shape
 	protected final Point p2;
 	protected final Point p3;
 	private final List<Point> pointsList;
+	private final List<Edge> edges;
 	private final int hashCode;
 
 	public Triangle(Point p1, Point p2, Point p3)
@@ -32,6 +33,10 @@ public class Triangle implements Shape
 		this.p2 = ccw ? tempPointsList.get(1) : tempPointsList.get(2);
 		this.p3 = ccw ? tempPointsList.get(2) : tempPointsList.get(1);
 		this.pointsList = Arrays.asList(this.p1, this.p2, this.p3);
+		this.edges = Arrays.asList(
+				Edge.fromPoints(p1, p2),
+				Edge.fromPoints(p2, p3),
+				Edge.fromPoints(p3, p1));
 
 		hashCode = 97 * (97 * (97 * 5
 				+ Objects.hashCode(this.p1))
@@ -43,6 +48,11 @@ public class Triangle implements Shape
 	public List<Point> getPoints()
 	{
 		return Collections.unmodifiableList(pointsList);
+	}
+
+	public List<Edge> getEdges()
+	{
+		return Collections.unmodifiableList(edges);
 	}
 
 	public boolean contains(Point point)
@@ -62,14 +72,6 @@ public class Triangle implements Shape
 		double d3 = CompGeoUtils.getDeterminant(p3, p1, point);
 
 		return d1 == 0 || d2 == 0 || d3 == 0;
-	}
-
-	public List<Point> getSharedPoints(Triangle other)
-	{
-		return pointsList
-				.stream()
-				.filter(point -> other.getPoints().contains(point))
-				.collect(Collectors.toList());
 	}
 
 	// Next two methods (getTwiceArea, containsPointInCircle) copied from "Incremental Delaunay Triangulation", ACM 1993, Dani Lischinski.

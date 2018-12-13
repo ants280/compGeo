@@ -1,6 +1,7 @@
 package com.github.ants280.compgeo.line;
 
 import com.github.ants280.compgeo.Point;
+import java.util.Objects;
 
 public class ParametricLine implements Line<ParametricLine>
 {
@@ -77,5 +78,24 @@ public class ParametricLine implements Line<ParametricLine>
 		return (m == null)
 				? startPoint.getX()
 				: startPoint.getY() - (m * startPoint.getX());
+	}
+
+	@Override
+	public int hashCode()
+	{
+		int hash = 7;
+		hash = 79 * hash + Objects.hashCode(this.startPoint);
+		hash = 79 * hash + Objects.hashCode(this.endPoint);
+		return hash;
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		return this == obj
+				|| obj != null
+				&& this.getClass() == obj.getClass()
+				&& Objects.equals(this.startPoint, ((ParametricLine) obj).startPoint)
+				&& Objects.equals(this.startPoint, ((ParametricLine) obj).endPoint);
 	}
 }

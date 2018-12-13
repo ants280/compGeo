@@ -2,20 +2,22 @@ package com.github.ants280.compgeo.algorithm;
 
 import com.github.ants280.compgeo.CompGeoUtils;
 import com.github.ants280.compgeo.Point;
-import com.github.ants280.compgeo.line.ParametricLine;
 import com.github.ants280.compgeo.shape.Triangle;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class DelaunayTriangulation
 {
-	private final Map<Point, Collection<Edge>> verticies;
+	private final Map<Point, Collection<Triangle>> points;
+	private final Map<Edge, Collection<Triangle>> edges;
 
 	private final Point p1;
 	private final Point p2;
@@ -28,11 +30,26 @@ public class DelaunayTriangulation
 
 	public DelaunayTriangulation(List<Point> points)
 	{
-		this.verticies = new HashMap<>();
+		this.points = new HashMap<>();
+		this.edges = new HashMap<>();
 		this.p1 = new Point(Double.MAX_VALUE, Double.MAX_VALUE);
 		this.p2 = new Point(-Double.MAX_VALUE, Double.MAX_VALUE);
 		this.p3 = new Point(Double.MAX_VALUE, -Double.MAX_VALUE);
-		points.forEach(this::addPoint);
+		init(points);
+	}
+
+	private void init(List<Point> points1)
+	{
+		Triangle initialTriangle = new Triangle(p1, p2, p3);
+		points.put(p1, new ArrayList<>(Arrays.asList(initialTriangle)));
+		points.put(p2, new ArrayList<>(Arrays.asList(initialTriangle)));
+		points.put(p3, new ArrayList<>(Arrays.asList(initialTriangle)));
+
+		edges.put(Edge.fromPoints(p1, p2), createMutableCollection(initialTriangle));
+		edges.put(Edge.fromPoints(p2, p3), createMutableCollection(initialTriangle));
+		edges.put(Edge.fromPoints(p3, p1), createMutableCollection(initialTriangle));
+
+		points1.forEach(this::addPoint);
 	}
 
 	public void addPoint(Point point)
@@ -43,12 +60,15 @@ public class DelaunayTriangulation
 					"The point have positive coordinates : " + point);
 		}
 
-		if (!verticies.containsKey(point))
+		if (!points.containsKey(point))
 		{
 			return; // the point is already in the triangulation.
 		}
 
-		List<Triangle> trianglesContainingPoint = triangulationTriangles.stream()
+		List<Triangle> trianglesContainingPoint = points.values()
+				.stream()
+				.flatMap(Collection::stream)
+				.distinct()
 				.filter(triangle -> triangle.contains(point))
 				.collect(Collectors.toList());
 		assert !trianglesContainingPoint.isEmpty();
@@ -56,157 +76,208 @@ public class DelaunayTriangulation
 
 		List<Triangle> splitTriangles = splitTriangles(trianglesContainingPoint, point);
 
-		triangulationTriangles.removeAll(trianglesContainingPoint);
-		triangulationTriangles.addAll(splitTriangles);
-		// TODO: only need to flip triangles around splitTriangles (and then add those to splitTriangles).
 		splitTriangles.forEach(this::flipTrianglesAround);
 	}
 
 	private List<Triangle> splitTriangles(List<Triangle> trianglesContainingPoint, Point point)
 	{
-		List<Triangle> splitTriangles = new ArrayList<>(); // usually size = 3, sometimes = 4.
-
 		switch (trianglesContainingPoint.size())
 		{
 			case 1:
-				List<Point> oldPoints = trianglesContainingPoint.get(0).getPoints();
-				splitTriangles.add(new Triangle(oldPoints.get(0), oldPoints.get(1), point));
-				splitTriangles.add(new Triangle(oldPoints.get(1), oldPoints.get(2), point));
-				splitTriangles.add(new Triangle(oldPoints.get(2), oldPoints.get(0), point));
-				break;
+				return splitTriangle(trianglesContainingPoint.get(0), point);
 			case 2:
-				for (Triangle halfTriangle : trianglesContainingPoint)
-				{
-					if (!halfTriangle.containsPointOnEdge(point))
-					{
-						throw new IllegalArgumentException(String.format("Expected point %s to be on the edge of %s.", point, halfTriangle));
-					}
-					oldPoints = halfTriangle.getPoints();
-					if (CompGeoUtils.getDeterminant(oldPoints.get(0), oldPoints.get(1), point) != 0)
-					{
-						splitTriangles.add(new Triangle(oldPoints.get(0), oldPoints.get(1), point));
-					}
-					if (CompGeoUtils.getDeterminant(oldPoints.get(1), oldPoints.get(2), point) != 0)
-					{
-						splitTriangles.add(new Triangle(oldPoints.get(1), oldPoints.get(2), point));
-					}
-					if (CompGeoUtils.getDeterminant(oldPoints.get(2), oldPoints.get(0), point) != 0)
-					{
-						splitTriangles.add(new Triangle(oldPoints.get(2), oldPoints.get(0), point));
-					}
-				}
-				assert splitTriangles.size() == 4;
-				break;
+				return splitTrianglesOnEdge(trianglesContainingPoint, point);
 			default:
 				throw new IllegalArgumentException(String.format("Expected only one or two triangles to contain point %s.  Found %d.", point, trianglesContainingPoint.size()));
 		}
+	}
+
+	private List<Triangle> splitTriangle(Triangle sourceTriangle, Point point)
+	{
+		assert sourceTriangle.contains(point);
+		assert !sourceTriangle.containsPointOnEdge(point);
+
+		List<Triangle> splitTriangles = new ArrayList<>(3);
+		for (Edge sharedEdge : sourceTriangle.getEdges())
+		{
+			Triangle tN = createTriangleFromSharedEdge(point, sharedEdge, sourceTriangle);
+
+			splitTriangles.add(tN);
+		}
+
+		assert splitTriangles.size() == 3;
+		return splitTriangles;
+	}
+
+	private Triangle createTriangleFromSharedEdge(Point point, Edge sharedEdge, Triangle sourceTriangle)
+	{
+		Triangle tN = new Triangle(point, sharedEdge.getStartPoint(), sharedEdge.getEndPoint());
+		points.get(sharedEdge.getStartPoint()).remove(sourceTriangle);
+		points.get(sharedEdge.getEndPoint()).remove(sourceTriangle);
+		points.get(sharedEdge.getStartPoint()).add(tN);
+		points.get(sharedEdge.getEndPoint()).add(tN);
+
+		edges.get(sharedEdge).remove(sourceTriangle);
+		edges.get(sharedEdge).add(tN);
+
+		return tN;
+	}
+
+	private List<Triangle> splitTrianglesOnEdge(
+			List<Triangle> sourceTriangles,
+			Point point)
+	{
+		assert sourceTriangles.size() == 2;
+
+		List<Triangle> splitTriangles = new ArrayList<>(4);
+		for (Triangle sourceTriangle : sourceTriangles)
+		{
+			assert sourceTriangle.containsPointOnEdge(point);
+
+			for (Edge sharedEdge : sourceTriangle.getEdges())
+			{
+				if (CompGeoUtils.getDeterminant(point, sharedEdge.getStartPoint(), sharedEdge.getEndPoint()) < CompGeoUtils.DELTA)
+				{
+					continue;
+				}
+
+				Triangle tN = createTriangleFromSharedEdge(point, sharedEdge, sourceTriangle);
+
+				splitTriangles.add(tN);
+			}
+		}
+
+		assert splitTriangles.size() == 4 : splitTriangles.size();
 
 		return splitTriangles;
 	}
 
 	public List<Triangle> getTriangulationTriangles()
 	{
-		return triangulationTriangles.stream()
-				.collect(Collectors.toMap(Function.identity(), Triangle::getPoints))
-				.entrySet()
+		return points.entrySet()
 				.stream()
-				.filter(entry -> !entry.getValue().contains(p1))
-				.filter(entry -> !entry.getValue().contains(p2))
-				.filter(entry -> !entry.getValue().contains(p3))
-				.map(Map.Entry::getKey)
+				.filter(entry -> !entry.getKey().equals(p1)
+				&& !entry.getKey().equals(p2)
+				&& !entry.getKey().equals(p3))
+				.map(Map.Entry::getValue)
+				.flatMap(Collection::stream)
+				.distinct()
 				.collect(Collectors.toList());
 	}
 
 	private void flipTrianglesAround(Triangle sourceTriangle)
 	{
-		if (!triangulationTriangles.contains(sourceTriangle))
+		Map<Triangle, Edge> sharedEdgeTriangles = getSharedTriangleEdges(sourceTriangle);
+
+		for (Map.Entry<Triangle, Edge> sharedTriangleEdgeEntry : sharedEdgeTriangles.entrySet())
 		{
-			return; // no points flipped
-		}
+			Triangle otherTriangle = sharedTriangleEdgeEntry.getKey();
+			Edge sharedEdge = sharedTriangleEdgeEntry.getValue();
+			Point otherTrianglePoint = this.getOtherPoint(sharedEdge, otherTriangle);
 
-		for (Triangle otherTriangle : triangulationTriangles) // TODO: Need faster lookup of triangles next to sourceTriangle.
-		{
-			if (otherTriangle.equals(sourceTriangle))
+			if (sourceTriangle.containsPointInCircle(otherTrianglePoint))
 			{
-				continue;
-			}
+				Point sourceTrianglePoint = getOtherPoint(sharedEdge, sourceTriangle);
 
-			List<Point> sharedPoints = sourceTriangle.getSharedPoints(otherTriangle); // This isn't the best for memory.
-			assert sharedPoints.size() < 3;
-			if (sharedPoints.size() == 2)
-			{
-				Point otherPoint = getOtherPoint(otherTriangle, sharedPoints);
+				Triangle t1 = new Triangle(sourceTrianglePoint, otherTrianglePoint, sharedEdge.getStartPoint());
+				Triangle t2 = new Triangle(sourceTrianglePoint, otherTrianglePoint, sharedEdge.getEndPoint());
+				Edge t12Edge = Edge.fromPoints(sourceTrianglePoint, otherTrianglePoint);
+				Edge startSourceEdge = Edge.fromPoints(sharedEdge.getStartPoint(), sourceTrianglePoint);
+				Edge startOtherEdge = Edge.fromPoints(sharedEdge.getStartPoint(), otherTrianglePoint);
+				Edge endSourceEdge = Edge.fromPoints(sharedEdge.getEndPoint(), sourceTrianglePoint);
+				Edge endOtherEdge = Edge.fromPoints(sharedEdge.getEndPoint(), otherTrianglePoint);
 
-				if (sourceTriangle.containsPointInCircle(otherPoint))
-				{
-					Point sourceTrianglePoint = getOtherPoint(sourceTriangle, sharedPoints);
+				points.get(sourceTrianglePoint).remove(sourceTriangle);
+				points.get(otherTrianglePoint).remove(otherTriangle);
+				points.get(sharedEdge.getStartPoint()).remove(sourceTriangle);
+				points.get(sharedEdge.getStartPoint()).remove(otherTriangle);
+				points.get(sharedEdge.getEndPoint()).remove(sourceTriangle);
+				points.get(sharedEdge.getEndPoint()).remove(otherTriangle);
+				edges.remove(sharedEdge);
+				edges.get(startSourceEdge).remove(sourceTriangle);
+				edges.get(endSourceEdge).remove(sourceTriangle);
+				edges.get(startOtherEdge).remove(otherTriangle);
+				edges.get(endOtherEdge).remove(otherTriangle);
 
-					Triangle t1 = new Triangle(sourceTrianglePoint, otherPoint, sharedPoints.get(0));
-					Triangle t2 = new Triangle(sourceTrianglePoint, otherPoint, sharedPoints.get(1));
+				points.get(sourceTrianglePoint).add(t1);
+				points.get(sourceTrianglePoint).add(t2);
+				points.get(otherTrianglePoint).add(t1);
+				points.get(otherTrianglePoint).add(t2);
+				points.get(sharedEdge.getStartPoint()).add(t1);
+				points.get(sharedEdge.getEndPoint()).add(t2);
+				edges.put(t12Edge, createMutableCollection(t1, t2));
+				edges.get(startSourceEdge).add(t1);
+				edges.get(startOtherEdge).add(t1);
+				edges.get(endSourceEdge).add(t2);
+				edges.get(endOtherEdge).add(t2);
 
-					triangulationTriangles.remove(sourceTriangle);
-					triangulationTriangles.remove(otherTriangle);
-					triangulationTriangles.add(t1);
-					triangulationTriangles.add(t2);
+				this.flipTrianglesAround(t1);
+				this.flipTrianglesAround(t2);
 
-					flipTrianglesAround(t1);
-					flipTrianglesAround(t2);
-
-					return; // points flipped
-				}
+				return; // points flipped
 			}
 		}
 
 		// no points flipped
 	}
 
-	private Point getOtherPoint(Triangle triangle, List<Point> sharedPoints)
+	private Map<Triangle, Edge> getSharedTriangleEdges(Triangle triangle)
 	{
-		return triangle.getPoints()
-				.stream()
-				.filter(point -> !sharedPoints.contains(point))
-				.findAny()
-				.orElse(null);
+		List<Point> trianglePoints = triangle.getPoints();
+		Edge e1 = Edge.fromPoints(trianglePoints.get(0), trianglePoints.get(1));
+		Edge e2 = Edge.fromPoints(trianglePoints.get(1), trianglePoints.get(2));
+		Edge e3 = Edge.fromPoints(trianglePoints.get(2), trianglePoints.get(0));
+
+		Map<Triangle, Edge> sharedTriangleEdges = new HashMap<>();
+
+		for (Edge edge : Arrays.asList(e1, e2, e3))
+		{
+			Collection<Triangle> edgeTriangles = edges.get(edge);
+
+			if (edgeTriangles.size() != 1)
+			{
+				assert edgeTriangles.size() == 2 : edgeTriangles.size();
+
+				Triangle otherTriangleForEdge = getOnlyElement(
+						edgeTriangles.stream()
+								.filter(Predicate.isEqual(triangle).negate()));
+				sharedTriangleEdges.put(otherTriangleForEdge, edge);
+			}
+		}
+
+		return sharedTriangleEdges;
 	}
 
-	private static class Edge extends ParametricLine implements Comparable<Edge>
+	/**
+	 * Get the point in the Triangle not on the Edge.
+	 *
+	 * @param edge
+	 * @param triangle
+	 * @return The point in the Triangle not on the Edge.
+	 */
+	private Point getOtherPoint(Edge edge, Triangle triangle)
 	{
-		private final double angle;
+		return getOnlyElement(triangle.getPoints()
+				.stream()
+				.filter(point -> !point.equals(edge.getStartPoint())
+				&& !point.equals(edge.getEndPoint())));
+	}
 
-		public Edge(Point startPoint, Point endPoint)
+	private static <E> E getOnlyElement(Stream<E> stream)
+	{
+		return stream.reduce((a, b) ->
 		{
-			super(startPoint, endPoint);
+			throw new IllegalArgumentException();
+		})
+				.orElseThrow(() -> new IllegalArgumentException());
+	}
 
-			Point rightStartPoint = new Point(
-					startPoint.getX() + 1,
-					startPoint.getY());
-			this.angle = CompGeoUtils.getAngle(
-					rightStartPoint,
-					startPoint,
-					endPoint);
-		}
+	private static Collection<Triangle> createMutableCollection(Triangle... triangles)
+	{
+		Collection<Triangle> mutableCollection = new ArrayList<>();
 
-		private Double getAngle()
-		{
-			return angle;
-		}
+		Arrays.stream(triangles).forEach(mutableCollection::add);
 
-		@Override
-		public int compareTo(Edge o)
-		{
-			int startPointCompareTo
-					= this.getStartPoint().compareTo(o.getStartPoint());
-
-			if (startPointCompareTo != 0)
-			{
-				return startPointCompareTo;
-			}
-
-			int angleCompareTo = this.getAngle().compareTo(o.getAngle());
-
-			return angleCompareTo == 0
-					? this.getEndPoint().compareTo(o.getEndPoint())
-					: angleCompareTo;
-		}
+		return mutableCollection;
 	}
 }
