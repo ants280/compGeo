@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -42,9 +43,9 @@ public class DelaunayTriangulation
 	private void init(List<Point> points1)
 	{
 		Triangle initialTriangle = new Triangle(p1, p2, p3);
-		points.put(p1, new ArrayList<>(Arrays.asList(initialTriangle)));
-		points.put(p2, new ArrayList<>(Arrays.asList(initialTriangle)));
-		points.put(p3, new ArrayList<>(Arrays.asList(initialTriangle)));
+		points.put(p1, createMutableCollection(initialTriangle));
+		points.put(p2, createMutableCollection(initialTriangle));
+		points.put(p3, createMutableCollection(initialTriangle));
 
 		edges.put(Edge.fromPoints(p1, p2), createMutableCollection(initialTriangle));
 		edges.put(Edge.fromPoints(p2, p3), createMutableCollection(initialTriangle));
@@ -76,9 +77,42 @@ public class DelaunayTriangulation
 		assert trianglesContainingPoint.size() <= 2;
 
 		List<Triangle> splitTriangles = splitTriangles(trianglesContainingPoint, point);
-		points.put(point, splitTriangles);
+
+		addSplitTriangles(point, splitTriangles);
 
 		splitTriangles.forEach(this::flipTrianglesAround);
+	}
+
+	private void addSplitTriangles(Point point, List<Triangle> splitTriangles)
+	{
+		points.put(point, splitTriangles);
+
+		Map<Edge, Long> splitTriangleEdges = splitTriangles.stream()
+				.map(Triangle::getEdges)
+				.flatMap(Collection::stream)
+				.collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+		for (Map.Entry<Edge, Long> splitTriangleEdgeEntry : splitTriangleEdges.entrySet())
+		{
+			Edge edge = splitTriangleEdgeEntry.getKey();
+			int sharedCount = splitTriangleEdgeEntry.getValue().intValue();
+			switch (sharedCount)
+			{
+				case 1:
+					// the edge is not shared between the splitTriangles
+					break;
+				case 2:
+					List<Triangle> trianglesWithEdge = splitTriangles.stream()
+							.filter(triangle -> triangle.getEdges().contains(edge))
+							.collect(Collectors.toList());
+					edges.put(edge, new ArrayList<>(trianglesWithEdge));
+					break;
+				default:
+					throw new IllegalArgumentException(String.format(
+							"%s is shared between triangles unexpected number of times: %d",
+							edge,
+							sharedCount));
+			}
+		}
 	}
 
 	private List<Triangle> splitTriangles(List<Triangle> trianglesContainingPoint, Point point)
