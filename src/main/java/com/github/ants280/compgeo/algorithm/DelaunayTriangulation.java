@@ -169,7 +169,7 @@ public class DelaunayTriangulation
 
 	private void flipTrianglesAround(Triangle sourceTriangle)
 	{
-		Map<Triangle, Edge> sharedEdgeTriangles = getSharedTriangleEdges(sourceTriangle);
+		Map<Triangle, Edge> sharedEdgeTriangles = this.getSharedTriangleEdges(sourceTriangle);
 
 		for (Map.Entry<Triangle, Edge> sharedTriangleEdgeEntry : sharedEdgeTriangles.entrySet())
 		{
@@ -225,14 +225,9 @@ public class DelaunayTriangulation
 
 	private Map<Triangle, Edge> getSharedTriangleEdges(Triangle triangle)
 	{
-		List<Point> trianglePoints = triangle.getPoints();
-		Edge e1 = Edge.fromPoints(trianglePoints.get(0), trianglePoints.get(1));
-		Edge e2 = Edge.fromPoints(trianglePoints.get(1), trianglePoints.get(2));
-		Edge e3 = Edge.fromPoints(trianglePoints.get(2), trianglePoints.get(0));
-
 		Map<Triangle, Edge> sharedTriangleEdges = new HashMap<>();
 
-		for (Edge edge : Arrays.asList(e1, e2, e3))
+		for (Edge edge : triangle.getEdges())
 		{
 			Collection<Triangle> edgeTriangles = edges.get(edge);
 
