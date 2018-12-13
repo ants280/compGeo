@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,18 +68,25 @@ public class DelaunayTriangulation
 			return; // the point is already in the triangulation.
 		}
 
-		List<Triangle> trianglesContainingPoint = points.values()
+		Triangle triangleContainingPoint = points.keySet()
 				.stream()
+				.collect(Collectors.toMap(
+						Function.identity(),
+						existingPoint -> CompGeoUtils.getDistance(point, existingPoint)))
+				.entrySet()
+				.stream()
+				.sorted(Comparator.comparing(Map.Entry::getValue))
+				.map(Map.Entry::getKey)
+				.map(points::get)
 				.flatMap(Collection::stream)
 				.distinct()
 				.filter(triangle -> triangle.contains(point))
-				.collect(Collectors.toList());
-		assert !trianglesContainingPoint.isEmpty();
-		assert trianglesContainingPoint.size() <= 2;
+				.findFirst()
+				.orElseThrow(() -> new AssertionError("No triangle contained " + point));
 
-		List<Triangle> splitTriangles = splitTriangles(trianglesContainingPoint, point);
+		List<Triangle> splitTriangles = this.splitTriangles(triangleContainingPoint, point);
 
-		addSplitTriangles(point, splitTriangles);
+		this.addSplitTriangles(point, splitTriangles);
 
 		List<Triangle> trianglesToFlip = new ArrayList<>(splitTriangles);
 		trianglesToFlip.forEach(this::flipTrianglesAround);
@@ -108,6 +116,8 @@ public class DelaunayTriangulation
 					edges.put(edge, new ArrayList<>(trianglesWithEdge));
 					break;
 				default:
+					System.out.println("New splitTriangles: " + splitTriangles.stream().map(Object::toString).map(s -> "\n\t".concat(s)).collect(Collectors.joining()));
+					System.out.println("splitTriangleEdges: " + splitTriangleEdges.entrySet().stream().map(e -> String.format("\n\t%s : %d", e.getKey(), e.getValue())).collect(Collectors.joining()));
 					throw new IllegalArgumentException(String.format(
 							"%s is shared between triangles unexpected number of times: %d",
 							edge,
@@ -116,16 +126,29 @@ public class DelaunayTriangulation
 		}
 	}
 
-	private List<Triangle> splitTriangles(List<Triangle> trianglesContainingPoint, Point point)
+	private List<Triangle> splitTriangles(Triangle triangleContainingPoint, Point point)
 	{
-		switch (trianglesContainingPoint.size())
+		if (triangleContainingPoint.containsPointOnEdge(point))
 		{
-			case 1:
-				return splitTriangle(trianglesContainingPoint.get(0), point);
-			case 2:
-				return splitTrianglesOnEdge(trianglesContainingPoint, point);
-			default:
-				throw new IllegalArgumentException(String.format("Expected only one or two triangles to contain point %s.  Found %d.", point, trianglesContainingPoint.size()));
+			Collection<Triangle> sharedEdgeTriangles = this.getSharedTriangleEdges(triangleContainingPoint)
+					.keySet();
+			assert sharedEdgeTriangles.size() <= 3;
+			List<Triangle> trianglesWithPointOnEdge = sharedEdgeTriangles.stream()
+					.filter(sharedEdgeTriangle -> sharedEdgeTriangle.containsPointOnEdge(point))
+					.collect(Collectors.toList());
+			assert trianglesWithPointOnEdge.size() == 1;
+			Triangle otherTriangleContainingPoint = trianglesWithPointOnEdge.iterator().next();
+
+			return this.splitTrianglesOnEdge(
+					point,
+					triangleContainingPoint,
+					otherTriangleContainingPoint);
+		}
+		else
+		{
+			assert triangleContainingPoint.contains(point);
+
+			return this.splitTriangle(triangleContainingPoint, point);
 		}
 	}
 
@@ -145,10 +168,10 @@ public class DelaunayTriangulation
 	}
 
 	private List<Triangle> splitTrianglesOnEdge(
-			List<Triangle> sourceTriangles,
-			Point point)
+			Point point,
+			Triangle... sourceTriangles)
 	{
-		assert sourceTriangles.size() == 2;
+		assert sourceTriangles.length == 2;
 
 		List<Triangle> splitTriangles = new ArrayList<>(4);
 		for (Triangle sourceTriangle : sourceTriangles)
@@ -191,6 +214,7 @@ public class DelaunayTriangulation
 
 	public List<Triangle> getTriangulationTriangles()
 	{
+		System.out.println("done");
 		return points.entrySet()
 				.stream()
 				.filter(entry -> !entry.getKey().equals(p1)
