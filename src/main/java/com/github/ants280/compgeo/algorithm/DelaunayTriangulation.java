@@ -16,9 +16,10 @@ import java.util.stream.Stream;
 
 public class DelaunayTriangulation
 {
+	// use a max value of Integer.MAX_VALUE because determining if a point is in a triangle using the determinant must not overflow (x1*y2-x2*y1).  Points use double space (>>> int space)
+	private static final double MAX_VALUE = Integer.valueOf(Integer.MAX_VALUE).doubleValue();
 	private final Map<Point, Collection<Triangle>> points;
 	private final Map<Edge, Collection<Triangle>> edges;
-
 	private final Point p1;
 	private final Point p2;
 	private final Point p3;
@@ -32,9 +33,9 @@ public class DelaunayTriangulation
 	{
 		this.points = new HashMap<>();
 		this.edges = new HashMap<>();
-		this.p1 = new Point(Double.MAX_VALUE, Double.MAX_VALUE);
-		this.p2 = new Point(-Double.MAX_VALUE, Double.MAX_VALUE);
-		this.p3 = new Point(Double.MAX_VALUE, -Double.MAX_VALUE);
+		this.p1 = new Point(MAX_VALUE, MAX_VALUE);
+		this.p2 = new Point(-MAX_VALUE - 1d, MAX_VALUE);
+		this.p3 = new Point(MAX_VALUE, -MAX_VALUE - 1d);
 		init(points);
 	}
 
@@ -54,10 +55,10 @@ public class DelaunayTriangulation
 
 	public void addPoint(Point point)
 	{
-		if (point.getX() < 0 || point.getY() < 0)
+		if (point.getX() < 0 || point.getY() < 0 || point.getX() > MAX_VALUE || point.getY() > MAX_VALUE)
 		{
 			throw new IllegalArgumentException(
-					"The point have positive coordinates : " + point);
+					"The point must mave non-negative coordinates and values less than INT_MAX: " + point);
 		}
 
 		if (points.containsKey(point))
