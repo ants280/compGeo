@@ -138,6 +138,9 @@ public class DelaunayTriangulation
 
 	private Triangle createTriangleFromSharedEdge(Point point, Edge sharedEdge, Triangle sourceTriangle)
 	{
+		assert sourceTriangle.getEdges().contains(sharedEdge);
+		assert edges.containsKey(sharedEdge);
+
 		Triangle tN = new Triangle(point, sharedEdge.getStartPoint(), sharedEdge.getEndPoint());
 
 		points.get(sharedEdge.getStartPoint()).remove(sourceTriangle);
