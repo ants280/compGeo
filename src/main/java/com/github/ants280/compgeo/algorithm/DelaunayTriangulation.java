@@ -60,7 +60,7 @@ public class DelaunayTriangulation
 					"The point have positive coordinates : " + point);
 		}
 
-		if (!points.containsKey(point))
+		if (points.containsKey(point))
 		{
 			return; // the point is already in the triangulation.
 		}
