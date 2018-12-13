@@ -137,6 +137,10 @@ public class DelaunayTriangulation
 			List<Triangle> trianglesWithPointOnEdge = sharedEdgeTriangles.stream()
 					.filter(sharedEdgeTriangle -> sharedEdgeTriangle.containsPointOnEdge(point))
 					.collect(Collectors.toList());
+			if (trianglesWithPointOnEdge.size() != 1)
+			{
+				System.out.println("trianglesWithPointOnEdge: " + trianglesWithPointOnEdge.stream().map(Object::toString).map(s -> "\n\t".concat(s)).collect(Collectors.joining()));
+			}
 			assert trianglesWithPointOnEdge.size() == 1;
 			Triangle otherTriangleContainingPoint = trianglesWithPointOnEdge.get(0);
 
@@ -181,7 +185,7 @@ public class DelaunayTriangulation
 
 			for (Edge sharedEdge : sourceTriangle.getEdges())
 			{
-				if (CompGeoUtils.getDeterminant(point, sharedEdge.getStartPoint(), sharedEdge.getEndPoint()) == 0)
+				if (sharedEdge.containsPoint(point))
 				{
 					edges.remove(sharedEdge);
 				}

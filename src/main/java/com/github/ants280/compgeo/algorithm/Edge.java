@@ -6,7 +6,7 @@ import com.github.ants280.compgeo.line.ParametricLine;
 
 public class Edge extends ParametricLine implements Comparable<Edge>
 {
-	private final double angle;
+	private final Double angle;
 	private final int hashCode;
 
 	private Edge(Point startPoint, Point endPoint)
@@ -22,9 +22,9 @@ public class Edge extends ParametricLine implements Comparable<Edge>
 		return p1.compareTo(p2) > 0 ? new Edge(p1, p2) : new Edge(p2, p1);
 	}
 
-	private Double getAngle()
+	public boolean containsPoint(Point point)
 	{
-		return angle;
+		return CompGeoUtils.getDeterminant(this.getStartPoint(), this.getEndPoint(), point) == 0d;
 	}
 
 	@Override
@@ -35,7 +35,7 @@ public class Edge extends ParametricLine implements Comparable<Edge>
 		{
 			return startPointCompareTo;
 		}
-		int angleCompareTo = this.getAngle().compareTo(o.getAngle());
+		int angleCompareTo = this.angle.compareTo(o.angle);
 		return angleCompareTo == 0 ? this.getEndPoint().compareTo(o.getEndPoint()) : angleCompareTo;
 	}
 
