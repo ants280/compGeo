@@ -142,7 +142,6 @@ public abstract class CompGeoPopupWorker<T>
 		{
 			if (!this.isCancelled())
 			{
-				System.out.println("done: " + this.isDone());
 				try
 				{
 					completedActionConsumer.accept(this.get());
