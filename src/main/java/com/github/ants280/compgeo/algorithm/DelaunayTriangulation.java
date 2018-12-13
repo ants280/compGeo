@@ -198,6 +198,9 @@ public class DelaunayTriangulation
 				.map(Map.Entry::getValue)
 				.flatMap(Collection::stream)
 				.distinct()
+				.filter(triangle -> !triangle.getPoints().contains(p1)
+				&& !triangle.getPoints().contains(p2)
+				&& !triangle.getPoints().contains(p3))
 				.collect(Collectors.toList());
 	}
 
