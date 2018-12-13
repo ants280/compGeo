@@ -1,5 +1,6 @@
 package com.github.ants280.compgeo.ui.worker;
 
+import com.github.ants280.compgeo.CompGeoException;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
@@ -141,11 +142,16 @@ public abstract class CompGeoPopupWorker<T>
 		{
 			if (!this.isCancelled())
 			{
+				System.out.println("done: " + this.isDone());
 				try
 				{
 					completedActionConsumer.accept(this.get());
 				}
-				catch (InterruptedException | ExecutionException ex)
+				catch (ExecutionException ex)
+				{
+					throw new CompGeoException("Problem performing work", ex);
+				}
+				catch (InterruptedException ex)
 				{
 					this.cancel(false);
 
