@@ -61,10 +61,9 @@ public class VoronoiDiagram
 
 		boolean pointInVoronoiCellCcwToSplitLine = isCcw(splitLine, pointInVoronoiCell);
 
-		int i = 0;
 		Point firstPoint = voronoiCellPoints.get(0);
 
-		if (pointInVoronoiCellCcwToSplitLine != isCcw(splitLine, voronoiCellPoints.get(i)))
+		if (pointInVoronoiCellCcwToSplitLine != isCcw(splitLine, firstPoint))
 		{
 			splitVoronoiCellPointsCw(
 					voronoiCellPoints,
