@@ -11,6 +11,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -39,7 +40,7 @@ public class DelaunayTriangulation
 		}
 		this.maxX = maxX;
 		this.maxY = maxY;
-		this.points = new HashMap<>();
+		this.points = new TreeMap<>();
 		this.edges = new HashMap<>();
 		this.p1 = new Point(-1, -1);
 		this.p2 = new Point(maxX * 2, -1);
