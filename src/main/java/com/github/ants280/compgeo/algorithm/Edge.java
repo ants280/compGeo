@@ -2,9 +2,9 @@ package com.github.ants280.compgeo.algorithm;
 
 import com.github.ants280.compgeo.CompGeoUtils;
 import com.github.ants280.compgeo.Point;
-import com.github.ants280.compgeo.line.ParametricLine;
+import com.github.ants280.compgeo.line.LineSegment;
 
-public class Edge extends ParametricLine implements Comparable<Edge>
+public class Edge extends LineSegment implements Comparable<Edge>
 {
 	private final Double angle;
 	private final int hashCode;
@@ -24,7 +24,19 @@ public class Edge extends ParametricLine implements Comparable<Edge>
 
 	public boolean containsPoint(Point point)
 	{
-		return CompGeoUtils.getDeterminant(this.getStartPoint(), this.getEndPoint(), point) == 0d;
+		boolean onLine = CompGeoUtils.getDeterminant(this.getStartPoint(), this.getEndPoint(), point) == 0d;
+		if (!onLine)
+		{
+			return false;
+		}
+
+		boolean betweenX = startPoint.getX() < endPoint.getX()
+				? startPoint.getX() <= point.getX() && point.getX() <= endPoint.getX()
+				: endPoint.getX() <= point.getX() && point.getX() <= startPoint.getX();
+		boolean betweenY = startPoint.getY() < endPoint.getY()
+				? startPoint.getY() <= point.getY() && point.getY() <= endPoint.getY()
+				: endPoint.getY() <= point.getY() && point.getY() <= startPoint.getY();
+		return betweenX && betweenY;
 	}
 
 	@Override

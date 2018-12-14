@@ -198,7 +198,6 @@ public class TriangleTest
 
 		boolean pointOnEdge = triangle.containsPointOnEdge(point);
 
-		triangle.getEdges().stream().filter(edge -> edge.containsPoint(point)).map(edge -> String.format("%s contains %s", edge, point)).forEach(System.out::println);
 		Assert.assertFalse(pointOnEdge);
 	}
 
@@ -213,22 +212,6 @@ public class TriangleTest
 
 		boolean pointOnEdge = triangle.containsPointOnEdge(point);
 
-		Assert.assertFalse(pointOnEdge);
-//		triangle.getEdges().stream().filter(edge -> edge.containsPoint(point)).map(edge -> String.format("%s contains %s", edge, point)).forEach(System.out::println);
-	}
-
-	@Test
-	public void testContainsPointOnEdge_c()
-	{
-		Point p1 = new Point(159.000000, 53.000000);
-		Point p2 = new Point(173.000000, 50.000000);
-		Point p3 = new Point(165.000000, 58.000000);
-		Point point = new Point(168.000000, 55.000000);
-		Triangle triangle = new Triangle(p1, p2, p3);
-
-		boolean pointOnEdge = triangle.containsPointOnEdge(point);
-
 		Assert.assertTrue(pointOnEdge);
-//		triangle.getEdges().stream().filter(edge -> edge.containsPoint(point)).map(edge -> String.format("%s contains %s", edge, point)).forEach(System.out::println);
 	}
 }

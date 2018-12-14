@@ -67,11 +67,8 @@ public class Triangle implements Shape
 
 	public boolean containsPointOnEdge(Point point)
 	{
-		double d1 = CompGeoUtils.getDeterminant(p1, p2, point);
-		double d2 = CompGeoUtils.getDeterminant(p2, p3, point);
-		double d3 = CompGeoUtils.getDeterminant(p3, p1, point);
-
-		return d1 == 0 || d2 == 0 || d3 == 0;
+		return edges.stream()
+				.anyMatch(edge -> edge.containsPoint(point));
 	}
 
 	// Next two methods (getTwiceArea, containsPointInCircle) copied from "Incremental Delaunay Triangulation", ACM 1993, Dani Lischinski.
