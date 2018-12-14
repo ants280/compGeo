@@ -133,14 +133,14 @@ public class DelaunayTriangulation
 	{
 		if (triangleContainingPoint.containsPointOnEdge(point))
 		{
-			Collection<Triangle> sharedEdgeTriangles = this.getSharedTriangleEdges(triangleContainingPoint)
-					.keySet();
-			assert sharedEdgeTriangles.size() <= 3;
-			List<Triangle> trianglesWithPointOnEdge = sharedEdgeTriangles.stream()
-					.filter(sharedEdgeTriangle -> sharedEdgeTriangle.containsPointOnEdge(point))
-					.collect(Collectors.toList());
-			assert trianglesWithPointOnEdge.size() == 1;
-			Triangle otherTriangleContainingPoint = trianglesWithPointOnEdge.get(0);
+			Triangle otherTriangleContainingPoint = getOnlyElement(
+					this.getSharedTriangleEdges(triangleContainingPoint)
+							.entrySet()
+							.stream()
+							.filter(sharedTriangleEdgeEntry
+									-> sharedTriangleEdgeEntry.getValue()
+									.containsPoint(point))
+							.map(Map.Entry::getKey));
 
 			return this.splitTrianglesOnEdge(
 					point,
