@@ -333,7 +333,7 @@ public class DelaunayTriangulation
 		{
 			throw new IllegalArgumentException();
 		})
-				.orElseThrow(() -> new IllegalArgumentException());
+				.orElseThrow(IllegalArgumentException::new);
 	}
 
 	private static Collection<Triangle> createMutableCollection(Triangle... triangles)
