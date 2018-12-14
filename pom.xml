@@ -4,7 +4,7 @@
 	<groupId>com.github.ants280</groupId>
 	<artifactId>compgeo</artifactId>
 	<name>Comp Geo</name>
-	<version>5.2-SNAPSHOT</version>
+	<version>5.3-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
