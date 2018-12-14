@@ -18,26 +18,32 @@ import java.util.stream.Stream;
 
 public class DelaunayTriangulation
 {
-	// use a max value of Integer.MAX_VALUE because determining if a point is in a triangle using the determinant must not overflow (x1*y2-x2*y1).  Points use double space (>>> int space)
-	private static final double MAX_VALUE = Integer.valueOf(Integer.MAX_VALUE).doubleValue();
 	private final Map<Point, Collection<Triangle>> points;
 	private final Map<Edge, Collection<Triangle>> edges;
+	private final int maxX;
+	private final int maxY;
 	private final Point p1;
 	private final Point p2;
 	private final Point p3;
 
-	public DelaunayTriangulation()
+	public DelaunayTriangulation(int maxX, int maxY)
 	{
-		this(Collections.emptyList());
+		this(Collections.emptyList(), maxX, maxY);
 	}
 
-	public DelaunayTriangulation(List<Point> points)
+	public DelaunayTriangulation(List<Point> points, int maxX, int maxY)
 	{
+		if (maxX < 0 || maxX > Integer.MAX_VALUE / 2 || maxY < 0 || maxY > Integer.MAX_VALUE / 2)
+		{
+			throw new IllegalArgumentException(String.format("Invalid max x/y: [%d,%d]", maxX, maxY));
+		}
+		this.maxX = maxX;
+		this.maxY = maxY;
 		this.points = new HashMap<>();
 		this.edges = new HashMap<>();
-		this.p1 = new Point(MAX_VALUE, MAX_VALUE);
-		this.p2 = new Point(-MAX_VALUE - 1d, MAX_VALUE);
-		this.p3 = new Point(MAX_VALUE, -MAX_VALUE - 1d);
+		this.p1 = new Point(-1, -1);
+		this.p2 = new Point(maxX * 2, -1);
+		this.p3 = new Point(-1, maxY * 2);
 		init(points);
 	}
 
@@ -57,10 +63,9 @@ public class DelaunayTriangulation
 
 	public void addPoint(Point point)
 	{
-		if (point.getX() < 0 || point.getY() < 0 || point.getX() > MAX_VALUE || point.getY() > MAX_VALUE)
+		if (point.getX() < 0 || point.getX() > maxX || point.getY() < 0 || point.getY() > maxY)
 		{
-			throw new IllegalArgumentException(
-					"The point must mave non-negative coordinates and values less than INT_MAX: " + point);
+			throw new IllegalArgumentException(String.format("The point being added to the delaunay triangulation (%s) must lie within the [0,0] and [%d,%d] rectangle.", point, maxX, maxY));
 		}
 
 		if (points.containsKey(point))
