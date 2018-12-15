@@ -152,7 +152,7 @@ public class VoronoiDiagram
 							splitLine,
 							voronoiCellPoints.get(i - 1),
 							voronoiCellPoints.get(i)));
-			//previousPoint = voronoiCellPoints.get(i); // TODO: maybe this is the cause of some problems. (it is currently never used because of the do-while below)
+			previousPoint = voronoiCellPoints.get(i);
 			i++;
 
 			do
