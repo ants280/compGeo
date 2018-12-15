@@ -152,7 +152,6 @@ public class VoronoiDiagram
 							splitLine,
 							voronoiCellPoints.get(i - 1),
 							voronoiCellPoints.get(i)));
-			previousPoint = voronoiCellPoints.get(i);
 			i++;
 
 			do
