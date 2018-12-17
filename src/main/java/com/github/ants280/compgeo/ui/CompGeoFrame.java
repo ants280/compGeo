@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JScrollPane;
 import javax.swing.KeyStroke;
 
 public class CompGeoFrame
@@ -187,7 +188,7 @@ public class CompGeoFrame
 
 	private void addCanvas(MouseListener mouseListener)
 	{
-		frame.add(canvas);
+		frame.add(new JScrollPane(canvas));
 		canvas.setSize(600, 400);
 		canvas.addMouseListener(mouseListener);
 	}

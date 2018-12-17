@@ -3,6 +3,7 @@ package com.github.ants280.compgeo.ui;
 import com.github.ants280.compgeo.Point;
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -12,6 +13,7 @@ import java.awt.geom.GeneralPath;
 import java.awt.image.BufferedImage;
 import java.util.*;
 
+// TODO Extend JComponent rather than Canvas.
 public class CompGeoCanvas extends Canvas
 {
 	private static final long serialVersionUID = 1L;
@@ -20,6 +22,7 @@ public class CompGeoCanvas extends Canvas
 	private transient Collection<VoronoiCell> voronoiCells;
 	private transient Collection<DelaunayTriangle> delaunayTriangulationTriangles;
 	private transient List<Point> bezierCurvePoints;
+	private BufferedImage backgroundImage;
 	private int pointRadius;
 	private int numberRandomPointsToAdd;
 	private Color convexHullColor;
@@ -52,6 +55,7 @@ public class CompGeoCanvas extends Canvas
 		this.voronoiCells = null;
 		this.delaunayTriangulationTriangles = null;
 		this.bezierCurvePoints = null;
+		this.backgroundImage = null;
 
 		init();
 	}
@@ -298,8 +302,16 @@ public class CompGeoCanvas extends Canvas
 
 	private void whiteoutRectangle(Graphics g)
 	{
-		g.setColor(Color.WHITE);
-		g.fillRect(0, 0, this.getWidth(), this.getHeight());
+		if (backgroundImage == null)
+		{
+			g.setColor(Color.WHITE);
+			g.fillRect(0, 0, this.getWidth(), this.getHeight());
+		}
+		else
+		{
+			// TODO: investigate usage of last argument (ImageObserver).
+			g.drawImage(backgroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
+		}
 	}
 
 	private void drawConvexHull(Graphics g)
@@ -531,5 +543,16 @@ public class CompGeoCanvas extends Canvas
 	public int getMaximumPoints()
 	{
 		return this.getWidth() * this.getHeight();
+	}
+
+	public void setBackgroundImage(BufferedImage image)
+	{
+		this.clear();
+
+		this.backgroundImage = image;
+
+		this.setSize(new Dimension(image.getWidth(), image.getHeight()));
+
+		this.repaint();
 	}
 }

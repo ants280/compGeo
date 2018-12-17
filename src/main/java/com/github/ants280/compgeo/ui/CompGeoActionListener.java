@@ -315,7 +315,7 @@ public class CompGeoActionListener implements ActionListener
 				{
 					BufferedImage image = ImageIO.read(inputImage);
 
-					System.out.println("TODO: load image");
+					frame.getCanvas().setBackgroundImage(image);
 				}
 				catch (IOException ex)
 				{
