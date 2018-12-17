@@ -310,7 +310,7 @@ public class CompGeoCanvas extends Canvas
 		else
 		{
 			// TODO: investigate usage of last argument (ImageObserver).
-			g.drawImage(backgroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
+			g.drawImage(backgroundImage, 0, 0, backgroundImage.getWidth(), backgroundImage.getHeight(), this);
 		}
 	}
 
