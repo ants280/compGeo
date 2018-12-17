@@ -60,7 +60,7 @@ public class PointTest
 		Object p1 = "(0.000000,1.000000)";
 
 		boolean actualEquals = p0.equals(p1);
-		boolean expectedEquals = true;
+		boolean expectedEquals = false;
 
 		Assert.assertEquals(expectedEquals, actualEquals);
 	}
