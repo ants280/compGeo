@@ -2,6 +2,7 @@ package com.github.ants280.compgeo.line;
 
 import static com.github.ants280.compgeo.CompGeoUtils.DELTA;
 import com.github.ants280.compgeo.Point;
+import org.junit.Assert;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -116,5 +117,16 @@ public class ParametricLineTest
 		//junit.framework.AssertionFailedError: expected:<(254.0,101.0)> but was:<(254.70000000000002,101.0)>
 		assertEquals(expectedIntersectionPoint.getX(), actualIntersectionPoint.getX(), DELTA);
 		assertEquals(expectedIntersectionPoint.getY(), actualIntersectionPoint.getY(), DELTA);
+	}
+
+	@Test
+	public void testEquals_wrongObject()
+	{
+		Object line1 = new ParametricLine(new Point(1, 2), new Point(3, 4));
+		Object line2 = "line2";
+
+		boolean equals = line1.equals(line2);
+
+		Assert.assertFalse(equals);
 	}
 }
