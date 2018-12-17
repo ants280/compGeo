@@ -120,10 +120,32 @@ public class ParametricLineTest
 	}
 
 	@Test
+	public void testEquals_same()
+	{
+		Object line1 = new ParametricLine(new Point(1, 2), new Point(3, 4));
+		Object line2 = line1;
+
+		boolean equals = line1.equals(line2);
+
+		Assert.assertTrue(equals);
+	}
+
+	@Test
 	public void testEquals_wrongObject()
 	{
 		Object line1 = new ParametricLine(new Point(1, 2), new Point(3, 4));
 		Object line2 = "line2";
+
+		boolean equals = line1.equals(line2);
+
+		Assert.assertFalse(equals);
+	}
+
+	@Test
+	public void testEquals_null()
+	{
+		Object line1 = new ParametricLine(new Point(1, 2), new Point(3, 4));
+		Object line2 = null;
 
 		boolean equals = line1.equals(line2);
 
