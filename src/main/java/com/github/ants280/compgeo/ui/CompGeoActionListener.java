@@ -49,6 +49,7 @@ public class CompGeoActionListener implements ActionListener
 		commandMap.put(TOGGLE_VORONOI_DIAGRAM_MI, this::toggleVoronoiDiagram);
 		commandMap.put(TOGGLE_DELAUNAY_TRIANGULATION_MI, this::toggleDelaunayTriangulation);
 		commandMap.put(TOGGLE_BEZIER_CURVE_MI, this::toggleBezierCurve);
+		commandMap.put(LOAD_IMAGE, this::handleLoadImage);
 		commandMap.put(SAVE_IMAGE, this::handleSaveImage);
 		commandMap.put(SET_RADIUS_MI, this::handleSetRadius);
 		commandMap.put(SET_NUMBER_RANDOM_POINTS_MI, this::handleSetNumberRandomPoints);
@@ -180,6 +181,14 @@ public class CompGeoActionListener implements ActionListener
 		}
 	}
 
+	private void handleLoadImage()
+	{
+		JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setFileFilter(new PngFileFilter());
+
+		this.showLoadDialog(fileChooser);
+	}
+
 	private void handleSaveImage()
 	{
 		JFileChooser fileChooser = new JFileChooser();
@@ -290,6 +299,15 @@ public class CompGeoActionListener implements ActionListener
 	{
 		frame.getFrame().setVisible(false);
 		Runtime.getRuntime().exit(0);
+	}
+
+	private void showLoadDialog(JFileChooser fileChooser)
+	{
+		if (fileChooser.showSaveDialog(frame.getFrame())
+				== JFileChooser.APPROVE_OPTION)
+		{
+			System.out.println("TODO: load image");
+		}
 	}
 
 	private void showSaveDialog(JFileChooser fileChooser)

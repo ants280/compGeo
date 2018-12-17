@@ -25,6 +25,7 @@ public class CompGeoFrame
 	public static final String TOGGLE_VORONOI_DIAGRAM_MI = "Show Voronoi Diagram";
 	public static final String TOGGLE_DELAUNAY_TRIANGULATION_MI = "Show Delaunay Triangulation";
 	public static final String TOGGLE_BEZIER_CURVE_MI = "Show Bezier Curve";
+	public static final String LOAD_IMAGE = "Load Image...";
 	public static final String SAVE_IMAGE = "Save Image...";
 	public static final String SET_RADIUS_MI = "Set point radius...";
 	public static final String SET_NUMBER_RANDOM_POINTS_MI = "Set number of random points...";
@@ -47,6 +48,7 @@ public class CompGeoFrame
 	private final JCheckBoxMenuItem voronoiDiagramMenuItem;
 	private final JCheckBoxMenuItem delaunayTriangulationMenuItem;
 	private final JCheckBoxMenuItem bezierCurveMenuItem;
+	private final JMenuItem loadImageMenuItem;
 	private final JMenuItem saveAsImageMenuItem;
 	private final JCheckBoxMenuItem drawPointsMenuItem;
 	private final JCheckBoxMenuItem smoothEdgesMenuItem;
@@ -65,6 +67,7 @@ public class CompGeoFrame
 		this.voronoiDiagramMenuItem = new JCheckBoxMenuItem(TOGGLE_VORONOI_DIAGRAM_MI, false);
 		this.delaunayTriangulationMenuItem = new JCheckBoxMenuItem(TOGGLE_DELAUNAY_TRIANGULATION_MI, false);
 		this.bezierCurveMenuItem = new JCheckBoxMenuItem(TOGGLE_BEZIER_CURVE_MI, false);
+		this.loadImageMenuItem = new JMenuItem(LOAD_IMAGE, KeyEvent.VK_L);
 		this.saveAsImageMenuItem = new JMenuItem(SAVE_IMAGE, KeyEvent.VK_S);
 		this.drawPointsMenuItem = new JCheckBoxMenuItem(SET_DRAW_POINTS_MI, true);
 		this.smoothEdgesMenuItem = new JCheckBoxMenuItem(SET_SMOOTH_EDGES_MI, true);
@@ -103,6 +106,7 @@ public class CompGeoFrame
 		drawDelaunayCircumcirclesMenuItem.setSelected(canvas.shouldDrawDelaunayCircumcircles());
 		JMenuItem resetAllPreferencesMenuItem = new JMenuItem(RESET_ALL_PREFERENCES_MI);
 		resetAllPreferencesMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, KeyEvent.CTRL_DOWN_MASK));
+		loadImageMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, KeyEvent.CTRL_DOWN_MASK));
 		saveAsImageMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK));
 		saveAsImageMenuItem.setEnabled(false);
 
@@ -134,6 +138,7 @@ public class CompGeoFrame
 		imageMenu.add(drawDelaunayCircumcirclesMenuItem);
 		imageMenu.addSeparator();
 		imageMenu.add(resetAllPreferencesMenuItem);
+		imageMenu.add(loadImageMenuItem);
 		imageMenu.add(saveAsImageMenuItem);
 
 		JMenu helpMenu = new JMenu("Help");
