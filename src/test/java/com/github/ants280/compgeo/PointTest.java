@@ -100,4 +100,17 @@ public class PointTest
 
 		Assert.assertEquals(expectedEquals, actualEquals);
 	}
+
+	@Test
+	public void testToString()
+	{
+		Object point = new Point(1, 2);
+
+		String toString = point.toString();
+
+		Assert.assertTrue(toString.startsWith("("));
+		Assert.assertTrue(toString.endsWith(")"));
+		Assert.assertEquals(1, toString.length() % 2); // should be odd
+		Assert.assertEquals(',', toString.charAt(toString.length() / 2));
+	}
 }
