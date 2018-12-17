@@ -23,6 +23,8 @@ import java.util.Random;
 import java.util.Set;
 import java.util.function.BooleanSupplier;
 import java.util.function.IntConsumer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
@@ -306,7 +308,39 @@ public class CompGeoActionListener implements ActionListener
 		if (fileChooser.showSaveDialog(frame.getFrame())
 				== JFileChooser.APPROVE_OPTION)
 		{
-			System.out.println("TODO: load image");
+			File inputImage = fileChooser.getSelectedFile();
+			if (inputImage.exists())
+			{
+				try
+				{
+					BufferedImage image = ImageIO.read(inputImage);
+
+					System.out.println("TODO: load image");
+				}
+				catch (IOException ex)
+				{
+					Logger.getLogger(this.getClass().getName())
+							.log(Level.INFO, "invalid image", ex);
+
+					JOptionPane.showMessageDialog(
+							fileChooser,
+							String.format(
+									"File '%s' could not be loaded as an image.",
+									inputImage.getAbsolutePath()),
+							"Bad Image",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(
+						fileChooser,
+						String.format(
+								"File '%s' does not exist.",
+								inputImage.getAbsolutePath()),
+						"Missing File",
+						JOptionPane.ERROR_MESSAGE);
+			}
 		}
 	}
 
