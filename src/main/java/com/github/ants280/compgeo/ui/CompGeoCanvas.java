@@ -22,7 +22,7 @@ public class CompGeoCanvas extends Canvas
 	private transient Collection<VoronoiCell> voronoiCells;
 	private transient Collection<DelaunayTriangle> delaunayTriangulationTriangles;
 	private transient List<Point> bezierCurvePoints;
-	private BufferedImage backgroundImage;
+	private transient BufferedImage backgroundImage;
 	private int pointRadius;
 	private int numberRandomPointsToAdd;
 	private Color convexHullColor;
