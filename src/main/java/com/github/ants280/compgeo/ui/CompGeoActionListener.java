@@ -23,8 +23,6 @@ import java.util.Random;
 import java.util.Set;
 import java.util.function.BooleanSupplier;
 import java.util.function.IntConsumer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
@@ -315,20 +313,24 @@ public class CompGeoActionListener implements ActionListener
 				{
 					BufferedImage image = ImageIO.read(inputImage);
 
-					frame.getCanvas().setBackgroundImage(image);
+					if (image == null)
+					{
+						JOptionPane.showMessageDialog(
+								fileChooser,
+								String.format(
+										"File '%s' could not be loaded as an image.",
+										inputImage.getAbsolutePath()),
+								"Bad Image",
+								JOptionPane.ERROR_MESSAGE);
+					}
+					else
+					{
+						frame.getCanvas().setBackgroundImage(image);
+					}
 				}
 				catch (IOException ex)
 				{
-					Logger.getLogger(this.getClass().getName())
-							.log(Level.INFO, "invalid image", ex);
-
-					JOptionPane.showMessageDialog(
-							fileChooser,
-							String.format(
-									"File '%s' could not be loaded as an image.",
-									inputImage.getAbsolutePath()),
-							"Bad Image",
-							JOptionPane.ERROR_MESSAGE);
+					throw new CompGeoException("Problem loading image.", ex);
 				}
 			}
 			else
