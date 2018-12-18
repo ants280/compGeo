@@ -18,17 +18,20 @@ public class CompGeoComponentListener extends ComponentAdapter
 	public void componentResized(ComponentEvent event)
 	{
 		CompGeoCanvas canvas = frame.getCanvas();
-		Collection<Point> points = canvas.getPoints();
+		if (!canvas.hasBackgroundImage())
+		{
+			Collection<Point> points = canvas.getPoints();
 
-		if (!points.isEmpty()
-				&& (PointUiUtils.getMaxPointValue(points, Point::getX) > canvas.getWidth()
-				|| PointUiUtils.getMaxPointValue(points, Point::getY) > canvas.getHeight()))
-		{
-			frame.clear();
-		}
-		else
-		{
-			frame.updatePointControls();
+			if (!points.isEmpty()
+					&& (PointUiUtils.getMaxPointValue(points, Point::getX) > canvas.getWidth()
+					|| PointUiUtils.getMaxPointValue(points, Point::getY) > canvas.getHeight()))
+			{
+				frame.clear();
+			}
+			else
+			{
+				frame.updatePointControls();
+			}
 		}
 	}
 }

@@ -21,6 +21,7 @@ public class CompGeoComponentListenerTest
 			List<Point> points,
 			int canvasWidth,
 			int canvasHeight,
+			boolean hasBackgroundImage,
 			boolean expectedFrameClear,
 			boolean expectedFrameUpdatePointControls)
 	{
@@ -30,26 +31,32 @@ public class CompGeoComponentListenerTest
 		this.expectedFrameUpdatePointControls = expectedFrameUpdatePointControls;
 
 		CompGeoCanvas mockCompGeoCanvas = Mockito.mock(CompGeoCanvas.class);
+		Mockito.when(mockCompGeoCanvas.hasBackgroundImage()).thenReturn(hasBackgroundImage);
 		Mockito.when(mockCompGeoFrame.getCanvas()).thenReturn(mockCompGeoCanvas);
 		Mockito.when(mockCompGeoCanvas.getPoints()).thenReturn(points);
 		Mockito.when(mockCompGeoCanvas.getWidth()).thenReturn(canvasWidth);
 		Mockito.when(mockCompGeoCanvas.getHeight()).thenReturn(canvasHeight);
 	}
 
-	@Parameterized.Parameters(name = "{index}: points:{0},width:{1},height:{2},expectFramePointsCleared:{3},expectedFrameUpdatePointControls:{4}")
+	@Parameterized.Parameters(name = "{index}: points:{0},width:{1},height:{2},hasBackgroundImage:{3}expectFramePointsCleared:{4},expectedFrameUpdatePointControls:{5}")
 	public static Iterable<Object[]> data()
 	{
 		return Arrays.asList(
-				createTestCase(Arrays.asList(new Point(1, 1), new Point(1, 100), new Point(2, 2)), 15, 30, true, false),
-				createTestCase(Arrays.asList(new Point(1, 1), new Point(100, 1), new Point(2, 2)), 15, 30, true, false),
-				createTestCase(Arrays.asList(new Point(10, 20)), 15, 30, false, true),
-				createTestCase(Arrays.asList(), 100, 100, false, true));
+				createTestCase(Arrays.asList(new Point(1, 1), new Point(1, 100), new Point(2, 2)), 15, 30, false, true, false),
+				createTestCase(Arrays.asList(new Point(1, 1), new Point(1, 100), new Point(2, 2)), 15, 30, true, false, false),
+				createTestCase(Arrays.asList(new Point(1, 1), new Point(100, 1), new Point(2, 2)), 15, 30, false, true, false),
+				createTestCase(Arrays.asList(new Point(1, 1), new Point(100, 1), new Point(2, 2)), 15, 30, true, false, false),
+				createTestCase(Arrays.asList(new Point(10, 20)), 15, 30, false, false, true),
+				createTestCase(Arrays.asList(new Point(10, 20)), 15, 30, true, false, false),
+				createTestCase(Arrays.asList(), 100, 100, false, false, true),
+				createTestCase(Arrays.asList(), 100, 100, true, false, false));
 	}
 
 	private static Object[] createTestCase(
 			List<Point> points,
 			int canvasWidth,
 			int canvasHeight,
+			boolean hasBackgroundImage,
 			boolean expectedFrameClear,
 			boolean expectedFrameUpdatePointControls)
 	{
@@ -58,6 +65,7 @@ public class CompGeoComponentListenerTest
 			points,
 			canvasWidth,
 			canvasHeight,
+			hasBackgroundImage,
 			expectedFrameClear,
 			expectedFrameUpdatePointControls
 		};
@@ -68,7 +76,9 @@ public class CompGeoComponentListenerTest
 	{
 		Assert.assertTrue(
 				"only one should be expected",
-				expectedFrameClear ^ expectedFrameUpdatePointControls);
+				mockCompGeoFrame.getCanvas().hasBackgroundImage()
+				^ expectedFrameClear
+				^ expectedFrameUpdatePointControls);
 		ComponentListener componentListener
 				= new CompGeoComponentListener(mockCompGeoFrame);
 

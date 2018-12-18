@@ -555,4 +555,9 @@ public class CompGeoCanvas extends Canvas
 
 		this.repaint();
 	}
+
+	public boolean hasBackgroundImage()
+	{
+		return backgroundImage != null;
+	}
 }
