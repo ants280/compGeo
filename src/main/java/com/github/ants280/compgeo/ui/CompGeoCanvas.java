@@ -1,7 +1,6 @@
 package com.github.ants280.compgeo.ui;
 
 import com.github.ants280.compgeo.Point;
-import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FontMetrics;
@@ -12,9 +11,9 @@ import java.awt.RenderingHints;
 import java.awt.geom.GeneralPath;
 import java.awt.image.BufferedImage;
 import java.util.*;
+import javax.swing.JComponent;
 
-// TODO Extend JComponent rather than Canvas.
-public class CompGeoCanvas extends Canvas
+public class CompGeoCanvas extends JComponent
 {
 	private static final long serialVersionUID = 1L;
 	private final transient List<Point> points;
@@ -283,7 +282,7 @@ public class CompGeoCanvas extends Canvas
 	}
 
 	@Override
-	public void paint(Graphics g)
+	protected void paintComponent(Graphics g)
 	{
 		Graphics2D g2 = (Graphics2D) g;
 		RenderingHints rh = new RenderingHints(
@@ -309,7 +308,6 @@ public class CompGeoCanvas extends Canvas
 		}
 		else
 		{
-			// TODO: investigate usage of last argument (ImageObserver).
 			g.drawImage(backgroundImage, 0, 0, backgroundImage.getWidth(), backgroundImage.getHeight(), this);
 		}
 	}
@@ -551,7 +549,7 @@ public class CompGeoCanvas extends Canvas
 
 		this.backgroundImage = image;
 
-		this.setSize(new Dimension(image.getWidth(), image.getHeight()));
+		this.setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
 
 		this.repaint();
 	}
