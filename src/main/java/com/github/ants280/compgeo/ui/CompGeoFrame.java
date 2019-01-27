@@ -188,8 +188,9 @@ public class CompGeoFrame
 
 	private void addCanvas(MouseListener mouseListener)
 	{
-		frame.add(new JScrollPane(canvas));
-		canvas.setSize(600, 400);
+		JScrollPane scrollPane = new JScrollPane(canvas);
+		frame.add(scrollPane);
+		canvas.setPreferredSize(new Dimension(600, 400));
 		canvas.addMouseListener(mouseListener);
 	}
 
