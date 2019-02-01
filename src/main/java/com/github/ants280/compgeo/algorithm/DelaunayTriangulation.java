@@ -42,9 +42,9 @@ public class DelaunayTriangulation
 		this.maxY = maxY;
 		this.points = new TreeMap<>();
 		this.edges = new HashMap<>();
-		this.p1 = new Point(-1, -1);
-		this.p2 = new Point(maxX * 2, -1);
-		this.p3 = new Point(-1, maxY * 2);
+		this.p1 = new Point(-1d, -1d);
+		this.p2 = new Point(maxX * 2d, -1d);
+		this.p3 = new Point(-1d, maxY * 2d);
 		init(points);
 	}
 
