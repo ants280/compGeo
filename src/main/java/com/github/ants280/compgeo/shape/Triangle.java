@@ -32,11 +32,11 @@ public class Triangle implements Shape
 		this.p1 = tempPointsList.get(0);
 		this.p2 = ccw ? tempPointsList.get(1) : tempPointsList.get(2);
 		this.p3 = ccw ? tempPointsList.get(2) : tempPointsList.get(1);
-		this.pointsList = Arrays.asList(this.p1, this.p2, this.p3);
-		this.edges = Arrays.asList(
+		this.pointsList = Collections.unmodifiableList(Arrays.asList(this.p1, this.p2, this.p3));
+		this.edges = Collections.unmodifiableList(Arrays.asList(
 				Edge.fromPoints(p1, p2),
 				Edge.fromPoints(p2, p3),
-				Edge.fromPoints(p3, p1));
+				Edge.fromPoints(p3, p1)));
 
 		hashCode = 97 * (97 * (97 * 5
 				+ Objects.hashCode(this.p1))
@@ -47,12 +47,12 @@ public class Triangle implements Shape
 	@Override
 	public List<Point> getPoints()
 	{
-		return Collections.unmodifiableList(pointsList);
+		return pointsList;
 	}
 
 	public List<Edge> getEdges()
 	{
-		return Collections.unmodifiableList(edges);
+		return edges;
 	}
 
 	public boolean contains(Point point)
