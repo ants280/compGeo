@@ -31,9 +31,9 @@ public class PointUiUtils
 			ToDoubleFunction<Point> valueExtractor)
 	{
 		return points.stream()
-				.mapToDouble(valueExtractor::applyAsDouble)
+				.mapToDouble(valueExtractor)
 				.max()
-				.getAsDouble();
+				.orElseThrow(IllegalArgumentException::new);
 	}
 
 	public static Point getPoint(MouseEvent event)
