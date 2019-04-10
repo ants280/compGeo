@@ -15,7 +15,8 @@ public class DelaunayTriangle
 	{
 		this.triangle = PointUiUtils.createPolygon(triangle.getPoints());
 		this.circumcircleCenterPoint = triangle.getCircumcircleCenterPoint();
-		this.circumcircleRadius = CompGeoUtils.getDistance(triangle.getPoints().get(0), circumcircleCenterPoint);
+		this.circumcircleRadius
+			= CompGeoUtils.getDistance(triangle.getPoints().get(0), circumcircleCenterPoint);
 	}
 
 	public Polygon getTriangle()

@@ -77,7 +77,7 @@ public class CompGeoCanvas extends Canvas
 
 	public void resetSavedPreferences()
 	{
-		ALL_PREFERENCES.stream().forEach(CompGeoCanvasPreference::setDefaultValue);
+		ALL_PREFERENCES.forEach(CompGeoCanvasPreference::setDefaultValue);
 	}
 
 	/**
@@ -331,9 +331,8 @@ public class CompGeoCanvas extends Canvas
 	{
 		if (delaunayTriangulationTriangles != null)
 		{
-			delaunayTriangulationTriangles.stream()
-					.forEach(delaunayTriangulationTriangle
-							-> this.drawDelaunayTriangulation(g, delaunayTriangulationTriangle));
+			delaunayTriangulationTriangles.forEach(delaunayTriangulationTriangle
+					-> this.drawDelaunayTriangulation(g, delaunayTriangulationTriangle));
 		}
 	}
 
@@ -388,7 +387,7 @@ public class CompGeoCanvas extends Canvas
 	{
 		if (drawPoints)
 		{
-			points.stream().forEach(point -> this.drawPoint(g, point));
+			points.forEach(point -> this.drawPoint(g, point));
 		}
 	}
 

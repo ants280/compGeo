@@ -32,7 +32,8 @@ public class CompGeoUncaughtExceptionHandler implements UncaughtExceptionHandler
 		JMenuItem copyMenuItem = new JMenuItem(new DefaultEditorKit.CopyAction());
 		JPopupMenu popupMenu = new JPopupMenu();
 		popupMenu.add(copyMenuItem);
-		textArea.addCaretListener(caretEvent -> copyMenuItem.setEnabled(caretEvent.getDot() != caretEvent.getMark()));
+		textArea.addCaretListener(caretEvent
+			-> copyMenuItem.setEnabled(caretEvent.getDot() != caretEvent.getMark()));
 		textArea.setComponentPopupMenu(popupMenu);
 
 		JPanel panel = new JPanel();
