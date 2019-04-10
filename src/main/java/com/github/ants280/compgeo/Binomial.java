@@ -22,7 +22,7 @@ public class Binomial
 	/**
 	 * Calculates the binomial using the recursive formula rather than the
 	 * multiplicative one. See
-	 * {@link https://en.wikipedia.org/wiki/Binomial_coefficient}.
+	 * {@see https://en.wikipedia.org/wiki/Binomial_coefficient}.
 	 *
 	 * @param n The n argument of the binomial
 	 * @param k The k argument of the binomial
