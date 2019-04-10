@@ -3,6 +3,7 @@ package com.github.ants280.compgeo.ui;
 import com.github.ants280.compgeo.Point;
 import java.awt.event.ComponentListener;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
@@ -42,8 +43,8 @@ public class CompGeoComponentListenerTest
 		return Arrays.asList(
 				createTestCase(Arrays.asList(new Point(1, 1), new Point(1, 100), new Point(2, 2)), 15, 30, true, false),
 				createTestCase(Arrays.asList(new Point(1, 1), new Point(100, 1), new Point(2, 2)), 15, 30, true, false),
-				createTestCase(Arrays.asList(new Point(10, 20)), 15, 30, false, true),
-				createTestCase(Arrays.asList(), 100, 100, false, true));
+				createTestCase(Collections.singletonList(new Point(10, 20)), 15, 30, false, true),
+				createTestCase(Collections.emptyList(), 100, 100, false, true));
 	}
 
 	private static Object[] createTestCase(
